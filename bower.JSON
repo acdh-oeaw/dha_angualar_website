@@ -1,0 +1,19 @@
+{
+  "name": "dha-app",
+  "description": "The Website of the DHA Consortium",
+  "version": "0.0.0",
+  "homepage": "www.digital-humanities.at",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.x",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.3.4",
+    "angular-route": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-animate": "1.5.x",
+    "angular-ui-router": "0.2.x",
+    "jQuery":"1.10.2",
+    "angular-material":"1.1.x"
+  }
+}

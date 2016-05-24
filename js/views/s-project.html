@@ -1,0 +1,29 @@
+  <div class="container">
+	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
+  </div>
+<div class="container">
+	<h4>Projects</h4>
+  <div class="row-fluid">
+	<div ng-repeat="pro in mySingle" class="badgerclass badger-left badger-default" data-badger="{{pro['schema:organizer'] || '\:\)'}}">
+<!-- 	  <a ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"> -->
+	  <div class="container-fluid">
+		<div class="col-sm-4 col-xs-4  col-lg-4">
+		  <img height="200" class="img-rounded img-responsive" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/dha_logo.png'}}" />
+		</div>
+		<div class="col-sm-8 col-xs-8  col-lg-8">
+		<h4 class="text-warning">{{pro['schema:headline']}}</h4>
+		<div class="col-sm-12 col-xs-12  col-lg-12" ng-bind-html='pro["schema:description"] | unsafe'></div>
+		<div class="col-sm-12 col-xs-12  col-lg-12" ng-bind-html='pro["schema:text"] | unsafe'></div>
+		</div>
+		<div class="col-sm-12 col-xs-12  col-lg-12">
+		  <p class="pull-right"><a target="_blank" class="btn btn-default" title="{{pro['schema:sameAs'][0]['title'] || '\:\)'}}" ng-href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}"><i class="fa fa-external-link fa-lg"></i> Project Info</a></p>
+		</div>
+		<div class="col-sm-12 col-xs-12  col-lg-12">
+		  <p style="border-top: 1px dotted; padding:5px; margin-top:5px;"><i class="fa fa-tag fa-lg text-warning"></i> {{pro['schema:keywords'].join(', ') || 'no tags'}}</p>
+		</div>
+	  </div><!-- container-fluid -->
+<!-- 	  </a> -->
+	</div>
+	
+  </div>
+</div>

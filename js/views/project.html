@@ -1,0 +1,44 @@
+  <div class="container">
+	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
+  </div>
+<div class="container">
+	<h4>Projects<i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onList()" class="fa fa-list pull-right text-warning" aria-hidden="true"></i><i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onGrid()" class="fa fa-th pull-right text-warning" aria-hidden="true"></i></h4>
+  <div class="row-fluid" ng-show="uiview.list">
+	<div ng-repeat="pro in Model.projects" class="badgerclass badger-left badger-default" data-badger="{{pro['schema:organizer'] || '\:\)'}}">
+	  <a ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+	  <div class="container-fluid">
+		<div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+		  <img width="85" class="img-rounded img-responsive" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+		</div>
+		<div class="col-sm-6 col-xs-6 col-md-6 col-lg-6">
+		<h4 class="text-warning">{{pro['schema:headline']}}</h4>
+<!-- 		<span class="pull-right">{{pro['schema:startDate'] * 1000 | date:'dd-MM-yyyy'}}</span> -->
+		</div>
+		<div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+		  <a target="_blank" class="btn btn-warning" title="{{pro['schema:sameAs'][0]['title'] || '\:\)'}}" ng-href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}"><i class="fa fa-external-link fa-lg"></i></a>
+		</div>
+		<div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
+		  <i class="fa fa-tag fa-lg text-warning"></i> {{pro['schema:keywords'].join(', ') || 'no tags'}}
+		</div>
+	  </div><!-- container-fluid -->
+	  </a>
+	</div>
+	
+  </div>
+  <div class="row-fluid" ng-show="uiview.grid">
+    <div class="col-xs-8 col-sm-3 col-md-3 col-lg-2" ng-repeat="pro in Model.projects">
+		  <div class="offer offer-radius offer-warning" style="min-height:205px;">
+			  <a target="_blank" class="btn btn-warning pull-right pull-top" title="{{pro['schema:sameAs'][0]['title'] || '\:\)'}}" ng-href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}"><i class="fa fa-external-link"></i></a>
+			<a ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+			  <img width="100" class="img-rounded img-responsive" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" /> 
+			  <div class="text-warning" style="font-size:1.05em; font-weight:bold; text-align: center; font-weight:normal; float:right; position:absolute; bottom:0; right:0; clear:right; padding-bottom:25px;">
+				  <div class="offer-content">
+					{{pro['schema:headline']}}  
+<!-- 				  <div style="font-size:0.75em;"><i class="fa fa-tag fa-lg text-warning"></i> {{pro['schema:keywords'].join(', ') || 'no tags'}}</div> -->
+				  </div>
+			  </div>
+			</a>
+		  </div>
+    </div>  
+  </div>
+</div>

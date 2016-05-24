@@ -1,0 +1,20 @@
+  <div class="container">
+	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
+  </div>
+<div class="container">
+  <div class="row-fluid">
+	<div ng-repeat="pa in mySingle" class="badgerclass badger-left badger-default" data-badger="Partner">
+<!-- 	  <a ui-sref="s-partners/{{pa['schema:name'].replace('dha:','')}}"> -->
+	  <div class="container-fluid">
+		<div class="col-sm-4 col-xs-4  col-lg-4">
+		  <img height="200" class="img-rounded img-responsive" ng-src="{{pa['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/dha_logo.png'}}" />
+		</div>
+		<div class="col-sm-8 col-xs-8  col-lg-8">
+		<h4 class="text-warning">{{pa['schema:legalName']}} </h4>
+		<div class="col-sm-12 col-xs-12  col-lg-12" ng-bind-html='pa["schema:description"] | unsafe'></div>
+		</div>
+	  </div><!-- container-fluid -->
+<!-- 	  </a> -->
+	</div>	
+  </div>
+</div>

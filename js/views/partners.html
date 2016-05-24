@@ -1,0 +1,35 @@
+  <div class="container">
+	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
+  </div>
+<div class="container">
+  <div class="row">
+	<h4>Partners<i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onList()" class="fa fa-list pull-right text-warning" aria-hidden="true"></i><i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onGrid()" class="fa fa-th pull-right text-warning" aria-hidden="true"></i></h4>
+  <div class="row-fluid" ng-show="uiview.list">
+	<div ng-repeat="pa in Model.partners | findPartner:'schema:keywords'" class="badgerclass badger-left badger-default" data-badger="{{$index+1}}">
+	  <a ui-sref="s-partners({nID:{{pa['schema:name'].replace('dha:','')}}})">
+	  <div class="container-fluid">
+		<div class="col-sm-2 col-xs-2 col-lg-1 col-md-1">
+		  <img width="85" class="img-rounded img-responsive" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+		</div>
+		<div class="col-sm-11 col-xs-11 col-lg-11">
+		<h4 class="text-warning">{{pa['schema:legalName']}}
+		</h4>
+		</div>
+	  </div><!-- container-fluid -->
+	  </a>
+	</div>	
+  </div>
+  <div class="row-fluid" ng-show="uiview.grid">
+    <div class="col-xs-8 col-sm-3 col-md-3 col-lg-2" ng-repeat="pa in Model.partners | findPartner:'schema:keywords'">
+        <a ui-sref="s-partners({nID:{{pa['schema:name'].replace('dha:','')}}})">
+		  <div class="offer offer-radius offer-warning" style="min-height:205px;">
+			  <img width="100" class="img-rounded img-responsive" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+			  <div class="text-warning" style="font-size:1.05em; font-weight:bold; text-align: center; font-weight:normal; float:right; position:absolute; bottom:0; right:0; clear:right; padding-bottom:55px;">
+				  <div class="offer-content">{{pa['schema:legalName']}}</div>
+			  </div>
+		  </div>
+<!-- 		  <p class="pull-bottom pull-right text-warning">{{ev['schema:startDate'] * 1000 | date:'dd.MM.yyyy'}}</p> -->
+        </a>
+    </div>  
+  </div>
+</div>

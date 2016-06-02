@@ -16,13 +16,16 @@ app.controller('acdhNav',['$scope', '$http', 'getMenu', function($scope, $http, 
 		  res.data[i]['description'] = res.data[i]['description'].substring(0,55);
 		  res.data[i]['description'] = res.data[i]['description'] + '...';
 		}
+		if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+		}
 	  }
 	  $scope.Model['start'] = res.data;
 	},
 	function(err){ console.log('err acdhNav: ', err); }
   );
 }]);
-
 app.controller('contactCtrl',['$scope','$http', '$stateParams' , function($scope, $http){
   var thisURL = listURL['contact'];
   $http({
@@ -34,7 +37,6 @@ app.controller('contactCtrl',['$scope','$http', '$stateParams' , function($scope
 	  $scope.mySingle = res.statusText;
   });
 }]);
-
 app.controller('singleCtrl',['$scope','$http', '$stateParams' , function($scope, $http, $stateParams){
   var thisURL = listURL['single'] + $stateParams.nID;// console.log('nID: ', $stateParams.nID);
   $http({

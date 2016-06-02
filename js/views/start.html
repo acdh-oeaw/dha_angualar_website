@@ -3,20 +3,15 @@
 </div>
 
 <div class="container" ng-controller="acdhNav">
-  <div class="row">
-    <div class="col-lg-3 col-sm-3 col-xs-3" ng-repeat="me in Model.start | startMenu:'schema:keywords'">
+  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-fill ng-cloak>
+    <md-whiteframe class="md-whiteframe-11dp splashtile" layout layout-align="center center" ng-repeat="me in Model.start | startMenu:'schema:keywords' | orderBy:'api_order'">
         <a ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}">
-		  <div class="offer offer-radius offer-warning">
-			  <div class="shape">
-				  <div class="shape-text"></div>
-			  </div>
 			  <div class="offer-content text-center text-warning">
-				  <h3 class="lead text-center">ACDH </h3>
-				  <h4>{{me['headline']}}</h4>
-				  <p class="text-left" style="border-top: dotted 1px;">{{me['description']}}</p>
+				  <i class="material-icons text-center" >{{me["schema:primaryImageOfPage"]}}</i>
+				  <h4 class="splashhead">{{me['headline']}}</h4>
+				  <p class="text-left splashtext" style="border-top: dotted 1px;">{{me['description']}}</p>
 			  </div>
-		  </div>
         </a>
-    </div>
+    </md-whiteframe>
   </div>
 </div>

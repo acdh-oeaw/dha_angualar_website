@@ -1,44 +1,65 @@
   <div class="container">
 	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
   </div>
-<div class="container">
-	<h4>Projects<i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onList()" class="fa fa-list pull-right text-warning" aria-hidden="true"></i><i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onGrid()" class="fa fa-th pull-right text-warning" aria-hidden="true"></i></h4>
-  <div class="row-fluid" ng-show="uiview.list">
-	<div ng-repeat="pro in Model.projects" class="badgerclass badger-left badger-default" data-badger="{{pro['schema:organizer'] || '\:\)'}}">
-	  <a ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-	  <div class="container-fluid">
-		<div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
-		  <img width="85" class="img-rounded img-responsive" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
-		</div>
-		<div class="col-sm-6 col-xs-6 col-md-6 col-lg-6">
-		<h4 class="text-warning">{{pro['schema:headline']}}</h4>
-<!-- 		<span class="pull-right">{{pro['schema:startDate'] * 1000 | date:'dd-MM-yyyy'}}</span> -->
-		</div>
-		<div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
-		  <a target="_blank" class="btn btn-warning" title="{{pro['schema:sameAs'][0]['title'] || '\:\)'}}" ng-href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}"><i class="fa fa-external-link fa-lg"></i></a>
-		</div>
-		<div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
-		  <i class="fa fa-tag fa-lg text-warning"></i> {{pro['schema:keywords'].join(', ') || 'no tags'}}
-		</div>
-	  </div><!-- container-fluid -->
-	  </a>
-	</div>
-	
+<div class="contentcontainer" >
+	<h4>Projects</h4>
+  <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
+    <md-icon style="color: #EF6C00" aria-label="view_headline">view_headline</md-icon>
+  </md-button>
+  <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
+    <md-icon style="color: #EF6C00" aria-label="view_module">view_module</md-icon>
+  </md-button>
+
+  <div ng-show="uiview.list">
+    <md-whiteframe class="md-whiteframe-z1" layout layout-align="center center">
+
+	  <md-list flex>
+      <md-list-item class="projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+          <img ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" class="md-avatar"/>
+          <div class="md-list-item-text" >
+                <h3>{{pro['schema:headline']}}</h3>
+                <p class="desctext">{{pro['schema:description']}}</p>
+          </div>
+          <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+            <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
+          </md-button>
+          <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Favorite" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
+            <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
+          </md-button>
+          <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+            <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
+          </md-button>
+          <md-divider ></md-divider>
+      </md-list-item>
+    </md-list>
+      
+    </md-whiteframe>  
   </div>
-  <div class="row-fluid" ng-show="uiview.grid">
-    <div class="col-xs-8 col-sm-3 col-md-3 col-lg-2" ng-repeat="pro in Model.projects">
-		  <div class="offer offer-radius offer-warning" style="min-height:205px;">
-			  <a target="_blank" class="btn btn-warning pull-right pull-top" title="{{pro['schema:sameAs'][0]['title'] || '\:\)'}}" ng-href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}"><i class="fa fa-external-link"></i></a>
-			<a ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-			  <img width="100" class="img-rounded img-responsive" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" /> 
-			  <div class="text-warning" style="font-size:1.05em; font-weight:bold; text-align: center; font-weight:normal; float:right; position:absolute; bottom:0; right:0; clear:right; padding-bottom:25px;">
-				  <div class="offer-content">
-					{{pro['schema:headline']}}  
-<!-- 				  <div style="font-size:0.75em;"><i class="fa fa-tag fa-lg text-warning"></i> {{pro['schema:keywords'].join(', ') || 'no tags'}}</div> -->
-				  </div>
-			  </div>
-			</a>
-		  </div>
-    </div>  
+
+  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="center stretch" ng-cloak  ng-show="uiview.grid">
+    <md-card class="projecttile" ng-repeat="pro in Model.projects">
+    	<img class="md-card-image" style="height: 200px!important;" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+      <md-card-actions >
+        <md-card-icon-actions layout="row" layout-align="end end">
+          <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+            <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
+          </md-button>
+          <md-button class="md-icon-button md-raised" aria-label="Favorite" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
+            <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
+          </md-button>
+          <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
+            <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
+          </md-button>
+        </md-card-icon-actions>
+      </md-card-actions>
+    	<md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{pro['schema:headline']}}</span>
+          <span class="md-subhead">{{pro['schema:description']}}</span>
+        </md-card-title-text>
+      </md-card-title>
+  		<a target="_blank" class="btn btn-warning pull-right pull-top" title="{{pro['schema:sameAs'][0]['title'] || '\:\)'}}" ng-href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}"><i class="fa fa-external-link"></i></a>
+  		<a ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"></a>
+    </md-card>  
   </div>
 </div>

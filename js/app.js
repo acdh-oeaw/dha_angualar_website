@@ -2,16 +2,16 @@
 
 /* App Module */
 
-var app = angular.module('acdh', ['ui.router','ngSanitize']);
+var app = angular.module('acdh', ['ui.router','ngSanitize','ngMaterial']);
 
 var listURL = {
-	'newsevents':	'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=event&pagesize=all&callback=JSON_CALLBACK',		// news & events
-	'knowmore':		'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=biblio&pagesize=all&callback=JSON_CALLBACK',	// know more
-	'projects':		'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=project&pagesize=all&callback=JSON_CALLBACK',	// projects
-	'partners':		'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=institution&pagesize=all&callback=JSON_CALLBACK',// partners (in 'schema:keywords' tag 'Partner')
-	'single':		'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=',
-	'start':		'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[field_tags]=214', // inc. front page entries
-	'contact': 		'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=165'
+    'newsevents':   'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=event&pagesize=all&callback=JSON_CALLBACK',     // news & events
+    'knowmore':     'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=biblio&pagesize=all&callback=JSON_CALLBACK',    // know more
+    'projects':     'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=project&pagesize=all&callback=JSON_CALLBACK',   // projects
+    'partners':     'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=institution&pagesize=all&callback=JSON_CALLBACK',// partners (in 'schema:keywords' tag 'Partner')
+    'single':       'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=',
+    'start':        'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[field_tags]=214', // inc. front page entries
+    'contact':      'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=165'
 };
 
 app.config(config);
@@ -25,7 +25,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/s-news.html',
-				controller: 'singleCtrl'
+                controller: 'singleCtrl'
             }
         }
     })
@@ -34,7 +34,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/s-project.html',
-				controller: 'singleCtrl'
+                controller: 'singleCtrl'
             }
         }
     })
@@ -43,7 +43,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/s-knowmore.html',
-				controller: 'singleCtrl'
+                controller: 'singleCtrl'
             }
         }
     })
@@ -52,7 +52,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/s-partners.html',
-				controller: 'singleCtrl'
+                controller: 'singleCtrl'
             }
         }
     })
@@ -61,7 +61,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/news.html',
-				controller: 'listCtrl'
+                controller: 'listCtrl'
             }
         }
     })
@@ -70,7 +70,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/project.html',
-				controller: 'listCtrl'
+                controller: 'listCtrl'
             }
         }
     })
@@ -79,7 +79,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/knowmore.html',
-				controller: 'listCtrl'
+                controller: 'listCtrl'
             }
         }
     })
@@ -88,7 +88,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/partners.html',
-				controller: 'listCtrl'
+                controller: 'listCtrl'
             }
         }
     })
@@ -97,7 +97,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/contact.html',
-				controller: 'contactCtrl'
+                controller: 'contactCtrl'
             }
         }
     })
@@ -106,7 +106,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
         views: {
             'content@': {
                 templateUrl: '/acdh/js/views/start.html',
-				controller: 'listCtrl'
+                controller: 'listCtrl'
             }
         }
     });

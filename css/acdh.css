@@ -1,149 +1,107 @@
-/*@font-face{
-  font-family:'FontAwesome';
-  src:url('/acdh/fonts/fontawesome-webfont.eot")?v=3.1.1');
-  src:url('/acdh/fonts/fontawesome-webfont.eot")?#iefix&v=3.1.1') format('embedded-opentype'),url('/acdh/fonts/fontawesome-webfont.woff")?v=3.1.1') format('woff'),url('/acdh/fonts/fontawesome-webfont.ttf")?v=3.1.1') format('truetype');
-  font-weight:normal;
-  font-style:normal;
-}*/
-.row:nth-of-type(even) { background: #EEE; }
-.parent { padding: 5px 1px;}
-.child { padding: 10px 1px; border-right: 1px dotted; border-color: #CCC; padding-left:3px; }
-
-/* add a little bottom space under the images */
-.thumbnail {
-	margin-bottom:7px;
+.splashtile {
+  margin: 8px;
+  padding: 8px;
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+  height: 250px;
+  width: 220px;
+}
+.splashtext {
+  height: 80px;
+  overflow: hidden;
+}
+.splashhead {
+  height: 20px;
+  overflow: hidden;
 }
 
-/* blocks */
-.shape{	
-	border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
-	-ms-transform:rotate(360deg); /* IE 9 */
-	-o-transform: rotate(360deg);  /* Opera 10.5 */
-	-webkit-transform:rotate(360deg); /* Safari and Chrome */
-	transform:rotate(360deg);
-}
-.offer{
-	background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
-}
-.offer-radius{
-	border-radius:7px;
-}
-.offer-danger {	border-color: #d9534f; }
-.offer-danger .shape{
-	border-color: transparent #d9534f transparent transparent;
-	border-color: rgba(255,255,255,0) #d9534f rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-success {	border-color: #5cb85c; }
-.offer-success .shape{
-	border-color: transparent #5cb85c transparent transparent;
-	border-color: rgba(255,255,255,0) #5cb85c rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-default {	border-color: #999999; }
-.offer-default .shape{
-	border-color: transparent #999999 transparent transparent;
-	border-color: rgba(255,255,255,0) #999999 rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-primary {	border-color: #428bca; }
-.offer-primary .shape{
-	border-color: transparent #428bca transparent transparent;
-	border-color: rgba(255,255,255,0) #428bca rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-info {	border-color: #5bc0de; }
-.offer-info .shape{
-	border-color: transparent #5bc0de transparent transparent;
-	border-color: rgba(255,255,255,0) #5bc0de rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-warning {	border-color: #f0ad4e; }
-.offer-warning .shape{
-	border-color: transparent #f0ad4e transparent transparent;
-	border-color: rgba(255,255,255,0) #f0ad4e rgba(255,255,255,0) rgba(255,255,255,0);
+.tile {
+  margin: 8px;
+  padding: 8px;
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+  height: 220px;
+  width: 220px;
 }
 
-.shape-text{
-	color:#fff; font-size:12px; font-weight:bold; position:relative; right:-40px; top:2px; white-space: nowrap;
-	-ms-transform:rotate(30deg); /* IE 9 */
-	-o-transform: rotate(360deg);  /* Opera 10.5 */
-	-webkit-transform:rotate(30deg); /* Safari and Chrome */
-	transform:rotate(30deg);
-}	
-.offer-content{
-	padding:0 20px 10px;
+.projecttile {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+  width: 320px;
+  padding: 0px;
 }
 
-/* overall */
-.nounderline a {text-decoration: none !important;}
-
-/* menu-navbar */
-.nav-link{  color: black;
-			font-style: normal;
-			text-transform: uppercase;
-			border-top-style: solid;
-			border-top-color: white;
-}
-.nav-link:hover { 
-			border-top-style: solid;
-			border-top-color: gold;
+.projectline {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+  padding: 0px;
 }
 
-/* Badger
-------------------------- */
-
-.badgerclass {
-    margin: 15px 0;
-    padding: 33px 15px 15px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, .64)
-}
-[class*="badger"] {
-    position: relative
+@keyframes fadein {
+    from { opacity: 0; margin-left: 220px; }
+    to   { opacity: 1; margin-left: 8px;}
 }
 
-[class*="badger"]:after {
-    content: attr(data-badger);
-    position: absolute;
-    top: 0;
-    padding: 3px 7px;
-    font-size: 12px;
-    font-weight: bold;
-    background: #999;
-    color: #fff
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; margin-left: 220px;}
+    to   { opacity: 1; margin-left: 8px;}
 }
 
-.badger-left {
-    border-top-left-radius: 6px
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; margin-left: 220px;}
+    to   { opacity: 1; margin-left: 8px;}
 }
 
-.badger-right {
-    border-top-right-radius: 6px
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; margin-left: 220px;}
+    to   { opacity: 1; margin-left: 8px;}
 }
 
-.badger-left:after {
-    left: 0;
-    border-radius: 6px 0 6px 0
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; margin-left: 220px;}
+    to   { opacity: 1; margin-left: 8px;}
 }
 
-.badger-right:after {
-    right: 0;
-    border-radius: 0 6px 0 6px
+.contentcontainer {
+  width: calc(100% - 30px);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.badger-danger:after {
-    background: #d9534f
+@media (max-width: 1132px) {
+    .contentcontainer {
+        max-width: 880px;
+    }
 }
-
-.badger-warning:after {
-    background: #f0ad4e
+@media (max-width: 912px) {
+    .contentcontainer {
+        max-width: 700px;
+    }
 }
-
-.badger-success:after {
-    background: #5cb85c
-}
-
-.badger-info:after {
-    background: #5bc0de
-}
-
-.badger-inverse:after {
-    background: #222
+@media (max-width: 692px) {
+    .contentcontainer {
+        max-width: 440px;
+    }
+    .projecttile {
+        width: calc(100% - 16px);
+    }
+    .desctext {
+      display: none;
+    }
 }

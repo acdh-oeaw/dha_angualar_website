@@ -1,6 +1,6 @@
-    <div class="container">
+<div class="container">
 	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
-  </div>
+</div>
 <div class="container">
 	<h4>News & Events<i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onList()" class="fa fa-list pull-right text-warning" aria-hidden="true"></i><i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onGrid()" class="fa fa-th pull-right text-warning" aria-hidden="true"></i></h4>
   <div class="row-fluid" ng-show="uiview.list">
@@ -18,17 +18,15 @@
 	  </a>
 	</div>	
   </div>
-  <div class="row-fluid" ng-show="uiview.grid">
-    <div class="col-xs-8 col-sm-3 col-md-3 col-lg-2" ng-repeat="ev in Model.newsevents"> <!--col-lg-3 col-sm-3 col-xs-1-->
+  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-fill ng-cloak ng-show="uiview.grid">
+    <md-whiteframe class="md-whiteframe-11dp tile" layout layout-align="center center" ng-repeat="ev in Model.newsevents"> <!--col-lg-3 col-sm-3 col-xs-1-->
         <a ui-sref="s-news({nID:{{ev['schema:name'].replace('dha:','')}}})">
-		  <div class="offer offer-radius offer-warning" style="min-height:205px;">
-			  <img width="100" class="img-rounded img-responsive" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
-			  <div class="text-warning" style="font-size:1.05em; font-weight:bold; text-align: center; font-weight:normal; float:right; position:absolute; bottom:0; right:0; clear:right; padding-bottom:55px;">
-				  <div class="offer-content"> {{ev['schema:headline']}} </div>
-			  </div>
+		  <img width="100" class="img-rounded img-responsive" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+		  <div class="text-warning" style="font-size:1.05em; font-weight:bold; text-align: center; font-weight:normal; float:right; bottom:0; right:0; clear:right; padding-bottom:55px;">
+			  <div class="offer-content"> {{ev['schema:headline']}} </div>
 		  </div>
 		  <p class="pull-bottom pull-right text-warning">{{ev['schema:startDate'] * 1000 | date:'dd.MM.yyyy'}}</p>
         </a>
-    </div>  
+    </md-whiteframe>  
   </div>
 </div>

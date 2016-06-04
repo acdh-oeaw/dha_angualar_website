@@ -2,16 +2,12 @@
   <img style="padding:69px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" />
 </div>
 
-<div class="container" ng-controller="acdhNav">
-  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-fill ng-cloak>
-    <md-whiteframe class="md-whiteframe-11dp splashtile" layout layout-align="center center" ng-repeat="me in Model.start | startMenu:'schema:keywords' | orderBy:'api_order'">
-        <a ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}">
-			  <div class="offer-content text-center text-warning">
-				  <i class="material-icons text-center" >{{me["schema:primaryImageOfPage"]}}</i>
-				  <h4 class="splashhead">{{me['headline']}}</h4>
-				  <p class="text-left splashtext" style="border-top: dotted 1px;">{{me['description']}}</p>
-			  </div>
-        </a>
+<div class="contentcontainer" ng-controller="acdhNav">
+  <div layout="row" layout-xs="column"  layout-align="center center" layout-padding layout-wrap layout-fill ng-cloak>
+    <md-whiteframe class="md-whiteframe-11dp splashtile" layout="column" layout-align="center center" ng-repeat="me in Model.start | startMenu:'schema:keywords' | orderBy:'api_order'" ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}">
+		  <md-icon style="color: #EF6C00; font-size: 50px;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+		  <h2 class="md-headline" style="color: #EF6C00;">{{me['headline']}}</h2>
+		  <p class="md-body-2" style="border-top: solid 1px;">{{me['description']}}</p>
     </md-whiteframe>
   </div>
 </div>

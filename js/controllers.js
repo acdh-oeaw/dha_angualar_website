@@ -20,6 +20,9 @@ app.controller('acdhNav',['$scope', '$http', 'getMenu', function($scope, $http, 
 		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
 		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
 		}
+		if( res.data[i].hasOwnProperty('api_order') ){
+		  res.data[i]['api_order'] = parseInt(res.data[i]['api_order']);
+		}
 	  }
 	  $scope.Model['start'] = res.data;
 	},

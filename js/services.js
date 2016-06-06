@@ -19,6 +19,7 @@ app.service('getLists', ['$http', '$q', function($http, $q){
   };
   return getList;
 }]);
+
 app.service('getMenu', ['$http', '$q', function($http, $q){
   var deferObject,
   getMenu = {

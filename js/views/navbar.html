@@ -3,7 +3,7 @@
   
 <nav class="navbar pull-right" ng-controller="acdhNav">
   <ul class="nav navbar-nav">
-    <li class="nav-item" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'api_order'">
+    <li class="nav-item" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
       <a class="nav-link" ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}"><i class="material-icons text-center" style="font-size:1.5em;">{{me["schema:primaryImageOfPage"]}}</i> {{me['headline']}}</a>
     </li>
   </ul>

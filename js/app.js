@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var app = angular.module('acdh', ['ui.router','ngSanitize','ngMaterial']);
+var app = angular.module('acdh', ['ui.router','ngAnimate','ngSanitize','ngMaterial']);
 
 var listURL = {
     'newsevents':   'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=event&pagesize=all&callback=JSON_CALLBACK',     // news & events
@@ -15,7 +15,7 @@ var listURL = {
 };
 
 app.config(config);
-function config($stateProvider, $urlRouterProvider, $locationProvider, $compileProvider,$logProvider){
+function config($stateProvider, $urlRouterProvider, $locationProvider, $compileProvider,$logProvider,$mdThemingProvider){
 	$compileProvider.debugInfoEnabled(true);
 	$logProvider.debugEnabled(true);
 	$urlRouterProvider.otherwise('/');
@@ -110,4 +110,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
             }
         }
     });
+    $mdThemingProvider.theme('default')
+    .primaryPalette('orange')
+    .accentPalette('amber');
 }

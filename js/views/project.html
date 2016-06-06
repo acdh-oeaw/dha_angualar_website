@@ -1,22 +1,27 @@
   <div class="container">
 	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
   </div>
-<div class="contentcontainer" >
-	<h4>Projects</h4>
-  <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
-    <md-icon style="color: #EF6C00" aria-label="view_headline">view_headline</md-icon>
-  </md-button>
-  <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
-    <md-icon style="color: #EF6C00" aria-label="view_module">view_module</md-icon>
-  </md-button>
-
+<div class="contentcontainer" layout="column">
+	
+  <div class="captioncontainer" ng-controller="acdhNav">
+    <h4>Projects</h4>
+    
+  </div>
+  <div class="actioncontainer" layout="row" layout-align="end none">
+    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
+      <md-icon style="color: #EF6C00" aria-label="view_headline">view_headline</md-icon>
+    </md-button>
+    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
+      <md-icon style="color: #EF6C00" aria-label="view_module">view_module</md-icon>
+    </md-button>
+  </div>
   <div ng-show="uiview.list">
-    <md-whiteframe class="md-whiteframe-z1" layout layout-align="center center">
+    <md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
   	  <md-list flex>
-        <md-list-item class="projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-            <img ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" class="md-avatar"/>
+        <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
+            <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
             <div class="md-list-item-text" >
-                  <h3>{{pro['schema:headline']}}</h3>
+                  <h3 style="color: #EF6C00">{{pro['schema:headline']}}</h3>
                   <p class="desctext">{{pro['schema:description']}}</p>
             </div>
             <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
@@ -33,10 +38,9 @@
       </md-list>
     </md-whiteframe>  
   </div>
-
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="center stretch" ng-cloak  ng-show="uiview.grid">
-    <md-card class="projecttile" ng-repeat="pro in Model.projects">
-    	<img class="md-card-image" style="height: 200px!important;" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+    <md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
+    	<img class="md-card-image" style="height: 200px!important;" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
       <md-card-actions >
         <md-card-icon-actions layout="row" layout-align="end end">
           <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
@@ -52,7 +56,7 @@
       </md-card-actions>
     	<md-card-title>
         <md-card-title-text>
-          <span class="md-headline">{{pro['schema:headline']}}</span>
+          <span class="md-headline" style="color: #EF6C00"><h3>{{pro['schema:headline']}}</h3></span>
           <span class="md-subhead">{{pro['schema:description']}}</span>
         </md-card-title-text>
       </md-card-title>

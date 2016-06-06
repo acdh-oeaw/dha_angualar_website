@@ -49,3 +49,15 @@ app.filter('startMenu', function() { // for start page
 		return result;
 	};
 });
+
+app.filter('currentCaption', function() { // for start page
+  return function(items, caption) {
+		var result = [];
+		angular.forEach(items, function(value) {
+			if (value.hasOwnProperty('schema:keywords') && value['schema:keywords'].indexOf('_start') != -1) {
+				result.push(value);
+			}
+		});
+		return result;
+	};
+});

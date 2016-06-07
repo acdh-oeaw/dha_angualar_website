@@ -53,9 +53,17 @@ h4 {
         max-width: 880px;
     }
 }
+@media (min-width: 912px) {
+    .sidenav {
+        display: none;
+    }
+}
 @media (max-width: 912px) {
     .contentcontainer {
         max-width: 700px;
+    }
+    .navbar {
+        display: none;
     }
 }
 @media (max-width: 692px) {
@@ -68,6 +76,23 @@ h4 {
     .desctext {
       display: none;
     }
+}
+
+/******** navigation elements *********/
+.navbar{
+
+}
+
+.sidenav {
+
+}
+
+md-icon.sidenav {
+  margin: 0px;
+}
+
+md-icon.caption {
+  
 }
 
 /******** layout elements - splashpage *********/

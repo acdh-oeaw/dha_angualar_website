@@ -29,8 +29,9 @@ app.controller('acdhNav',['$scope', '$http', 'getMenu', function($scope, $http, 
 	function(err){ console.log('err acdhNav: ', err); }
   );
 }]);
-app.controller('contactCtrl',['$scope','$http', '$stateParams' , function($scope, $http){
+app.controller('contactCtrl',['$rootScope', '$state','$scope','$http', '$stateParams' , function($rootScope, $scope, $state, $http){
   var thisURL = listURL['contact'];
+  $rootScope.$state = {'current': {'name':"contact"}};
   $http({
 	  method : "GET",
 	  url : thisURL
@@ -52,11 +53,12 @@ app.controller('singleCtrl',['$scope','$http', '$stateParams' , function($scope,
   });
 }]);
 
-app.controller('listCtrl',['$scope','$http', '$state', 'getLists', function($scope, $http, $state, getLists){
+app.controller('listCtrl',['$rootScope','$scope','$http', '$state', 'getLists', function($rootScope, $scope, $http, $state, getLists){
   $scope.Model = {};
   $scope.uiview = {};
   $scope.uiview.list = false;
   $scope.uiview.grid = true;
+  $rootScope.$state = $state;
   var getListPromise = getLists.getListPromise($state.current.name);
   getListPromise.then(
 	function(res){ $scope.Model[$state.current.name] = res.data;   console.log($state.current.name + ' $scope.Model: ', $scope.Model);  },

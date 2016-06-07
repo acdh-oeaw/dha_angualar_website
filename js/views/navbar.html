@@ -1,11 +1,33 @@
-<div class="container" style="padding:5px;">
-  <a ui-sref="start"><img width="85" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /></a>
-  
-<nav class="navbar pull-right" ng-controller="acdhNav">
-  <ul class="nav navbar-nav">
-    <li class="nav-item" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
-      <a class="nav-link" ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}"><i class="material-icons text-center" style="font-size:1.5em;">{{me["schema:primaryImageOfPage"]}}</i> {{me['headline']}}</a>
-    </li>
-  </ul>
-</nav>
+<div ng-controller="acdhNav" ng-cloak>
+	<div class="navcontainer" style="padding:5px;" layout="row" layout-align="space-between center">
+		<a ui-sref="start"><img width="85" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /></a>
+		<md-nav-bar class="navbar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+			<md-nav-item md-nav-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}" name="{{me['schema:headline'].split(' ').join('') | lowercase}}" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
+			<md-icon style="color: #EF6C00" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+			{{me['headline']}}
+			</md-nav-item>
+		</md-nav-bar>
+	    <md-menu md-position-mode="target-right target" class="sidenav">
+	      <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+	        <md-icon style="color: #EF6C00" aria-label="menu">menu</md-icon>
+	      </md-button>
+	      <md-menu-content width="4" >
+	        <md-menu-item ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
+	          <md-button ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}">
+	              <div layout="row" flex>
+	                <p flex>{{me['headline']}}</p>
+	                <md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+	              </div>
+	          </md-button>
+	        </md-menu-item>
+	      </md-menu-content>
+	    </md-menu>
+	</div>
+	<div class="contentcontainer caption" style="margin-top: 20px;" ng-repeat="me in Model.start | currentCaption: $state" >
+    	<div layout="row" layout-align="start start">
+    		<md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
+    		<h4>{{me['schema:headline']}}</h4>
+    	</div>
+    	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
+  	</div>
 </div>

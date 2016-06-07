@@ -2,8 +2,3 @@
 	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
   </div>
 
-<div class="container">
-	<div ng-repeat="co in mySingle" class="badgerclass badger-left badger-default" data-badger="{{co['schema:headline']}}">
-		  <p ng-bind-html='co["schema:description"] | unsafe'></p>
-	</div>
-</div>

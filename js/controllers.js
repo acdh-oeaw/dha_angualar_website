@@ -16,10 +16,12 @@ app.controller('acdhNav',['$scope', '$http', 'getMenu', function($scope, $http, 
 		  res.data[i]['description'] = res.data[i]['description'].substring(0,55);
 		  res.data[i]['description'] = res.data[i]['description'] + '...';
 		}
+		// converting MD-icon designations
 		if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
 		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
 		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
 		}
+		// parsing sorting numbers as integers
 		if( res.data[i].hasOwnProperty('api_order') ){
 		  res.data[i]['api_order'] = parseInt(res.data[i]['api_order']);
 		}
@@ -27,6 +29,17 @@ app.controller('acdhNav',['$scope', '$http', 'getMenu', function($scope, $http, 
 	  $scope.Model['start'] = res.data;
 	},
 	function(err){ console.log('err acdhNav: ', err); }
+  );
+}]);
+app.controller('dhaTermsflat',['$scope', '$http', 'getMenu', function($scope, $http, getMenu){
+  $scope.Model = {};
+  var getMenuPromise = getTerms.getMenuPromise(listURL['termsflat']);
+  getMenuPromise.then(
+	function(res){
+		// postprocessing of terms here... 
+		$scope.Model['start'] = res.data;
+	},
+	function(err){ console.log('err dhaTermsflat: ', err); }
   );
 }]);
 app.controller('contactCtrl',['$rootScope', '$state','$scope','$http', '$stateParams' , function($rootScope, $scope, $state, $http){
@@ -61,7 +74,10 @@ app.controller('listCtrl',['$rootScope','$scope','$http', '$state', 'getLists', 
   $rootScope.$state = $state;
   var getListPromise = getLists.getListPromise($state.current.name);
   getListPromise.then(
-	function(res){ $scope.Model[$state.current.name] = res.data;   console.log($state.current.name + ' $scope.Model: ', $scope.Model);  },
+	function(res){ 
+		$scope.Model[$state.current.name] = res.data;   
+		console.log($state.current.name + ' $scope.Model: ', $scope.Model);  
+	},
 	function(err){ console.log('err: ', err); }
   );
   $scope.onList = function(){

@@ -36,3 +36,20 @@ app.service('getMenu', ['$http', '$q', function($http, $q){
   };
   return getMenu;
 }]);
+
+app.service('getTerms', ['$http', '$q', function($http, $q){
+  var deferObject,
+  getTerms = {
+	getMenuPromise: function(url){
+	  var promise = $http.get(url);
+	  deferObject =  deferObject || $q.defer();
+	  deferObject =  $q.defer();
+	  promise.then(
+		function(resp){ deferObject.resolve(resp); /*console.log('resp getMenu: ', resp);*/ },
+		function(errr){ deferObject.reject(errr); console.log('errr getMenu: ', errr); }
+	  );
+	  return deferObject.promise;
+	}
+  };
+  return getTerms;
+}]);

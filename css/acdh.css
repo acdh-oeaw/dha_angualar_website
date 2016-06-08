@@ -40,43 +40,7 @@ h4 {
     font-size: 1pc!important
 }
 
-/******** Containers *********/
-.contentcontainer {
-  width: calc(100% - 30px);
-  max-width: 1400px;
-  margin: 0 auto;
-  
-}
 
-@media (max-width: 1132px) {
-    .contentcontainer {
-        max-width: 880px;
-    }
-}
-@media (min-width: 912px) {
-    .sidenav {
-        display: none;
-    }
-}
-@media (max-width: 912px) {
-    .contentcontainer {
-        max-width: 700px;
-    }
-    .navbar {
-        display: none;
-    }
-}
-@media (max-width: 692px) {
-    .contentcontainer {
-        max-width: 440px;
-    }
-    .projecttile {
-        width: calc(100% - 16px);
-    }
-    .desctext {
-      display: none;
-    }
-}
 
 /******** navigation elements *********/
 .navbar{
@@ -132,11 +96,11 @@ md-icon.caption {
 
 /******** spinentry animation class - ngAnimate replacement! *********/
 .spinentry{
-  -webkit-animation: spinentry 1s forwards; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: spinentry 1s forwards; /* Firefox < 16 */
-  -ms-animation: spinentry 1s forwards; /* Internet Explorer */
-  -o-animation: spinentry 1s forwards; /* Opera < 12.1 */
-  animation: spinentry 1s forwards;
+  -webkit-animation: spinentry 0.4s forwards; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: spinentry 0.4s forwards; /* Firefox < 16 */
+  -ms-animation: spinentry 0.4s forwards; /* Internet Explorer */
+  -o-animation: spinentry 0.4s forwards; /* Opera < 12.1 */
+  animation: spinentry 0.4s forwards;
   transform: rotateY(90deg); /* setting initial value to animation startpoint - FF bugfix */
 }
 
@@ -167,4 +131,45 @@ md-icon.caption {
 @-o-keyframes spinentry {
     from { transform: rotateY(90deg);}
     to   { transform: rotateY(0deg);}
+}
+
+/******** Containers *********/
+.contentcontainer {
+  width: calc(100% - 30px);
+  max-width: 1400px;
+  margin: 0 auto;  
+}
+
+.actioncontainer {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1132px) {
+    .contentcontainer {
+        max-width: 880px;
+    }
+}
+@media (min-width: 912px) {
+    .sidenav {
+        display: none;
+    }
+}
+@media (max-width: 912px) {
+    .contentcontainer {
+        max-width: 700px;
+    }
+    .navbar {
+        display: none;
+    }
+}
+@media (max-width: 692px) {
+    .contentcontainer {
+        max-width: 440px;
+    }
+    .projecttile {
+        width: calc(100% - 16px);
+    }
+    .desctext {
+      display: none;
+    }
 }

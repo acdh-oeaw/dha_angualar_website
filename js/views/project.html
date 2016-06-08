@@ -11,7 +11,7 @@
   <div ng-show="uiview.list">
     <md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
   	  <md-list flex>
-        <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
+        <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
             <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
             <div class="md-list-item-text" >
                   <h3 style="color: #EF6C00">{{pro['schema:headline']}}</h3>
@@ -20,7 +20,7 @@
             <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
               <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
             </md-button>
-            <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Favorite" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
+            <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Open Project" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
               <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
             </md-button>
             <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
@@ -32,7 +32,7 @@
     </md-whiteframe>  
   </div>
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="center stretch" ng-cloak  ng-show="uiview.grid">
-    <md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
+    <md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
     	<img class="md-card-image" style="height: 200px!important;" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
       <md-card-actions >
         <md-card-icon-actions layout="row" layout-align="end end">

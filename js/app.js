@@ -11,7 +11,8 @@ var listURL = {
     'partners':     'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?parameters[type]=institution&pagesize=all&callback=JSON_CALLBACK',// partners (in 'schema:keywords' tag 'Partner')
     'single':       'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=',
     'start':        'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[field_tags]=214', // inc. front page entries
-    'contact':      'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=165'
+    'contact':      'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/nodes?callback=JSON_CALLBACK&parameters[nid]=165',
+    'termsflat':    'https://dhdev.eos.arz.oeaw.ac.at/en/api_0_1/get_termstree?vid=4&flat=1'
 };
 
 app.config(config);

@@ -1,39 +1,56 @@
   <div class="container">
 	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
   </div>
-<div class="container">
-	<h4>Know More<i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onList()" class="fa fa-list pull-right text-warning" aria-hidden="true"></i><i style="font-size:0.75em;cursor: pointer; cursor: hand;" ng-click="onGrid()" class="fa fa-th pull-right text-warning" aria-hidden="true"></i></h4>
-  <div class="row-fluid" ng-show="uiview.list">
-	<div ng-repeat="know in Model.knowmore" class="badgerclass badger-left badger-default" data-badger="{{$index+1}}">
-	  <a ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})">
-	  <div class="container-fluid">
-		<div class="col-sm-6 col-xs-6 col-md-7 col-lg-7">
-		<h4 class="text-warning">{{know['schema:headline']}}
-		</h4>
-		</div>
- 		<div class="col-sm-2 col-xs-2 col-md-1 col-lg-1">
-		  <a target="_blank" class="btn btn-warning" title="{{know['title_field'] || '\:\)'}}" ng-href="{{know['schema:sameAs'] || '\:\)'}}"><i class="fa fa-external-link fa-lg"></i></a>
- 		</div>
- 		<div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
-		  <i class="fa fa-tag fa-lg text-warning"></i> {{know['schema:keywords'].join(', ') || 'no tags'}}
- 		</div> 
-	  </div><!-- container-fluid -->
-	  </a>
-	</div>	
-  </div>
-  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-fill ng-cloak ng-show="uiview.grid">
-    <md-whiteframe class="md-whiteframe-11dp tile" layout layout-align="center center" ng-repeat="know in Model.knowmore">
+<div class="contentcontainer">
+	<div class="actioncontainer" layout="row" layout-align="end none">
+	    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
+	      <md-icon style="color: #EF6C00" aria-label="view as list">view_headline</md-icon>
+	    </md-button>
+	    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
+	      <md-icon style="color: #EF6C00" aria-label="view as tiles">view_module</md-icon>
+	    </md-button>
+  	</div>
 
-			  <a target="_blank" class="btn btn-warning pull-right" title="{{know['title_field'] || '\:\)'}}" ng-href="{{know['schema:sameAs'] || '\:\)'}}"><i class="fa fa-external-link"></i></a>
-			<a ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})">
-<!-- 			  <img width="100" class="img-rounded img-responsive" ng-src="{{pro['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />  -->
-			  <div class="text-warning" style="font-size:1.05em; font-weight:bold; text-align: center; font-weight:normal; float:right; bottom:0; right:0; clear:right; padding-bottom:25px;">
-				  <div class="offer-content">
-					{{know['schema:headline']}}  
-<!-- 				  <div style="font-size:0.75em;"><i class="fa fa-tag fa-lg text-warning"></i> {{pro['schema:keywords'].join(', ') || 'no tags'}}</div> -->
-				  </div>
-			  </div>
-			</a>
-    </md-whiteframe>  
-  </div>
+	<div ng-show="uiview.list">
+		<md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
+		  <md-list flex>
+		    <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="know in Model.knowmore" ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+		        <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
+		        <div class="md-list-item-text" >
+		              <h3 style="color: #EF6C00">{{know['schema:headline']}}</h3>
+		              <p class="desctext">{{know['schema:description']}}</p>
+		        </div>
+		        <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{know['schema:name'].replace('dha:','')}}})">
+		          <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
+		        </md-button>
+		        <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Favorite" href="{{know['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
+		          <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
+		        </md-button>
+		        <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{know['schema:name'].replace('dha:','')}}})">
+		          <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
+		        </md-button>
+		        <md-divider ></md-divider>
+		    </md-list-item>
+		  </md-list>
+		</md-whiteframe>  
+	</div>
+
+	<div ng-show="uiview.grid">
+		<md-grid-list
+		    md-cols="2" md-cols-sm="3" md-cols-md="5" md-cols-gt-md="8"
+		    md-row-height-gt-md="1:1" md-row-height="1:1"
+		    md-gutter="8px" md-gutter-gt-sm="4px" layout="row" layout-align="center start">
+			<md-grid-tile ng-repeat="know in Model.knowmore"
+			              md-rowspan="1"
+			              md-colspan="1"
+			              md-colspan-sm="1"
+			              md-colspan-xs="1"
+			              class="spinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+			  	<md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="">view_headline</md-icon>
+			  	<md-grid-tile-footer layout="column" layout-align="center center">
+			  		<h5 style="color: #EF6C00;width:100%;text-align: center; margin: 0;">{{know['schema:headline']}}</h5>
+			  	</md-grid-tile-footer>
+			</md-grid-tile>
+		</md-grid-list>
+	</div>
 </div>

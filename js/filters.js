@@ -52,7 +52,7 @@ app.filter('startMenu', function() { // for start page
 
 app.filter('currentCaption', function() { // for start page
   return function(items, state) {
-		console.log(state);
+		//console.log(state);
 		var result = [];
 		angular.forEach(items, function(value) {
 			if (value.hasOwnProperty('schema:headline') && value['schema:headline'].split(' ').join('').toLowerCase() == state.current.name) {

@@ -55,7 +55,7 @@ app.controller('contactCtrl',['$rootScope', '$state','$scope','$http', '$statePa
   });
 }]);
 app.controller('singleCtrl',['$scope','$http', '$stateParams' , function($scope, $http, $stateParams){
-  var thisURL = listURL['single'] + $stateParams.nID;// console.log('nID: ', $stateParams.nID);
+  var thisURL = listURL['dha.single'] + $stateParams.nID;// console.log('nID: ', $stateParams.nID);
   $http({
 	  method : "GET",
 	  url : thisURL
@@ -76,7 +76,7 @@ app.controller('listCtrl',['$rootScope','$scope','$http', '$state', 'getLists', 
   getListPromise.then(
 	function(res){ 
 		$scope.Model[$state.current.name] = res.data;   
-		console.log($state.current.name + ' $scope.Model: ', $scope.Model);  
+		console.log($state.current.name + ' $scope.Model: ', $scope);  
 	},
 	function(err){ console.log('err: ', err); }
   );

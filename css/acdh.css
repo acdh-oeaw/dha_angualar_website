@@ -82,7 +82,7 @@ md-icon.caption {
   width: 220px;
 }
 
-/******** layout elements - projects *********/
+/******** layout elements - projects page *********/
 .projecttile {
   width: 320px;
   padding: 0px;
@@ -92,9 +92,7 @@ md-icon.caption {
   padding: 0px;
 }
 
-
-
-/******** spinentry animation class - ngAnimate replacement! *********/
+/******** spinentry animation class - to be replaced by ngAnimate + transitions? *********/
 .spinentry{
   -webkit-animation: spinentry 0.4s forwards; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: spinentry 0.4s forwards; /* Firefox < 16 */
@@ -131,6 +129,26 @@ md-icon.caption {
 @-o-keyframes spinentry {
     from { transform: rotateY(90deg);}
     to   { transform: rotateY(0deg);}
+}
+
+
+/******** layout elements - knowmore page *********/
+ md-grid-list {
+  margin: 8px; }
+ .gray {
+  background: #f5f5f5; }
+ .green {
+  background: #b9f6ca; }
+ .yellow {
+  background: #ffff8d; }
+ .blue {
+  background: #84ffff; }
+ .purple {
+  background: #b388ff; }
+ .red {
+  background: #ff8a80; }
+ md-grid-tile {
+  transition: all 200ms ease-out; 
 }
 
 /******** Containers *********/

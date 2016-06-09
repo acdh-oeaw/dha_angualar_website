@@ -1,6 +1,3 @@
-  <div class="container">
-	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
-  </div>
 <div class="contentcontainer">
 	<div class="actioncontainer" layout="row" layout-align="end none">
 	    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
@@ -14,7 +11,7 @@
 	<div ng-show="uiview.list">
 		<md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
 		  <md-list flex>
-		    <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="know in Model.knowmore" ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+		    <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="know in Model['dha.knowmore']" ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 		        <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
 		        <div class="md-list-item-text" >
 		              <h3 style="color: #EF6C00">{{know['schema:headline']}}</h3>
@@ -39,8 +36,8 @@
 		<md-grid-list
 		    md-cols="2" md-cols-sm="3" md-cols-md="5" md-cols-gt-md="8"
 		    md-row-height-gt-md="1:1" md-row-height="1:1"
-		    md-gutter="8px" md-gutter-gt-sm="4px" layout="row" layout-align="center start">
-			<md-grid-tile ng-repeat="know in Model.knowmore"
+		    md-gutter="8px" md-gutter-gt-sm="4px" layout="row" layout-align="center start" ng-animate="'spinentry'">
+			<md-grid-tile ng-repeat="know in Model['dha.knowmore']"
 			              md-rowspan="1"
 			              md-colspan="1"
 			              md-colspan-sm="1"

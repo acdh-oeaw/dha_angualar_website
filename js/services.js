@@ -7,8 +7,8 @@ app.service('getLists', ['$http', '$q', function($http, $q){
   getList = {
 	getListPromise: function(state){console.log('STATE: ', state);
 	  var promise = $http.get(listURL[state]);
-		// var promise = $http.jsonp(listURL[state]);
-	  	// deferObject =  deferObject || $q.defer(); // this one is needed when we need to cache the state data set (!), and not when we need to refresh data set for every state changed
+	  // var promise = $http.jsonp(listURL[state]);
+	  //deferObject =  deferObject || $q.defer(); // this one is needed when we need to cache the state data set (!), and not when we need to refresh data set for every state changed
 	  deferObject =  $q.defer();
 	  promise.then(
 		function(resp){ deferObject.resolve(resp); /*console.log('$state: ', $state);*/ },
@@ -25,7 +25,7 @@ app.service('getMenu', ['$http', '$q', function($http, $q){
   getMenu = {
 	getMenuPromise: function(url){
 	  var promise = $http.get(url);
-	  deferObject =  deferObject || $q.defer();
+	  //deferObject =  deferObject || $q.defer();
 	  deferObject =  $q.defer();
 	  promise.then(
 		function(resp){ deferObject.resolve(resp); /*console.log('resp getMenu: ', resp);*/ },
@@ -42,7 +42,7 @@ app.service('getTerms', ['$http', '$q', function($http, $q){
   getTerms = {
 	getMenuPromise: function(url){
 	  var promise = $http.get(url);
-	  deferObject =  deferObject || $q.defer();
+	  //deferObject =  deferObject || $q.defer();
 	  deferObject =  $q.defer();
 	  promise.then(
 		function(resp){ deferObject.resolve(resp); /*console.log('resp getMenu: ', resp);*/ },

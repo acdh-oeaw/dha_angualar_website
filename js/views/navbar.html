@@ -1,8 +1,8 @@
-<div ng-controller="acdhNav" ng-cloak>
+<div ng-cloak>
 	<div class="navcontainer" style="padding:5px;" layout="row" layout-align="space-between center">
 		<a ui-sref="start"><img width="85" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /></a>
 		<div layout="row" layout-align="end start" class="navbar">
-			<md-button class="md-raised" ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}" name="{{me['schema:headline'].split(' ').join('') | lowercase}}" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
+			<md-button class="md-raised" ui-sref="{{'dha.' + me['schema:headline'].split(' ').join('') | lowercase}}" name="{{me['schema:headline'].split(' ').join('') | lowercase}}" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
 			<md-icon style="color: #EF6C00" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
 			{{me['headline']}}
 			</md-button>
@@ -26,7 +26,7 @@
 	<div class="contentcontainer caption" style="margin-top: 20px;" ng-repeat="me in Model.start | currentCaption: $state" >
     	<div layout="row" layout-align="start start">
     		<md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-    		<h4>{{me['schema:headline']}}</h4>
+    		<h4>{{me['headline']}}</h4>
     	</div>
     	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
   	</div>

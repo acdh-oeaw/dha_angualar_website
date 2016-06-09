@@ -55,7 +55,8 @@ app.filter('currentCaption', function() { // for start page
 		//console.log(state);
 		var result = [];
 		angular.forEach(items, function(value) {
-			if (value.hasOwnProperty('schema:headline') && value['schema:headline'].split(' ').join('').toLowerCase() == state.current.name) {
+			var cstate = state.current.name.split(".");
+			if (value.hasOwnProperty('schema:headline') && value['schema:headline'].split(' ').join('').toLowerCase() == cstate[cstate.length-1]) {
 				result.push(value);
 			}
 		});

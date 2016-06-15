@@ -66,7 +66,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
             }
         }
     })
-    .state('s-news',{ // partyDetail({ partyID: id, partyLocation: location })
+    .state('dha.s-news',{ // partyDetail({ partyID: id, partyLocation: location })
         url: '/s-news/:nID',
         views: {
             'content@': {
@@ -131,5 +131,5 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $compileP
     });
     $mdThemingProvider.theme('default')
     .primaryPalette('orange')
-    .accentPalette('amber');
+    .accentPalette('deep-orange');
 }

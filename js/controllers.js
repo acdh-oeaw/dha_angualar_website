@@ -2,8 +2,9 @@
 
 /* Controllers */
 
-app.controller('acdhNav',['$scope', '$http', 'getMenu', function($scope, $http, getMenu){
+app.controller('acdhNav',['$scope', '$http', 'getMenu', '$state' , function($scope, $http, getMenu, $state){
   $scope.Model = {};
+  $scope.$state = $state;
   var getMenuPromise = getMenu.getMenuPromise(listURL['start']);
   getMenuPromise.then(
 	function(res){
@@ -66,12 +67,11 @@ app.controller('singleCtrl',['$scope','$http', '$stateParams' , function($scope,
   });
 }]);
 
-app.controller('listCtrl',['$rootScope','$scope','$http', '$state', 'getLists', function($rootScope, $scope, $http, $state, getLists){
+app.controller('listCtrl',['$scope','$http', '$state', 'getLists', function($scope, $http, $state, getLists){
   $scope.Model = {};
   $scope.uiview = {};
   $scope.uiview.list = false;
   $scope.uiview.grid = true;
-  $rootScope.$state = $state;
   var getListPromise = getLists.getListPromise($state.current.name);
   getListPromise.then(
 	function(res){ 

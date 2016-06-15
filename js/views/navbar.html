@@ -1,12 +1,12 @@
 <div ng-cloak>
 	<div class="navcontainer" style="padding:5px;" layout="row" layout-align="space-between center">
 		<a ui-sref="start"><img width="85" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /></a>
-		<div layout="row" layout-align="end start" class="navbar">
-			<md-button class="md-raised" ui-sref="{{'dha.' + me['schema:headline'].split(' ').join('') | lowercase}}" name="{{me['schema:headline'].split(' ').join('') | lowercase}}" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
+		<md-nav-bar md-selected-nav-item="$state.current.name.split('.')[1]" nav-bar-aria-label="navigation links" style="border-style: none;">
+			<md-nav-item md-nav-sref="{{'dha.' + me['schema:headline'].split(' ').join('') | lowercase}}" name="{{me['schema:headline'].split(' ').join('') | lowercase}}" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
 			<md-icon style="color: #EF6C00" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
 			{{me['headline']}}
-			</md-button>
-		</div>
+			</md-nav-item>
+		</md-nav-bar>
 	    <md-menu md-position-mode="target-right target" class="sidenav">
 	      <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 	        <md-icon style="color: #EF6C00" aria-label="menu">menu</md-icon>

@@ -12,7 +12,7 @@
 		<md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
 		  <md-list flex>
 		    <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="know in Model['dha.knowmore']" ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
-		        <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
+		        <img ng-src="{{'/acdh/assets/knowmore_thumbs/'+know['schema:name'].split(':')[1]+'.jpg' || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
 		        <div class="md-list-item-text" >
 		              <h3 style="color: #EF6C00">{{know['schema:headline']}}</h3>
 		              <p class="desctext">{{know['schema:description']}}</p>
@@ -43,7 +43,7 @@
 			              md-colspan-sm="1"
 			              md-colspan-xs="1"
 			              class="spinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
-			  	<md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="">view_headline</md-icon>
+			  	<img ng-src="{{'/acdh/assets/knowmore_thumbs/'+know['schema:name'].split(':')[1]+'.jpg'}}" style="width:100%;" />
 			  	<md-grid-tile-footer layout="column" layout-align="center center">
 			  		<h5 style="color: #EF6C00;width:100%;text-align: center; margin: 0;">{{know['schema:headline']}}</h5>
 			  	</md-grid-tile-footer>

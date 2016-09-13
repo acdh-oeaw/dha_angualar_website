@@ -1,17 +1,20 @@
 {
-  "name": "dha-app",
-  "description": "The Website of the DHA Consortium",
-  "version": "0.0.0",
-  "homepage": "www.digital-humanities.at",
+  "name": "dha-webapp",
+  "description": "A decoupled frontend solution serving as the website of the DHA - consortium",
+  "version": "0.0.1b",
+  "homepage": "http://www.digital-humanities.at/",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "1.5.x",
-    "jquery": "~2.1.1",
-    "angular-sanitize": "1.5.x",
-    "angular-resource": "1.5.x",
-    "angular-animate": "1.5.x",
-    "angular-ui-router": "0.2.x",
-    "angular-material":"1.1.0-rc.5"
+    "angular":"1.5.x",
+    "jquery":"~2.1.1",
+    "angular-ui-router":"0.2.x",
+    "angular-animate":"1.5.x",
+    "angular-material":"1.1.0-rc.5",
+    "angular-sanitize":"1.5.x",
+    "ui-leaflet":"1.0.0",
+    "angular-cookies":"1.5.x",
+    "angular-material-data-table":"0.10.9",
+    "ngstorage":"0.3.11"
   }
 }

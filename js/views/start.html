@@ -1,13 +1,8 @@
-<div class="container text-center">
-  <img style="padding:69px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" />
-</div>
-
-<div class="contentcontainer" ng-controller="acdhNav">
-  <div layout="row" layout-xs="column"  layout-align="center center" layout-padding layout-wrap layout-fill ng-cloak>
-    <md-card class="spinentry md-whiteframe-11dp splashtile" layout="column" layout-align="center center" ng-repeat="me in Model.start | startMenu:'schema:keywords' | orderBy:'-api_order'" ui-sref="{{'dha.' + me['schema:headline'].split(' ').join('') | lowercase}}" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
-		  <md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-		  <h3 class="md-headline" style="color: #EF6C00;">{{me['headline']}}</h3>
-		  <p class="md-body-2" >{{me['description']}}</p>
+<div layout="row" layout-xs="column" layout-align="center start"> <img src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /> </div> 
+<div layout="row" layout-xs="column" layout-align="center center" ng-cloak style="min-height: 5px">
+    <md-card md-colors="{color: 'primary-800'}" class="spinentry md-whiteframe-11dp splashtile md-button md-ink-ripple" layout="column" layout-align="center center" ng-repeat="me in Model.start | orderBy:'api_order'" ui-sref="dha.{{me['schema:headline'].split(' ').join('') | lowercase}} ({lang:me['lang']})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
+	  <md-icon md-colors="{color: 'primary-800'}" style="font-size: 50px; width: 50px; height: 50px;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+		<div class="md-headline" style="margin: auto;text-align:center;" layout-align="center start"> {{me['schema:headline']}}</div>
+		  <md-card-content><p style="font-weight:normal;font-size:9px;"><md-divider></md-divider>{{me['schema:description']}}<md-divider></md-divider></p></md-card-content>
     </md-card>
-  </div>
 </div>

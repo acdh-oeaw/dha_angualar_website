@@ -1,91 +1,366 @@
-'use strict';
-
-/* Controllers */
-
-app.controller('acdhNav',['$scope', '$http', 'getMenu', '$state' , function($scope, $http, getMenu, $state){
-  $scope.Model = {};
-  $scope.$state = $state;
-  var getMenuPromise = getMenu.getMenuPromise(listURL['start']);
-  getMenuPromise.then(
-	function(res){
-	  for(var i=0; i<res.data.length; i++){
-		if( res.data[i].hasOwnProperty('schema:headline') ){
-		  res.data[i]['headline'] = res.data[i]['schema:headline'];
-		  res.data[i]['schema:headline'] = res.data[i]['schema:headline'].replace(/[&]+/g, '');
-		  res.data[i]['description'] = res.data[i]['schema:description'];
-		  res.data[i]['description'] = res.data[i]['description'].replace(/<[^<>]+>/gm, '');
-		  res.data[i]['description'] = res.data[i]['description'].substring(0,55);
-		  res.data[i]['description'] = res.data[i]['description'] + '...';
+(function () {
+  'use strict';
+  var app = angular.module('acdh');
+  app.controller('startCtrl',['$scope','$http', '$state', 'startList', '$stateParams', function($scope, $http, $state, startList, $stateParams){
+	$scope.Model = {};
+	var getList = startList.list();
+	getList.then(
+		function(res){
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:headline') ){
+			res.data[i]['headline'] = res.data[i]['schema:headline'];
+			res.data[i]['lang'] = $stateParams.lang;
+			  res.data[i]['schema:headline'] = res.data[i]['schema:headline'].replace(/[&]+/g, '');
+			  if( res.data[i]['schema:headline'] == 'Projekte'){
+				res.data[i]['schema:headline'] = 'Projects'; // for start/navbar views: obviously, need to adjust if others will have German/different variants, any ideas?
+			  }
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'];
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '');
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'].substring(0,31);
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'] + '...';
+			}
+			if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+			}
+		  }
+		  $scope.Model['start'] = res.data;
+		},
+		function(err){ console.log('err startCtrl: ', err); }
+	  );
+  }]);
+  app.controller('acdhNavCtrl',['$scope','$http', '$state', 'getList', '$stateParams', function($scope, $http, $state, getList, $stateParams){ 
+	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	var curList = getList.list('navbar');
+	curList.then(
+	  function(res){
+		for(var i=0; i<res.data.length; i++){
+		  if( res.data[i].hasOwnProperty('schema:headline') ){
+			res.data[i]['headline'] = res.data[i]['schema:headline'];
+			res.data[i]['lang'] = $stateParams.lang;
+			res.data[i]['schema:headline'] = res.data[i]['schema:headline'].replace(/[&\s]+/g, '');
+			if( res.data[i]['schema:headline'] == 'Projekte'){
+			  res.data[i]['schema:headline'] = 'Projects'; // for start/navbar views: obviously, need to adjust if others will have German/different variants, any ideas?
+			}
+			res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '');
+			res.data[i]['schema:description'] = res.data[i]['schema:description'].substring(0,55);
+			res.data[i]['schema:description'] = res.data[i]['schema:description'] + '...';
+		  }
+		  if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+			res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+			res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+		  }
 		}
-		// converting MD-icon designations
-		if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
-		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
-		  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
-		}
-		// parsing sorting numbers as integers
-		if( res.data[i].hasOwnProperty('api_order') ){
-		  res.data[i]['api_order'] = parseInt(res.data[i]['api_order']);
-		}
-	  }
-	  $scope.Model['start'] = res.data;
-	},
-	function(err){ console.log('err acdhNav: ', err); }
-  );
-}]);
-app.controller('dhaTermsflat',['$scope', '$http', 'getMenu', function($scope, $http, getMenu){
-  $scope.Model = {};
-  var getMenuPromise = getTerms.getMenuPromise(listURL['termsflat']);
-  getMenuPromise.then(
-	function(res){
-		// postprocessing of terms here... 
-		$scope.Model['start'] = res.data;
-	},
-	function(err){ console.log('err dhaTermsflat: ', err); }
-  );
-}]);
-app.controller('contactCtrl',['$rootScope', '$state','$scope','$http', '$stateParams' , function($rootScope, $scope, $state, $http){
-  var thisURL = listURL['contact'];
-  $rootScope.$state = {'current': {'name':"contact"}};
-  $http({
-	  method : "GET",
-	  url : thisURL
-  }).then(function mySucces(res) {
-	  $scope.mySingle = res.data;
-  }, function myError(res) {
-	  $scope.mySingle = res.statusText;
-  });
-}]);
-app.controller('singleCtrl',['$scope','$http', '$stateParams' , function($scope, $http, $stateParams){
-  var thisURL = listURL['dha.single'] + $stateParams.nID;// console.log('nID: ', $stateParams.nID);
-  $http({
-	  method : "GET",
-	  url : thisURL
-  }).then(function mySucces(res) {
-	  $scope.mySingle = res.data;
-  }, function myError(res) {
-	  $scope.mySingle = res.statusText;
-  });
-}]);
+		$scope.Model['navbar'] = res.data;
+	  },
+	  function(err){ console.log('err navbar-LISTCTRL: ', err); }
+	);
+  }]);
+  app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams', function($rootScope, $scope, $http, $state, getList, $stateParams){
+	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
+	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	
+	$rootScope.toggleLang = function(lang){
+	  $scope.curlang = lang;
+	  $stateParams.lang = lang;
+	  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+	};
+	
+	if(typeof($rootScope.uiview) == 'undefined'){
+	  $rootScope.uiview = {};
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	}
 
-app.controller('listCtrl',['$scope','$http', '$state', 'getLists', function($scope, $http, $state, getLists){
-  $scope.Model = {};
-  $scope.uiview = {};
-  $scope.uiview.list = false;
-  $scope.uiview.grid = true;
-  var getListPromise = getLists.getListPromise($state.current.name);
-  getListPromise.then(
-	function(res){ 
-		$scope.Model[$state.current.name] = res.data;   
-		console.log($state.current.name + ' $scope.Model: ', $scope);  
-	},
-	function(err){ console.log('err: ', err); }
-  );
-  $scope.onList = function(){
-	$scope.uiview.list = true;
-	$scope.uiview.grid = false;  //console.log('$scope.uiview: ', $scope.uiview);
-  };
-  $scope.onGrid = function(){
-	$scope.uiview.list = false;
-	$scope.uiview.grid = true;  //console.log('$scope.uiview: ', $scope.uiview);
-  };
-}]);
+	$rootScope.onList = function(){
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	};
+	$rootScope.onGrid = function(){
+	  $rootScope.uiview.list = false;
+	  $rootScope.uiview.grid = true;
+	};
+	var curList = getList.list('newsevents');
+	curList.then(
+			  function(res){ var tags = [];
+				for(var i=0; i<res.data.length; i++){
+				  if( res.data[i].hasOwnProperty('schema:headline') ){
+	  			  res.data[i]['headline'] = res.data[i]['schema:headline'];
+					res.data[i]['schema:headline'] = res.data[i]['schema:headline'].replace(/[&]+/g, '');
+					res.data[i]['schema:description'] = res.data[i]['schema:description'];
+					res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '');
+				  }
+				  if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+					res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+					res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+				  }
+				  if(res.data[i].hasOwnProperty('schema:name')){
+					res.data[i]['schema:name'] = res.data[i]['schema:name'].replace('dha:','');
+				  }
+				  if( res.data[i].hasOwnProperty('schema:keywords') ){
+					tags = res.data[i]['schema:keywords'];
+					res.data[i]['schema:tags'] = [];
+					res.data[i]['schema:keywords'] = [];
+					for(var k=0; k<tags.length; k++){
+					  res.data[i]['schema:tags'].push(tags[k]['name']);
+					}
+				  }
+				}
+				$scope.Model['newsevents'] = res.data;
+			  },
+			  function(err){ console.log('err newsevents: ', err); }
+			);
+  }]);
+  app.controller('singleEvCtrl',['$scope','$http', '$state', 'getSingle', '$stateParams', function($scope, $http, $state, getSingle, $stateParams){
+	var curList = getSingle.one('single', $stateParams.nID);
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.mySingle = res.data;
+		},
+		function(err){ console.log('err singleEvent: ', err); }
+	);
+  }]);
+  app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams', function($rootScope, $scope, $http, $state, getList, $stateParams){
+	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
+	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	
+	$rootScope.toggleLang = function(lang){
+	  $scope.curlang = lang;
+	  $stateParams.lang = lang;
+	  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+	};
+	
+	if(typeof($rootScope.uiview) == 'undefined'){
+	  $rootScope.uiview = {};
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	}
+
+	$rootScope.onList = function(){
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	};
+	$rootScope.onGrid = function(){
+	  $rootScope.uiview.list = false;
+	  $rootScope.uiview.grid = true;
+	};
+	var curList = getList.list('partners');
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+			}
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.Model['partners'] = res.data;
+		},
+		function(err){ console.log('err partnerCtrl: ', err); }
+	  );
+  }]);
+  app.controller('singlePaCtrl',['$scope','$http', '$state', 'getSingle', '$stateParams', function($scope, $http, $state, getSingle, $stateParams){
+	var curList = getSingle.one('singlep', $stateParams.nID);
+	curList.then(
+		function(res){
+		  $scope.mySingle = res.data;
+		},
+		function(err){ console.log('err singlePaCtrl: ', err); }
+	);
+  }]);
+  app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams', function($rootScope, $scope, $http, $state, getList, $stateParams){
+	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
+	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	
+	$rootScope.toggleLang = function(lang){
+	  $scope.curlang = lang;
+	  $stateParams.lang = lang;
+	  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+	};
+	
+	if(typeof($rootScope.uiview) == 'undefined'){
+	  $rootScope.uiview = {};
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	}
+
+	$rootScope.onList = function(){
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	};
+	$rootScope.onGrid = function(){
+	  $rootScope.uiview.list = false;
+	  $rootScope.uiview.grid = true;
+	};
+	var curList = getList.list('knowmore');
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:headline') ){
+			  res.data[i]['schema:headline'] = res.data[i]['schema:headline'].replace(/[&]+/g, '');
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'];
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '');
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'].substring(0,55);
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'] + '...';
+			}
+			if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+			}
+			if(res.data[i].hasOwnProperty('schema:name')){
+			  res.data[i]['schema:name'] = res.data[i]['schema:name'].replace('dha:','');
+			}
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.Model['knowmore'] = res.data;
+		},
+		function(err){ console.log('err knowmoreCtrl: ', err); }
+	  );
+  }]);
+  app.controller('singleKnCtrl',['$scope','$http', '$state', 'getSingle', '$stateParams', function($scope, $http, $state, getSingle, $stateParams){
+	var curList = getSingle.one('single', $stateParams.nID);
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.mySingle = res.data;
+		},
+		function(err){ console.log('err singleKnCtrl: ', err); }
+	);
+  }]);
+  app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams', function($rootScope, $scope, $http, $state, getList, $stateParams){
+	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
+	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	
+	$rootScope.toggleLang = function(lang){
+	  $scope.curlang = lang;
+	  $stateParams.lang = lang;
+	  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+	};
+	
+	if(typeof($rootScope.uiview) == 'undefined'){
+	  $rootScope.uiview = {};
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	}
+
+	$rootScope.onList = function(){
+	  $rootScope.uiview.list = true;
+	  $rootScope.uiview.grid = false;
+	};
+	$rootScope.onGrid = function(){
+	  $rootScope.uiview.list = false;
+	  $rootScope.uiview.grid = true;
+	};
+	var curList = getList.list('projects');
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:headline') ){
+			  res.data[i]['schema:headline'] = res.data[i]['schema:headline'].replace(/[&]+/g, '');
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'];
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '');
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'].substring(0,55);
+			  res.data[i]['schema:description'] = res.data[i]['schema:description'] + '...';
+			}
+			if( res.data[i].hasOwnProperty('schema:primaryImageOfPage') ){
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace(/^[^:]+:/, '');
+			  res.data[i]['schema:primaryImageOfPage'] = res.data[i]['schema:primaryImageOfPage'].replace('-', '_');
+			}
+			if(res.data[i].hasOwnProperty('schema:name')){
+			  res.data[i]['schema:name'] = res.data[i]['schema:name'].replace('dha:','');
+			}
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.Model['projects'] = res.data;
+		},
+		function(err){ console.log('err projectCtrl: ', err); }
+	);
+  }]);
+  app.controller('singleProCtrl',['$scope','$http', '$state', 'getSingle', '$stateParams', function($scope, $http, $state, getSingle, $stateParams){
+	var curList = getSingle.one('single', $stateParams.nID);
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.mySingle = res.data;
+		},
+		function(err){ console.log('err singleEvent: ', err); }
+	);
+  }]);
+  app.controller('contactCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams', function($rootScope, $scope, $http, $state, getList, $stateParams){
+	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
+	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	
+	$rootScope.toggleLang = function(lang){
+	  $scope.curlang = lang;
+	  $stateParams.lang = lang;
+	  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+	};
+	
+	var curList = getList.list('contact');
+	curList.then(
+		function(res){ var tags = [];
+		  for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:keywords') ){
+			  tags = res.data[i]['schema:keywords'];
+			  res.data[i]['schema:tags'] = [];
+			  res.data[i]['schema:keywords'] = [];
+			  for(var k=0; k<tags.length; k++){
+				res.data[i]['schema:tags'].push(tags[k]['name']);
+			  }
+			}
+		  }
+		  $scope.Model['contact'] = res.data;
+		},
+		function(err){ console.log('err contactCtrl: ', err); }
+	);
+  }]);
+})();

@@ -1,55 +1,42 @@
-'use strict';
-
-/* Services */
-
-app.service('getLists', ['$http', '$q', function($http, $q){
-  var deferObject,
-  getList = {
-	getListPromise: function(state){console.log('STATE: ', state);
-	  var promise = $http.get(listURL[state]);
-	  // var promise = $http.jsonp(listURL[state]);
-	  //deferObject =  deferObject || $q.defer(); // this one is needed when we need to cache the state data set (!), and not when we need to refresh data set for every state changed
-	  deferObject =  $q.defer();
-	  promise.then(
-		function(resp){ deferObject.resolve(resp); /*console.log('$state: ', $state);*/ },
-		function(errr){ deferObject.reject(errr); /*console.log('errr$state: ', $state);*/ }
-	  );
-	  return deferObject.promise;
-	}
+(function () {
+  'use strict';
+  var app = angular.module('acdh');
+  var listURL = {
+			   'start':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?parameters[field_tags]=209',
+			  'navbar':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=dha_page&parameters[tags]=214',
+		  'newsevents':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=event',
+			'partners':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/taxterm?parameters[vid]=5&parameters[tags]=207&pagesize=all',
+			'knowmore':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=biblio',
+			'projects':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=project',
+			 'contact':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?parameters[nid]=165',
+ 
+		  'single':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?&parameters[nid]=',
+		 'singlep':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/taxterm?&parameters[tid]=',
+		   'termsflat':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/get_termstree?vid=4&flat=1'
   };
-  return getList;
-}]);
-
-app.service('getMenu', ['$http', '$q', function($http, $q){
-  var deferObject,
-  getMenu = {
-	getMenuPromise: function(url){
-	  var promise = $http.get(url);
-	  //deferObject =  deferObject || $q.defer();
-	  deferObject =  $q.defer();
-	  promise.then(
-		function(resp){ deferObject.resolve(resp); /*console.log('resp getMenu: ', resp);*/ },
-		function(errr){ deferObject.reject(errr); console.log('errr getMenu: ', errr); }
-	  );
-	  return deferObject.promise;
-	}
-  };
-  return getMenu;
-}]);
-
-app.service('getTerms', ['$http', '$q', function($http, $q){
-  var deferObject,
-  getTerms = {
-	getMenuPromise: function(url){
-	  var promise = $http.get(url);
-	  //deferObject =  deferObject || $q.defer();
-	  deferObject =  $q.defer();
-	  promise.then(
-		function(resp){ deferObject.resolve(resp); /*console.log('resp getMenu: ', resp);*/ },
-		function(errr){ deferObject.reject(errr); console.log('errr getMenu: ', errr); }
-	  );
-	  return deferObject.promise;
-	}
-  };
-  return getTerms;
-}]);
+  /* Services */
+  app.factory('startList',['$http', '$stateParams',function($http,$stateParams){
+	  return { list: function(){
+			  var defLang = 'en';
+			  if(typeof($stateParams.lang) !== 'undefined'){ ($stateParams.lang.toLowerCase() == 'de') ? (defLang = $stateParams.lang.toLowerCase()) : (defLang = 'en'); }
+			  return $http.get(listURL['start'].replace('__LANG__', defLang)).then(function(res){return res;});
+			}
+	  };
+  }]);
+  app.factory('getList',['$http', '$stateParams',function($http,$stateParams){
+	  return { list: function(curState){ console.log('curState:', curState); console.log('$stateParams.lang:', $stateParams.lang);
+			  var defLang = 'en';
+			  if(typeof($stateParams.lang) !== 'undefined'){ ($stateParams.lang.toLowerCase() == 'de') ? (defLang = $stateParams.lang.toLowerCase()) : (defLang = 'en'); }
+			  return $http.get(listURL[curState].replace('__LANG__', defLang)).then(function(res){return res;});
+			}
+	  };
+  }]);
+  app.factory('getSingle',['$http', '$stateParams',function($http,$stateParams){
+	  return { one: function(curState,id){ console.log('curState:', curState);
+			  var defLang = 'en';
+			  if(typeof($stateParams.lang) !== 'undefined'){ ($stateParams.lang.toLowerCase() == 'de') ? (defLang = $stateParams.lang.toLowerCase()) : (defLang = 'en'); }
+			  return $http.get((listURL[curState].replace('__LANG__', defLang)) + id).then(function(res){return res;});
+			}
+	  };
+  }]);
+})();

@@ -1,33 +1,30 @@
-<div ng-cloak>
-	<div class="navcontainer" style="padding:5px;" layout="row" layout-align="space-between center">
-		<a ui-sref="start"><img width="85" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /></a>
-		<md-nav-bar md-selected-nav-item="$state.current.name.split('.')[1]" nav-bar-aria-label="navigation links" style="border-style: none;">
-			<md-nav-item md-nav-sref="{{'dha.' + me['schema:headline'].split(' ').join('') | lowercase}}" name="{{me['schema:headline'].split(' ').join('') | lowercase}}" ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
-			<md-icon style="color: #EF6C00" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-			{{me['headline']}}
-			</md-nav-item>
-		</md-nav-bar>
-	    <md-menu md-position-mode="target-right target" class="sidenav">
-	      <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-	        <md-icon style="color: #EF6C00" aria-label="menu">menu</md-icon>
-	      </md-button>
-	      <md-menu-content width="4" >
-	        <md-menu-item ng-repeat="me in Model.start | findMenu:'schema:keywords' | orderBy:'-api_order'">
-	          <md-button ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}">
-	              <div layout="row" flex>
-	                <p flex>{{me['headline']}}</p>
-	                <md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-	              </div>
-	          </md-button>
-	        </md-menu-item>
-	      </md-menu-content>
-	    </md-menu>
-	</div>
-	<div class="contentcontainer caption" style="margin-top: 20px;" ng-repeat="me in Model.start | currentCaption: $state" >
-    	<div layout="row" layout-align="start start">
-    		<md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-    		<h4>{{me['headline']}}</h4>
-    	</div>
-    	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
-  	</div>
+<div flex layout="column" layout-md="column" layout-xs="column" layout-sm="column">
+    <md-toolbar style="background-color:inherit;margin-top:15px;margin-bottom:15px;" ng-cloak>
+      <div class="md-toolbar-tools">
+         <img style="height:79px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" />
+        <span flex="auto"></span>
+		<md-button md-colors="{color: 'primary-500'}" ui-sref="dha.{{me['schema:headline'] | lowercase}}" class="md-button md-raised md-ink-ripple" aria-label="$state.current.name" ng-repeat="me in Model.navbar | orderBy:'api_order'">
+		  <md-icon  md-colors="{color: 'primary-800'}" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon> {{me['headline']}}
+		</md-button>
+		  <md-button class="md-icon-button md-button md-raised" ng-click="onList()" type="button" aria-label="List View" title="List View">
+			<i md-colors="{color: 'primary-400'}" class="material-icons">&#xE896;</i><div class="md-ripple-container"></div>
+		  </md-button>
+		  <md-button class="md-icon-button md-button md-raised" ng-click="onGrid()" type="button" aria-label="Grid View" title="Grid View">
+			<i md-colors="{color: 'primary-400'}" class="material-icons">&#xE8F0;</i><div class="md-ripple-container"></div>
+		  </md-button>
+		  <md-button class="md-icon-button md-button md-raised" ng-click="toggleLang('en');" type="button" aria-label="English" title="EN" md-colors="{color: 'primary-600'}">
+			EN<div class="md-ripple-container"></div>
+		  </md-button>
+		  <md-button class="md-icon-button md-button md-raised" ng-click="toggleLang('de');" type="button" aria-label="Deutsch" title="DE" md-colors="{color: 'primary-600'}">
+			DE<div class="md-ripple-container"></div>
+		  </md-button>
+      </div>
+    </md-toolbar>
 </div>
+	<div flex layout="row">
+	  <div flex="10"></div>
+	  <div flex="80">
+		<div ui-view></div>
+	  </div>
+	  <div flex="10"></div>
+	 </div>

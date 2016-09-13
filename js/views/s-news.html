@@ -1,23 +1,15 @@
-  <div class="container">
-	<div ng-include="" src="'/acdh/js/views/navbar.html'"></div>
-  </div>
-<div class="container">
-	<div ng-repeat="ev in mySingle" class="badgerclass badger-left badger-default" data-badger="{{ev['schema:location'] || '\:\)'}}">
-<!-- 	  <a ui-sref="s-news({nID:{{ev['schema:name'].replace('dha:','')}}})"> -->
-	  <div class="container-fluid">
-		<div class="col-sm-4 col-xs-4  col-lg-4">
-		  <img height="200" class="img-rounded img-responsive" ng-src="{{ev['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/dha_logo.png'}}" />
-		</div>
-		<div class="col-sm-8 col-xs-8  col-lg-8">
-		<h4 class="text-warning">{{ev['schema:headline']}} <!--<span style="font-size:0.5em" class="pull-right">{{ev['schema:startDate'] * 1000 | date:'dd.MM.yyyy'}}</span>--></h4>
-		<div class="col-sm-12 col-xs-12  col-lg-12" ng-bind-html='ev["schema:description"] | unsafe'></div>
-		<div class="col-sm-12 col-xs-12  col-lg-12" ng-bind-html='ev["schema:text"] | unsafe'></div>
-		</div>
-		<div class="col-sm-12 col-xs-12  col-lg-12">
-		  <p style="border-top: 1px dotted; padding:5px; margin-top:5px;"><i class="fa fa-tag fa-lg text-warning"></i> {{ev['schema:keywords'].join(', ') || 'no tags'}}</p>
-		</div>
-	  </div><!-- container-fluid -->
-<!-- 	  </a> -->
-	</div>
-	
-</div>
+		<md-content>
+				<div class='md-padding' layout="row" layout-wrap>
+				  <md-card style="width:100%;" ng-repeat="ev in mySingle">
+					<md-card-content>
+					<img height="75px" ng-src="{{ev['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/dha_logo.png'}}" />
+					  <h4 md-colors="{color: 'primary-500'}">{{ev['schema:headline']}}</h4>
+					  <md-content flex layout-padding ng-bind-html='ev["schema:description"] | unsafe'></md-content>
+					  <p flex layout-padding ng-bind-html='ev["schema:text"] | unsafe'></p>
+					</md-card-content>
+					<md-card-footer layout='row' layout-align="end center">
+					  <i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{ev['schema:tags'].join(', ') || 'No Tags'}}
+					</md-card-footer>
+				  </md-card>
+				</div>
+		</md-content>

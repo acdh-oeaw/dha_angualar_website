@@ -2,7 +2,7 @@
 	<div class="navcontainer" style="padding:5px;" layout="row" layout-align="space-between center">
 		<a ui-sref="start"><img width="85" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png" /></a>
 		<md-nav-bar md-selected-nav-item="$state.current.name.split('.')[1]" nav-bar-aria-label="navigation links" style="border-style: none;">
-			<md-nav-item md-nav-sref="dha.{{me.ctrl}}" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
+			<md-nav-item md-nav-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
 			<md-icon style="color: #EF6C00" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
 			{{me['schema:headline']}}
 			</md-nav-item>
@@ -19,7 +19,7 @@
 	      </md-button>
 	      <md-menu-content width="4" >
 	        <md-menu-item ng-repeat="me in Model.navbar">
-	          <md-button ui-sref="{{me['schema:headline'].split(' ').join('') | lowercase}}">
+	          <md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })">
 	              <div layout="row" flex>
 	                <p flex>{{me['headline']}}</p>
 	                <md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>

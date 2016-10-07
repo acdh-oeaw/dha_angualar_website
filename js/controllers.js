@@ -9,6 +9,7 @@
 		}
 		$scope.Model = {};
 		getContent.updateLanguage($stateParams.lang);
+		$scope.Model.language = getContent.language;
 		var getList = getContent.getNodes({"field_tags":"209"});
 		getList.then(
 			function(res){
@@ -28,8 +29,9 @@
 		  );
 	}]);
 	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', function($rootScope, $scope, $http, $state, $stateParams, getContent){
-		if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+		$scope.Model = {};
 		getContent.updateLanguage($stateParams.lang);
+		$scope.Model.language = getContent.language;
 		var curList = getContent.getNodes({"field_tags":"214"});
 		curList.then(
 		  function(res){
@@ -43,7 +45,7 @@
 		  function(err){ console.log('err navbar-LISTCTRL: ', err); }
 		);
 		$rootScope.toggleLang = function(lang){
-		  $scope.curlang = lang;
+		  $scope.Model.language = lang;
 		  $stateParams.lang = lang;
 		  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
 		};
@@ -64,8 +66,7 @@
 		};
 	}]);
   app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
-	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
+	$scope.Model = {};
 	var curList = getContent.getNodes({"type":"event"});
 	curList.then(
 			  function(res){ var tags = [];
@@ -85,6 +86,7 @@
 			);
   }]);
   app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
+	$scope.Model = {};
 	var curList = getContent.getNodes({"nid": $stateParams.nID});
 	curList.then(
 		function(res){ var tags = [];
@@ -104,14 +106,7 @@
 	);
   }]);
   app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
-	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
-	
-	if(typeof($rootScope.uiview) == 'undefined'){
-	  $rootScope.uiview = {};
-	  $rootScope.uiview.list = true;
-	  $rootScope.uiview.grid = false;
-	}
+	$scope.Model = {};
 	var curList = getContent.getTerms({"vid":"5","tags":"207"});
 	curList.then(
 		function(res){ var tags = [];
@@ -132,15 +127,7 @@
 	);
   }]);
   app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
-	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
-	
-	if(typeof($rootScope.uiview) == 'undefined'){
-	  $rootScope.uiview = {};
-	  $rootScope.uiview.list = true;
-	  $rootScope.uiview.grid = false;
-	}
-
+	$scope.Model = {};
 	var curList = getContent.getNodes({'type':'biblio'});
 	curList.then(
 		function(res){ var tags = [];
@@ -160,15 +147,7 @@
 	  );
   }]);
   app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
-	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
-	
-	if(typeof($rootScope.uiview) == 'undefined'){
-	  $rootScope.uiview = {};
-	  $rootScope.uiview.list = true;
-	  $rootScope.uiview.grid = false;
-	}
-
+	$scope.Model = {};
 	var curList = getContent.getNodes({'type':'project'});
 	curList.then(
 		function(res){ var tags = [];
@@ -188,9 +167,7 @@
 	);
   }]);
   app.controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
-	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
-	
+	$scope.Model = {};
 	var curList = getContent.getNodes({'nid':'165'});
 	curList.then(
 		function(res){ var tags = [];

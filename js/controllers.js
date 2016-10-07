@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	var app = angular.module('acdh');
-	app.controller('startCtrl',['$scope','$http', '$state', 'startList', '$stateParams','getContent',  function($scope, $http, $state, startList, $stateParams, getContent){
+	app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
 		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
 			var navLang = window.navigator.language.split("-")[0];
 			if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
@@ -27,7 +27,7 @@
 			function(err){ console.log('err startCtrl: ', err); }
 		  );
 	}]);
-	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams','getContent', function($rootScope, $scope, $http, $state, getList, $stateParams, getContent){
+	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
 		getContent.updateLanguage($stateParams.lang);
 		var curList = getContent.getNodes({"field_tags":"214"});
@@ -63,7 +63,7 @@
 		  $rootScope.uiview.grid = true;
 		};
 	}]);
-  app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, getList, $stateParams, getContent){
+  app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
 	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
 	var curList = getContent.getNodes({"type":"event"});
@@ -84,7 +84,7 @@
 			  function(err){ console.log('err newsevents: ', err); }
 			);
   }]);
-  app.controller('singleCtrl',['$scope','$http', '$state', 'getSingle', '$stateParams','getContent',  function($scope, $http, $state, getSingle, $stateParams, getContent){
+  app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
 	var curList = getContent.getNodes({"nid": $stateParams.nID});
 	curList.then(
 		function(res){ var tags = [];
@@ -103,7 +103,7 @@
 		function(err){ console.log('err singleEvent: ', err); }
 	);
   }]);
-  app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, getList, $stateParams, getContent){
+  app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
 	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
 	
@@ -122,7 +122,7 @@
 		function(err){ console.log('err partnerCtrl: ', err); }
 	  );
   }]);
-  app.controller('singlePaCtrl',['$scope','$http', '$state', 'getSingle', '$stateParams','getContent',  function($scope, $http, $state, getSingle, $stateParams, getContent){
+  app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
 	var curList = getContent.getTerms({"tid": $stateParams.nID});
 	curList.then(
 		function(res){
@@ -131,7 +131,7 @@
 		function(err){ console.log('err singlePaCtrl: ', err); }
 	);
   }]);
-  app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, getList, $stateParams, getContent){
+  app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
 	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
 	
@@ -159,7 +159,7 @@
 		function(err){ console.log('err knowmoreCtrl: ', err); }
 	  );
   }]);
-  app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, getList, $stateParams, getContent){
+  app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
 	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
 	
@@ -187,7 +187,7 @@
 		function(err){ console.log('err projectCtrl: ', err); }
 	);
   }]);
-  app.controller('contactCtrl',['$rootScope','$scope','$http', '$state', 'getList', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, getList, $stateParams, getContent){
+  app.controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	if(typeof($stateParams.lang) !== 'undefined'){$scope.curlang = $stateParams.lang;}
 	if(typeof($scope.Model) == 'undefined'){$scope.Model = {};}
 	

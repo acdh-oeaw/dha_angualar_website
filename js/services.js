@@ -1,42 +1,71 @@
 (function () {
   'use strict';
-  var app = angular.module('acdh');
-  var listURL = {
-			   'start':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?parameters[field_tags]=209',
-			  'navbar':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=dha_page&parameters[tags]=214',
-		  'newsevents':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=event',
-			'partners':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/taxterm?parameters[vid]=5&parameters[tags]=207&pagesize=all',
-			'knowmore':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=biblio',
-			'projects':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?pagesize=all&parameters[type]=project',
-			 'contact':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?parameters[nid]=165',
- 
-		  'single':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/nodes?&parameters[nid]=',
-		 'singlep':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/taxterm?&parameters[tid]=',
-		   'termsflat':'https://dhdev.eos.arz.oeaw.ac.at/__LANG__/api_0_1/get_termstree?vid=4&flat=1'
-  };
-  /* Services */
-  app.factory('startList',['$http', '$stateParams',function($http,$stateParams){
-	  return { list: function(){
-			  var defLang = 'en';
-			  if(typeof($stateParams.lang) !== 'undefined'){ ($stateParams.lang.toLowerCase() == 'de') ? (defLang = $stateParams.lang.toLowerCase()) : (defLang = 'en'); }
-			  return $http.get(listURL['start'].replace('__LANG__', defLang)).then(function(res){return res;});
+/////////// refactoring above as a service 
+/////////// to be moved to separate file
+var Config = {
+    "baseURL":"https://dhdev.eos.arz.oeaw.ac.at",
+    "pagesize": "all", //limiting pagesize currently does not work properly d/t bug with unpublished nodes
+    "currentView":"list",
+    "localStorage":"DHAStorage",
+    "language":"en", // default english, set to browser language if either de or en
+    "version":"0.1" 
+}
+
+var D7_API_Services = angular.module('D7_API_Services', []);
+
+D7_API_Services.service('getContent', ['$http' ,function($http){
+	var pagesize = Config.pagesize;
+	var language = Config.language;
+	//////////Parameter Parsers///////////////////////////////
+		var parseFields = function(fields){
+			var fieldstring = "";
+			if(fields !== null && typeof fields === 'object') {
+				for(var key in fields) {
+					if(fieldstring !== "") fieldstring += "&";
+					fieldstring += "parameters["+key+"]="+fields[key];
+				}
 			}
-	  };
-  }]);
-  app.factory('getList',['$http', '$stateParams',function($http,$stateParams){
-	  return { list: function(curState){ console.log('curState:', curState); console.log('$stateParams.lang:', $stateParams.lang);
-			  var defLang = 'en';
-			  if(typeof($stateParams.lang) !== 'undefined'){ ($stateParams.lang.toLowerCase() == 'de') ? (defLang = $stateParams.lang.toLowerCase()) : (defLang = 'en'); }
-			  return $http.get(listURL[curState].replace('__LANG__', defLang)).then(function(res){return res;});
+			return fieldstring;
+		}
+		var parseLimit = function(limit,page){
+			var limitstring = "";
+			if (!limit) var limit = this.pagesize; 
+			limitstring = "&pagesize="+limit;
+			return limitstring;
+		}
+		var parseVersion = function(){
+			return "api_"+Config.version.replace(".","_");
+		}
+	//////////Callable retrieval functions///////////////////////////////
+		var getNodes = function(fields, pagesize){console.log('getNodes: ', fields, pagesize);
+			if(!pagesize) var pagesize = this.pagesize;
+			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/nodes?"+this.parseFields(fields)+this.parseLimit(pagesize));
+		}
+		var getTerms = function(fields, pagesize){console.log('getTerms: ', fields, pagesize);
+			if(!pagesize) var pagesize = this.pagesize;
+			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/taxterm?"+this.parseFields(fields)+this.parseLimit(pagesize));
+		}
+	//////////// Parameter getters / setters ///////////////////////////////
+		var updateLanguage = function(language){console.log('updateLanguage: ', language);
+			if(language == "en" || "de") {
+				Config.language = language;
+				this.language = Config.language;
+				//there needs to go more here, history clearing, refetching content? 
 			}
-	  };
-  }]);
-  app.factory('getSingle',['$http', '$stateParams',function($http,$stateParams){
-	  return { one: function(curState,id){ console.log('curState:', curState);
-			  var defLang = 'en';
-			  if(typeof($stateParams.lang) !== 'undefined'){ ($stateParams.lang.toLowerCase() == 'de') ? (defLang = $stateParams.lang.toLowerCase()) : (defLang = 'en'); }
-			  return $http.get((listURL[curState].replace('__LANG__', defLang)) + id).then(function(res){return res;});
-			}
-	  };
-  }]);
+			else console.log("No comprendo ",language);
+		}
+	///////////////// return Object //////////////////////////////////////////
+	return {
+		parseFields: parseFields,
+		parseLimit: parseLimit,
+		parseVersion: parseVersion,
+	  	getNodes: getNodes,
+	  	getTerms: getTerms,
+	  	updateLanguage: updateLanguage,
+	  	pagesize: pagesize,
+		language: language
+  	};
+}]);
+
+
 })();

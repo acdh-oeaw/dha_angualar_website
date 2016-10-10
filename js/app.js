@@ -1,29 +1,43 @@
 (function () {
   'use strict';
-  var app = angular.module('acdh', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services']);
+  var app = angular.module('DHA_webapp', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services']);
   app.config(config);
   app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
   function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
-	  $urlRouterProvider.otherwise('/');
-	  $stateProvider
-	  .state('start',{
-		  url: '/:lang',
-		  views: {
-            'content': {
-                templateUrl: 'js/views/start.html',
-                controller: 'startCtrl'
-            }
-          }
-		})
-	  .state('dha',{
-		  url: '/:lang/dha',
-		  views: {
-            'navbar': {
-                templateUrl: 'js/views/navbar.html',
-                controller: 'dhaNavCtrl'
-            }
-        }
-	  })
+	$urlRouterProvider.otherwise('/');
+	$stateProvider
+	.state('start',{
+		url: '/:lang',
+		views: {
+			'content': {
+			    templateUrl: 'js/views/start.html',
+			    controller: 'startCtrl'
+			}
+		},
+		redirectTo: (trans) => {
+    		if (trans.params().lang !== "de" && trans.params().lang !== "en"){
+    			var navLang = window.navigator.language.split("-")[0];
+    			if(navLang == "de" || "en") return { state: 'start', params: { lang:  navLang} };
+    			else return { state: 'start', params: { lang:  Config.language} };
+    		}
+		}
+	})
+	.state('dha',{
+		url: '/:lang/dha',
+		views: {
+			'navbar': {
+			    templateUrl: 'js/views/navbar.html',
+			    controller: 'dhaNavCtrl'
+			}
+        },
+        redirectTo: (trans) => {
+    		if (trans.params().lang !== "de" && trans.params().lang !== "en"){
+    			var navLang = window.navigator.language.split("-")[0];
+    			if(navLang == "de" || "en") return { state: $state.current, params: { lang:  navLang} };
+    			else return { state: $state.current, params: { lang:  Config.language} };
+    		}
+		}
+	})
 	  .state('dha.newsevents',{
 		  url: '/newsevents',
 		  views: {

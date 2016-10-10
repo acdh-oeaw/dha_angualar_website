@@ -1,11 +1,11 @@
 (function () {
 	'use strict';
-	var app = angular.module('acdh');
+	var app = angular.module('DHA_webapp');
 	app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
 		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
 			var navLang = window.navigator.language.split("-")[0];
 			if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
-			else $state.go($state.current, {"lang" : "en"});
+			else $state.go($state.current, {"lang" : Config.language});
 		}
 		$scope.Model = {};
 		getContent.updateLanguage($stateParams.lang);
@@ -29,6 +29,11 @@
 		  );
 	}]);
 	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', function($rootScope, $scope, $http, $state, $stateParams, getContent){
+		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
+			var navLang = window.navigator.language.split("-")[0];
+			if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
+			else $state.go($state.current, {"lang" : "en"});
+		}
 		$scope.Model = {};
 		getContent.updateLanguage($stateParams.lang);
 		$scope.Model.language = getContent.language;

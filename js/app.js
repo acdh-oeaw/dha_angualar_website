@@ -13,13 +13,6 @@
 			    templateUrl: 'js/views/start.html',
 			    controller: 'startCtrl'
 			}
-		},
-		redirectTo: (trans) => {
-    		if (trans.params().lang !== "de" && trans.params().lang !== "en"){
-    			var navLang = window.navigator.language.split("-")[0];
-    			if(navLang == "de" || "en") return { state: 'start', params: { lang:  navLang} };
-    			else return { state: 'start', params: { lang:  Config.language} };
-    		}
 		}
 	})
 	.state('dha',{
@@ -29,14 +22,7 @@
 			    templateUrl: 'js/views/navbar.html',
 			    controller: 'dhaNavCtrl'
 			}
-        },
-        redirectTo: (trans) => {
-    		if (trans.params().lang !== "de" && trans.params().lang !== "en"){
-    			var navLang = window.navigator.language.split("-")[0];
-    			if(navLang == "de" || "en") return { state: $state.current, params: { lang:  navLang} };
-    			else return { state: $state.current, params: { lang:  Config.language} };
-    		}
-		}
+        }
 	})
 	  .state('dha.newsevents',{
 		  url: '/newsevents',

@@ -40,24 +40,11 @@ h4 {
     font-size: 1pc!important
 }
 
-
-
-/******** navigation elements *********/
-.navbar{
-
+body {
+  overflow: hidden;
 }
 
-.sidenav {
 
-}
-
-md-icon.sidenav {
-  margin: 0px;
-}
-
-md-icon.caption {
-  
-}
 
 /******** layout elements - splashpage *********/
 .splashtile {
@@ -151,13 +138,49 @@ md-icon.caption {
   transition: all 200ms ease-out; 
 }
 
+
+/******** navigation elements *********/
+.navicon {
+  color: #ffffff!important;
+  font-size: 30px;
+  line-height: 20px;
+  margin-right: 30px;
+  bottom: 0px;
+  cursor: pointer;
+}
+
+.sidenav {
+
+}
+
+md-icon.sidenav {
+  margin: 0px;
+}
+
+md-icon.caption {
+  
+}
+
 /******** Containers *********/
+#wrapper {
+  position: absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+}
+
 .contentcontainer {
   width: calc(100% - 30px);
   max-width: 1400px;
   margin: 0 auto;  
 }
 
+.navcontainer{
+  background-color: rgb(239, 108, 0);
+  padding: 5px;
+  height: 70px;
+}
 .actioncontainer {
   margin-bottom: 10px;
 }
@@ -175,9 +198,6 @@ md-icon.caption {
 @media (max-width: 912px) {
     .contentcontainer {
         max-width: 700px;
-    }
-    .navbar {
-        display: none;
     }
 }
 @media (max-width: 692px) {

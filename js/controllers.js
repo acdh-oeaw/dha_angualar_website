@@ -16,11 +16,7 @@
 			  for(var i=0; i<res.data.length; i++){
 				if( res.data[i].hasOwnProperty('schema:url') ){
 					res.data[i]['ctrl'] = res.data[i]['schema:url'].split('/')[res.data[i]['schema:url'].split('/').length-1];
-					console.log(res.data[i]['ctrl']);
-					res.data[i]['schema:description'] = res.data[i]['schema:description'];
-					res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '');
-					res.data[i]['schema:description'] = res.data[i]['schema:description'].substring(0,31);
-					res.data[i]['schema:description'] = res.data[i]['schema:description'] + '...';
+					res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '').substring(0,120) + '...';
 				}
 			  }
 			  $scope.Model['start'] = res.data;
@@ -32,9 +28,10 @@
 		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
 			var navLang = window.navigator.language.split("-")[0];
 			if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
-			else $state.go($state.current, {"lang" : "en"});
+			else $state.go($state.current, {"lang" : Config.language});
 		}
 		$scope.Model = {};
+		$scope.state = $state;
 		getContent.updateLanguage($stateParams.lang);
 		$scope.Model.language = getContent.language;
 		var curList = getContent.getNodes({"field_tags":"214"});
@@ -49,18 +46,18 @@
 		  },
 		  function(err){ console.log('err navbar-LISTCTRL: ', err); }
 		);
+		///////// I18n-Switch  //////////////////////
 		$rootScope.toggleLang = function(lang){
 		  $scope.Model.language = lang;
 		  $stateParams.lang = lang;
 		  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
 		};
-
+		///////// UI-Switch init ////////////////////
 		if(typeof($rootScope.uiview) == 'undefined'){
 		  $rootScope.uiview = {};
 		  $rootScope.uiview.list = true;
 		  $rootScope.uiview.grid = false;
 		}
-
 		$rootScope.onList = function(){
 		  $rootScope.uiview.list = true;
 		  $rootScope.uiview.grid = false;
@@ -70,41 +67,25 @@
 		  $rootScope.uiview.grid = true;
 		};
 	}]);
-  app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	$scope.Model = {};
-	var curList = getContent.getNodes({"type":"event"});
-	curList.then(
-			  function(res){ var tags = [];
+	app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
+		$scope.Model = {};
+		var curList = getContent.getNodes({"type":"event"});
+		curList.then(
+			function(res){ 
 				for(var i=0; i<res.data.length; i++){
-				  if( res.data[i].hasOwnProperty('schema:keywords') ){
-					tags = res.data[i]['schema:keywords'];
-					res.data[i]['schema:tags'] = [];
-					res.data[i]['schema:keywords'] = [];
-					for(var k=0; k<tags.length; k++){
-					  res.data[i]['schema:tags'].push(tags[k]['name']);
+					if( res.data[i].hasOwnProperty('schema:keywords') ){
 					}
-				  }
 				}
+				console.log(res.data);
 				$scope.Model['newsevents'] = res.data;
-			  },
-			  function(err){ console.log('err newsevents: ', err); }
-			);
-  }]);
+			},
+			function(err){ console.log('err newsevents: ', err); }
+		);
+	}]);
   app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
-	$scope.Model = {};
 	var curList = getContent.getNodes({"nid": $stateParams.nID});
 	curList.then(
-		function(res){ var tags = [];
-		  for(var i=0; i<res.data.length; i++){
-			if( res.data[i].hasOwnProperty('schema:keywords') ){
-			  tags = res.data[i]['schema:keywords'];
-			  res.data[i]['schema:tags'] = [];
-			  res.data[i]['schema:keywords'] = [];
-			  for(var k=0; k<tags.length; k++){
-				res.data[i]['schema:tags'].push(tags[k]['name']);
-			  }
-			}
-		  }
+		function(res){
 		  $scope.mySingle = res.data;
 		},
 		function(err){ console.log('err singleEvent: ', err); }
@@ -115,8 +96,6 @@
 	var curList = getContent.getTerms({"vid":"5","tags":"207"});
 	curList.then(
 		function(res){ var tags = [];
-		  for(var i=0; i<res.data.length; i++){
-		  }
 		  $scope.Model['partners'] = res.data;
 		},
 		function(err){ console.log('err partnerCtrl: ', err); }
@@ -134,18 +113,7 @@
   app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	var curList = getContent.getNodes({'type':'biblio'});
-	curList.then(
-		function(res){ var tags = [];
-		  for(var i=0; i<res.data.length; i++){
-			if( res.data[i].hasOwnProperty('schema:keywords') ){
-			  tags = res.data[i]['schema:keywords'];
-			  res.data[i]['schema:tags'] = [];
-			  res.data[i]['schema:keywords'] = [];
-			  for(var k=0; k<tags.length; k++){
-				res.data[i]['schema:tags'].push(tags[k]['name']);
-			  }
-			}
-		  }
+	curList.then(function(res){ 
 		  $scope.Model['knowmore'] = res.data;
 		},
 		function(err){ console.log('err knowmoreCtrl: ', err); }
@@ -155,17 +123,7 @@
 	$scope.Model = {};
 	var curList = getContent.getNodes({'type':'project'});
 	curList.then(
-		function(res){ var tags = [];
-		  for(var i=0; i<res.data.length; i++){
-			if( res.data[i].hasOwnProperty('schema:keywords') ){
-			  tags = res.data[i]['schema:keywords'];
-			  res.data[i]['schema:tags'] = [];
-			  res.data[i]['schema:keywords'] = [];
-			  for(var k=0; k<tags.length; k++){
-				res.data[i]['schema:tags'].push(tags[k]['name']);
-			  }
-			}
-		  }
+		function(res){
 		  $scope.Model['projects'] = res.data;
 		},
 		function(err){ console.log('err projectCtrl: ', err); }
@@ -174,18 +132,7 @@
   app.controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	var curList = getContent.getNodes({'nid':'165'});
-	curList.then(
-		function(res){ var tags = [];
-		  for(var i=0; i<res.data.length; i++){
-			if( res.data[i].hasOwnProperty('schema:keywords') ){
-			  tags = res.data[i]['schema:keywords'];
-			  res.data[i]['schema:tags'] = [];
-			  res.data[i]['schema:keywords'] = [];
-			  for(var k=0; k<tags.length; k++){
-				res.data[i]['schema:tags'].push(tags[k]['name']);
-			  }
-			}
-		  }
+	curList.then(function(res){ 
 		  $scope.Model['contact'] = res.data;
 		},
 		function(err){ console.log('err contactCtrl: ', err); }

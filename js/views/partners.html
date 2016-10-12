@@ -1,25 +1,42 @@
-		  <md-content ng-if="uiview.list">
-			<md-card layout="row" ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" class="md-3-line md-ink-ripple md-raised" ng-repeat="pa in Model.partners" flex>
-					<div flex="10"><img height="auto" width="auto" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" /></div>
-					<div flex="5"></div>
-					<div flex="70" layout-align="start center">
-					  <h3 md-colors="{color: 'primary-700'}">{{pa['schema:legalName']}} </h3>
+<div class="contentcontainer">	
+	<div class="actioncontainer" layout="row" layout-align="end none">
+	    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
+	      <md-icon style="color: #EF6C00" aria-label="view as list">view_headline</md-icon>
+	    </md-button>
+	    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
+	      <md-icon style="color: #EF6C00" aria-label="view as tiles">view_module</md-icon>
+	    </md-button>
+  	</div>
+	<div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
+		<div layout="row" layout-align="start start">
+		  <md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
+		  <h4>{{me['schema:headline']}}</h4>
+		</div>
+		<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
+	</div>
+	<md-content ng-if="uiview.list">
+		<md-card layout="row" ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" class="md-3-line md-ink-ripple md-raised" ng-repeat="pa in Model.partners" flex>
+				<div flex="10"><img height="auto" width="auto" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" /></div>
+				<div flex="5"></div>
+				<div flex="70" layout-align="start center">
+				  <h3 md-colors="{color: 'primary-700'}">{{pa['schema:legalName']}} </h3>
 
-					</div>
-					<div flex="15" layout-align="center center"><i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{pa['schema:tags'].join(', ') || 'No Tags'}}</div>
-			</md-card>
-		</md-content>    
-		<md-content ng-if="uiview.grid">
-				<div class='md-padding' layout="row" layout-wrap>
-				  <md-card ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" style="width:275px;" ng-repeat="pa in Model.partners">
-					<md-card-content>
-					<img height="55px" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" alt="{{pa['schema:legalName']}}" />
-					  <h4 md-colors="{color: 'primary-500'}">{{pa['schema:legalName']}}</h4>
-
-					</md-card-content>
-					<md-card-footer layout='row' layout-align="end center">
-					  <i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{pa['schema:tags'].join(', ') || 'No Tags'}}
-					</md-card-footer>
-				  </md-card>
 				</div>
-		</md-content>
+				<div flex="15" layout-align="center center"><i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{pa['schema:tags'].join(', ') || 'No Tags'}}</div>
+		</md-card>
+	</md-content>    
+	<md-content ng-if="uiview.grid">
+			<div class='md-padding' layout="row" layout-wrap>
+			  <md-card ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" style="width:275px;" ng-repeat="pa in Model.partners">
+				<md-card-content>
+				<img height="55px" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" alt="{{pa['schema:legalName']}}" />
+				  <h4 md-colors="{color: 'primary-500'}">{{pa['schema:legalName']}}</h4>
+
+				</md-card-content>
+				<md-card-footer layout='row' layout-align="end center">
+				  <i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{pa['schema:tags'].join(', ') || 'No Tags'}}</span>
+				</md-card-footer>
+			  </md-card>
+			</div>
+	</md-content>
+</div>

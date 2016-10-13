@@ -31,7 +31,6 @@
 			else $state.go($state.current, {"lang" : Config.language});
 		}
 		$scope.Model = {};
-		$scope.state = $state;
 		getContent.updateLanguage($stateParams.lang);
 		$scope.Model.language = getContent.language;
 		var curList = getContent.getNodes({"field_tags":"214"});
@@ -79,6 +78,8 @@
 				}
 				console.log(res.data);
 				$scope.Model['newsevents'] = res.data;
+				$scope.Model.navbar = $rootScope.captions;
+				$scope.state = $state;
 			},
 			function(err){ console.log('err newsevents: ', err); }
 		);
@@ -98,6 +99,9 @@
 	curList.then(
 		function(res){ var tags = [];
 		  $scope.Model['partners'] = res.data;
+		$scope.Model['knowmore'] = res.data;
+		$scope.Model.navbar = $rootScope.captions;
+		$scope.state = $state;
 		},
 		function(err){ console.log('err partnerCtrl: ', err); }
 	  );
@@ -115,7 +119,9 @@
 	$scope.Model = {};
 	var curList = getContent.getNodes({'type':'biblio'});
 	curList.then(function(res){ 
-		  $scope.Model['knowmore'] = res.data;
+		$scope.Model['knowmore'] = res.data;
+		$scope.Model.navbar = $rootScope.captions;
+		$scope.state = $state;
 		},
 		function(err){ console.log('err knowmoreCtrl: ', err); }
 	  );
@@ -126,6 +132,9 @@
 	curList.then(
 		function(res){
 		  $scope.Model['projects'] = res.data;
+		$scope.Model['knowmore'] = res.data;
+		$scope.Model.navbar = $rootScope.captions;
+		$scope.state = $state;
 		},
 		function(err){ console.log('err projectCtrl: ', err); }
 	);
@@ -135,6 +144,9 @@
 	var curList = getContent.getNodes({'nid':'165'});
 	curList.then(function(res){ 
 		  $scope.Model['contact'] = res.data;
+		$scope.Model['knowmore'] = res.data;
+		$scope.Model.navbar = $rootScope.captions;
+		$scope.state = $state;
 		},
 		function(err){ console.log('err contactCtrl: ', err); }
 	);

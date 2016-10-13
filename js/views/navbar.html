@@ -1,14 +1,29 @@
 <div class="navcontainer" layout="column" layout-align="end stretch" ng-cloak>
 		<div layout="row" layout-align="space-between end">
 			<a ui-sref="start">iconofied logo</a>
-			<div layout="row" layout-align="center end">
-			<md-button class="md-icon-button" ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
-					<md-icon  class="navicon" aria-label="{{me['schema:headline']}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-					<md-tooltip md-direction="bottom">
-			        	{{me["schema:headline"]}}
-			        </md-tooltip>
-			</md-button>
+			<div layout="row" layout-align="center end" class="topnav">
+				<md-button class="md-icon-button" ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
+						<md-icon  class="navicon" aria-label="{{me['schema:headline']}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+						<md-tooltip md-direction="bottom">
+				        	{{me["schema:headline"]}}
+				        </md-tooltip>
+				</md-button>
 			</div>
+		    <md-menu md-position-mode="target-right target" class="sidenav">
+		      <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+		        <md-icon class="navicon " aria-label="menu">menu</md-icon>
+		      </md-button>
+		      <md-menu-content width="4" >
+		        <md-menu-item ng-repeat="me in Model.navbar">
+		          <md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })">
+		              <div layout="row" flex>
+		                <p flex>{{me['schema:headline']}}</p>
+		                <md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+		              </div>
+		          </md-button>
+		        </md-menu-item>
+		      </md-menu-content>
+		    </md-menu>
 			<md-menu>
 				<md-button class="md-icon-button md-raised" ng-click="$mdOpenMenu($event)" type="button" aria-label="English" >
 					<md-icon md-colors="{color: 'primary-800'}">language</md-icon>
@@ -28,19 +43,4 @@
 				</md-menu-content>
 			</md-menu>
 		</div>
-    <md-menu md-position-mode="target-right target" class="sidenav">
-      <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-        <md-icon class="navicon " aria-label="menu">menu</md-icon>
-      </md-button>
-      <md-menu-content width="4" >
-        <md-menu-item ng-repeat="me in Model.navbar">
-          <md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })">
-              <div layout="row" flex>
-                <p flex>{{me['schema:headline']}}</p>
-                <md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-              </div>
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
 </div>

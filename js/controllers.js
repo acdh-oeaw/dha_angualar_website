@@ -43,10 +43,11 @@
 			  }
 			}
 			$scope.Model['navbar'] = res.data;
+			$rootScope.captions = res.data;
 		  },
 		  function(err){ console.log('err navbar-LISTCTRL: ', err); }
 		);
-		///////// I18n-Switch  //////////////////////
+		///////// I18n-Switch init  //////////////////////
 		$rootScope.toggleLang = function(lang){
 		  $scope.Model.language = lang;
 		  $stateParams.lang = lang;

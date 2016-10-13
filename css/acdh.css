@@ -150,7 +150,8 @@ body {
 }
 
 .sidenav {
-
+  padding: 0px!important;
+  width: 40px!important;
 }
 
 md-icon.sidenav {
@@ -179,7 +180,7 @@ md-icon.caption {
 .navcontainer{
   background-color: rgb(239, 108, 0);
   padding: 5px;
-  height: 70px;
+  height: 55px;
 }
 .actioncontainer {
   margin-bottom: 10px;
@@ -191,9 +192,7 @@ md-icon.caption {
     }
 }
 @media (min-width: 912px) {
-    .sidenav {
-        display: none;
-    }
+
 }
 @media (max-width: 912px) {
     .contentcontainer {
@@ -209,5 +208,10 @@ md-icon.caption {
     }
     .desctext {
       display: none;
+    }
+}
+@media (min-width: 692px){
+    .sidenav {
+        display: none;
     }
 }

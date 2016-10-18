@@ -1,12 +1,4 @@
 <div class="contentcontainer" layout="column">
-	<div class="actioncontainer" layout="row" layout-align="end none">
-		<md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
-		  <md-icon style="color: #EF6C00" aria-label="view_headline">view_headline</md-icon>
-		</md-button>
-		<md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
-		  <md-icon style="color: #EF6C00" aria-label="view_module">view_module</md-icon>
-		</md-button>
-	</div>
 	<div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
 		<div layout="row" layout-align="start start">
 			<md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
@@ -14,19 +6,67 @@
 		</div>
 		<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
 	</div>
-	<md-content ng-if="uiview.list">
-		<md-card layout="row" ui-sref="dha.s-news({nID:'{{ev['schema:name']}}',lang:'{{curlang}}'})" class="md-3-line md-ink-ripple md-raised" ng-repeat="ev in Model.newsevents" flex>
-				<div flex="10"><img height="auto" width="auto" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" /></div>
-				<div flex="5"></div>
-				<div flex="70" layout-align="start center">
-				  <h3 md-colors="{color: 'primary-700'}">{{ev['schema:headline']}} </h3>
-				  <p>{{ev['schema:description']}}</p>
-				</div>
-				<div flex="15" layout-align="center center" >
-					<i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> 
-					<span style="text-transform:capitalize;font-size:11px;font-style:italic;" ng-repeat="tag in ev['schema:keywords']">{{tag.name}}, </span>
-				</div>
-		</md-card>
+	<md-content ng-if="uiview.list" >
+		<div layout="row">
+			<md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="ev in Model.newsevents | futureEvents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+		    	<img class="md-card-image" style="height: 200px!important;" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+		      <md-card-actions >
+		        <md-card-icon-actions layout="row" layout-align="end end">
+		          <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})">
+		            <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
+		          </md-button>
+		          <md-button class="md-icon-button md-raised" aria-label="Favorite" href="{{ev['schema:url'] || '\:\)'}}" target="_blank">
+		            <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
+		          </md-button>
+		          <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})">
+		            <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
+		          </md-button>
+		        </md-card-icon-actions>
+		      </md-card-actions>
+		    	<md-card-title>
+		        <md-card-title-text>
+		          <span class="md-headline" style="color: #EF6C00"><h3>{{ev['schema:headline']}}</h3></span>
+		          <span class="md-subhead">{{ev['schema:description']}}</span>
+		        </md-card-title-text>
+		      </md-card-title>
+		    </md-card>  
+	    </div>
+		<div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
+			<div layout="row" layout-align="start start">
+				<md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
+				<h4>{{me['schema:headline']}}</h4>
+			</div>
+			<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
+		</div>
+		<md-table-container>
+		  <table md-table ng-model="selected" md-progress="curList">
+		    <thead md-head md-on-reorder="getNewOrder">
+		      <tr md-row>
+		      	<th md-column><span></span></th>
+		        <th md-column md-order-by="headline"><span>Title</span></th>
+		        <th md-column md-order-by="displayDate"><span>Date</span></th>
+		        <th md-column ><span>Description</span></th>
+		        <th md-column ><span>Institution</span></th>
+		      </tr>
+		    </thead>
+		    <tbody md-body>
+		      <tr md-row 
+		      		md-select="ev" 
+		      		md-select-id="{{ev['schema:name'].replace('dha:','')}}" 
+		      		ng-repeat="ev in Model.newsevents | pastEvents | orderBy:sortfield:reverse"
+		      		ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})"
+		      		class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
+				<td md-cell>
+					<img class="tableicon" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+				</td>
+		        <td md-cell>{{ev['schema:headline']}}</td>
+		        <td md-cell>{{ev['displayDate'] | date:'short'}}</td>
+		        <td md-cell>{{ev['schema:description']}}</td>
+		        <td md-cell>{{ev['schema:organizer']}} / {{ev['schema:location']}}</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</md-table-container>
 	</md-content>
 	<md-content ng-if="uiview.grid">
 			<div class='md-padding' layout="row" layout-wrap>
@@ -42,3 +82,4 @@
 			  </md-card>
 			</div>
 	</md-content>
+</div>

@@ -40,9 +40,7 @@ h4 {
     font-size: 1pc!important
 }
 
-body {
-  overflow: hidden;
-}
+
 
 
 
@@ -77,6 +75,13 @@ body {
 
 .projectline {
   padding: 0px;
+}
+
+/******** layout elements - news page ***********/
+.tableicon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 /******** spinentry animation class - to be replaced by ngAnimate + transitions? *********/
@@ -118,6 +123,44 @@ body {
     to   { transform: rotateY(0deg);}
 }
 
+/******** vertical spinentry animation class - to be replaced by ngAnimate + transitions? *********/
+.vspinentry{
+  -webkit-animation: vspinentry 0.4s forwards; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: vspinentry 0.4s forwards; /* Firefox < 16 */
+  -ms-animation: vspinentry 0.4s forwards; /* Internet Explorer */
+  -o-animation: vspinentry 0.4s forwards; /* Opera < 12.1 */
+  animation: vspinentry 0.4s forwards;
+  transform: rotateX(90deg); /* setting initial value to animation startpoint - FF bugfix */
+}
+
+@keyframes vspinentry {
+    from { transform: rotateX(90deg); }
+    to   { transform: rotateX(0deg);}
+}
+
+/* Firefox < 16 */
+@-moz-keyframes vspinentry {
+    from { transform: rotateX(90deg);}
+    to   { transform: rotateX(0deg);}
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes vspinentry {
+    from { transform: rotateX(90deg);}
+    to   { transform: rotateX(0deg);}
+}
+
+/* Internet Explorer */
+@-ms-keyframes vspinentry {
+    from { transform: rotateX(90deg);}
+    to   { transform: rotateX(0deg);}
+}
+
+/* Opera < 12.1 */
+@-o-keyframes vspinentry {
+    from { transform: rotateX(90deg);}
+    to   { transform: rotateX(0deg);}
+}
 
 /******** layout elements - knowmore page *********/
  md-grid-list {
@@ -142,11 +185,6 @@ body {
 /******** navigation elements *********/
 .navicon {
   color: #ffffff!important;
-  font-size: 30px;
-  line-height: 20px;
-  margin-right: 30px;
-  bottom: 0px;
-  cursor: pointer;
 }
 
 .sidenav {
@@ -156,6 +194,32 @@ body {
 
 md-icon.sidenav {
   margin: 0px;
+}
+
+.viewmenu {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  z-index: 100;
+}
+
+.languagemenu {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
+}
+
+.navmenu {
+  position: fixed;
+  width: 100%;
+  top: 5px;
+  left: 5px;
+  z-index: 100;
+}
+
+_md-fab-toolbar-background {
+  background-color: #EF6C00!important;
 }
 
 md-icon.caption {
@@ -172,19 +236,9 @@ md-icon.caption {
 }
 
 .contentcontainer {
-  width: calc(100% - 30px);
+  width: calc(100% - 150px);
   max-width: 1400px;
   margin: 0 auto;  
-}
-
-.navcontainer{
-  background-color: rgb(239, 108, 0);
-  padding: 5px;
-  height: 55px;
-  box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 4px rgba(0,0,0,.28);
-}
-.actioncontainer {
-  margin-bottom: 10px;
 }
 
 @media (max-width: 1132px) {
@@ -209,6 +263,9 @@ md-icon.caption {
     }
     .topnav {
       display: none;
+    }
+    .contentcontainer{
+      width: calc(100% - 30px);
     }
 }
 @media (min-width: 692px){

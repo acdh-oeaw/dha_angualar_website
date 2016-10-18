@@ -34,6 +34,7 @@
 		getContent.updateLanguage($stateParams.lang);
 		$scope.Model.language = getContent.language;
 		var curList = getContent.getNodes({"field_tags":"214"});
+		$rootScope.captions = curList;
 		curList.then(
 		  function(res){
 			for(var i=0; i<res.data.length; i++){
@@ -42,7 +43,6 @@
 			  }
 			}
 			$scope.Model['navbar'] = res.data;
-			$rootScope.captions = res.data;
 		  },
 		  function(err){ console.log('err navbar-LISTCTRL: ', err); }
 		);
@@ -73,16 +73,30 @@
 		curList.then(
 			function(res){ 
 				for(var i=0; i<res.data.length; i++){
-					if( res.data[i].hasOwnProperty('schema:keywords') ){
+					if( res.data[i].hasOwnProperty('schema:startDate') ){
+						res.data[i]['displayDate'] = parseInt(res.data[i]['schema:startDate'])*1000;
+						res.data[i]['headline'] = parseInt(res.data[i]['schema:headline'])*1000;
 					}
 				}
 				console.log(res.data);
 				$scope.Model['newsevents'] = res.data;
-				$scope.Model.navbar = $rootScope.captions;
-				$scope.state = $state;
 			},
 			function(err){ console.log('err newsevents: ', err); }
 		);
+		$rootScope.captions.then(function(res){
+			$scope.state = $state;
+			$scope.Model.navbar = res.data;
+		});
+		//////////// data-Table-helpers //////////////////////////////////
+		$scope.sortfield = "displayDate";
+		$scope.reverse = true;
+		$scope.selected = [];		
+		$scope.getNewOrder = function(a) {
+			if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
+      		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
+			console.log(a);
+		}
+		/////////////////////////////////////////////////////////////////
 	}]);
   app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
 	var curList = getContent.getNodes({"nid": $stateParams.nID});
@@ -98,13 +112,15 @@
 	var curList = getContent.getTerms({"vid":"5","tags":"207"});
 	curList.then(
 		function(res){ var tags = [];
-		  $scope.Model['partners'] = res.data;
-		$scope.Model['knowmore'] = res.data;
-		$scope.Model.navbar = $rootScope.captions;
-		$scope.state = $state;
+	    	$scope.Model['partners'] = res.data;
 		},
 		function(err){ console.log('err partnerCtrl: ', err); }
-	  );
+	);
+	$rootScope.captions.then(function(res){
+		$scope.state = $state;
+		$scope.Model.navbar = res.data;
+	});
+
   }]);
   app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
 	var curList = getContent.getTerms({"tid": $stateParams.nID});
@@ -120,35 +136,50 @@
 	var curList = getContent.getNodes({'type':'biblio'});
 	curList.then(function(res){ 
 		$scope.Model['knowmore'] = res.data;
-		$scope.Model.navbar = $rootScope.captions;
-		$scope.state = $state;
 		},
 		function(err){ console.log('err knowmoreCtrl: ', err); }
-	  );
+	);
+	$rootScope.captions.then(function(res){
+		$scope.state = $state;
+		$scope.Model.navbar = res.data;
+	});
   }]);
   app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	var curList = getContent.getNodes({'type':'project'});
 	curList.then(
 		function(res){
-		  $scope.Model['projects'] = res.data;
-		$scope.Model['knowmore'] = res.data;
-		$scope.Model.navbar = $rootScope.captions;
-		$scope.state = $state;
+			for(var i=0; i<res.data.length; i++){
+				if( res.data[i].hasOwnProperty('schema:headline') ){
+					res.data[i]['headline'] = res.data[i]['schema:headline'];
+					res.data[i]['source'] = res.data[i]['schema:sourceOrganization'][0].name;
+				}
+			}
+			$scope.Model['projects'] = res.data;
+			
 		},
 		function(err){ console.log('err projectCtrl: ', err); }
 	);
+	$rootScope.captions.then(function(res){
+		$scope.state = $state;
+		$scope.Model.navbar = res.data;
+	});
+	//////////// data-Table-helpers //////////////////////////////////
+	$scope.sortfield = "headline";
+	$scope.reverse = false;
+	$scope.selected = [];		
+	$scope.getNewOrder = function(a) {
+		if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
+  		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
+		console.log(a);
+	}
+	/////////////////////////////////////////////////////////////////
   }]);
   app.controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
-	var curList = getContent.getNodes({'nid':'165'});
-	curList.then(function(res){ 
-		  $scope.Model['contact'] = res.data;
-		$scope.Model['knowmore'] = res.data;
-		$scope.Model.navbar = $rootScope.captions;
+	$rootScope.captions.then(function(res){
 		$scope.state = $state;
-		},
-		function(err){ console.log('err contactCtrl: ', err); }
-	);
+		$scope.Model.navbar = res.data;
+	});
   }]);
 })();

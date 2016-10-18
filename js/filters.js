@@ -6,44 +6,12 @@ var app = angular.module('DHA_webapp');
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
 
-app.filter('findContact', function() { // for contact's section
-  return function(items, field) {
+app.filter('currentCaption', function() { // for start page
+  return function(items, state) {
 		var result = [];
 		angular.forEach(items, function(value) {
-			if (value.hasOwnProperty('schema:headline') && value['schema:headline'] == 'Contact') {
-				result.push(value); console.log('findContact result: ',result);
-			}
-		});
-		return result;
-	};
-});
-app.filter('findPartner', function() { // for Partner's section
-  return function(items, field) {
-		var result = [];
-		angular.forEach(items, function(value) {
-			if (value.hasOwnProperty('schema:keywords') && value['schema:keywords'][0] == 'Partner') {
-				result.push(value);
-			}
-		});
-		return result;
-	};
-});
-app.filter('findMenu', function() { // for menu
-  return function(items, field) {
-		var result = [];
-		angular.forEach(items, function(value) {
-			if (value.hasOwnProperty('schema:keywords') && value['schema:keywords'].indexOf('_menu') != -1) {
-				result.push(value);
-			}
-		});
-		return result;
-	};
-});
-app.filter('startMenu', function() { // for start page
-  return function(items, field) {
-		var result = [];
-		angular.forEach(items, function(value) {
-			if (value.hasOwnProperty('schema:keywords') && value['schema:keywords'].indexOf('_start') != -1) {
+			var cstate = state.current.name.split(".");
+			if (value.hasOwnProperty('ctrl') && value['ctrl'] == cstate[cstate.length-1]) {
 				result.push(value);
 			}
 		});
@@ -51,13 +19,25 @@ app.filter('startMenu', function() { // for start page
 	};
 });
 
-app.filter('currentCaption', function() { // for start page
-  return function(items, state) {
-		console.log(items, state);
+app.filter('pastEvents', function() { // for start page
+  return function(items) {
+		var now = Date.now();
 		var result = [];
 		angular.forEach(items, function(value) {
-			var cstate = state.current.name.split(".");
-			if (value.hasOwnProperty('ctrl') && value['ctrl'] == cstate[cstate.length-1]) {
+			if (value.hasOwnProperty('displayDate') && value['displayDate'] < now) {
+				result.push(value);
+			}
+		});
+		return result;
+	};
+});
+
+app.filter('futureEvents', function() { // for start page
+  return function(items) {
+		var now = Date.now();
+		var result = [];
+		angular.forEach(items, function(value) {
+			if (value.hasOwnProperty('displayDate') && value['displayDate'] > now) {
 				result.push(value);
 			}
 		});

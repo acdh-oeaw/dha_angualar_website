@@ -1,12 +1,4 @@
 <div class="contentcontainer" layout="column">
-  <div class="actioncontainer" layout="row" layout-align="end none">
-    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onList()">
-      <md-icon style="color: #EF6C00" aria-label="view_headline">view_headline</md-icon>
-    </md-button>
-    <md-button class="md-icon-button md-raised" aria-label="Share" ng-click="onGrid()">
-      <md-icon style="color: #EF6C00" aria-label="view_module">view_module</md-icon>
-    </md-button>
-  </div>
   <div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
     <div layout="row" layout-align="start start">
       <md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
@@ -15,9 +7,36 @@
     <p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
   </div>
   <div ng-show="uiview.list">
+    <md-table-container>
+      <table md-table ng-model="selected" md-progress="curList">
+        <thead md-head md-on-reorder="getNewOrder">
+          <tr md-row>
+            <th md-column><span></span></th>
+            <th md-column md-order-by="headline"><span>Title</span></th>
+            <th md-column ><span>Description</span></th>
+            <th md-column md-order-by="source"><span>Institution</span></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row 
+              md-select="ev" 
+              md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
+              ng-repeat="pro in Model.projects | orderBy:sortfield:reverse"
+              ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
+              class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
+        <td md-cell>
+          <img class="tableicon" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+        </td>
+            <td md-cell>{{pro['schema:headline']}}</td>
+            <td md-cell>{{pro['schema:description']}}</td>
+            <td md-cell>{{pro["schema:sourceOrganization"]["0"].name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
     <md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
   	  <md-list flex>
-        <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+        <md-list-item class="vspinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/20 + 's'}">
             <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
             <div class="md-list-item-text" >
                   <h3 style="color: #EF6C00">{{pro['schema:headline']}}</h3>

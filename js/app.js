@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var app = angular.module('DHA_webapp', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services']);
+  var app = angular.module('DHA_webapp', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services','md.data.table']);
   app.config(config);
   app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
   function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
@@ -35,8 +35,12 @@
 	  })
 	  .state('dha.s-news',{
 		  url: '/s-news/:nID',
-		  templateUrl: 'js/views/s-news.html',
-		  controller: 'singleCtrl'
+		  views: {
+            'content@': {
+                templateUrl: 'js/views/s-news.html',
+                controller: 'singleCtrl'
+            }
+          }
 	  })
 	  .state('dha.partners',{
 		  url: '/partners',
@@ -102,7 +106,14 @@
           }				  
 	  });
 	  $mdThemingProvider.theme('default')
-	  .primaryPalette('orange')
-	  .accentPalette('deep-orange');
+	  .primaryPalette('orange', {
+      'default': '800',
+       'hue-1': '800', // use shade 100 for the <code>md-hue-1</code> class
+      'hue-2': '800', // use shade 600 for the <code>md-hue-2</code> class
+      'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class // by default use shade 400 from the pink palette for primary intentions
+      })
+	  .accentPalette('orange',{
+      'default': '800' // by default use shade 400 from the pink palette for primary intentions
+      });
   }
 })();

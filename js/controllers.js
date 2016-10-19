@@ -1,3 +1,17 @@
+viewconfig = {
+	"dha.newsevents":
+		[
+			{"key":"list","icon":"view_list"},
+			{"key":"tiles","icon":"view_comfy"},
+			{"key":"combined","icon":"view_quilt"}
+		],
+		"dha.projects":
+		[
+			{"key":"list","icon":"view_list"},
+			{"key":"tiles","icon":"view_comfy"},
+			{"key":"combined","icon":"view_quilt"}
+		],
+};
 (function () {
 	'use strict';
 	var app = angular.module('DHA_webapp');
@@ -54,31 +68,27 @@
 		};
 		///////// UI-Switch init ////////////////////
 		if(typeof($rootScope.uiview) == 'undefined'){
+		  $scope.Model.aviews = viewconfig[$state.current.name];
 		  $rootScope.uiview = {};
-		  $rootScope.uiview.list = true;
-		  $rootScope.uiview.grid = false;
 		}
-		$rootScope.onList = function(){
-		  $rootScope.uiview.list = true;
-		  $rootScope.uiview.grid = false;
-		};
-		$rootScope.onGrid = function(){
-		  $rootScope.uiview.list = false;
-		  $rootScope.uiview.grid = true;
+		$rootScope.swapView = function(a){
+			$rootScope.uiview.current = a;
+			console.log(a);
 		};
 	}]);
 	app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		$scope.Model = {};
+		$rootScope.uiview.current = "combined";
 		var curList = getContent.getNodes({"type":"event"});
 		curList.then(
 			function(res){ 
 				for(var i=0; i<res.data.length; i++){
 					if( res.data[i].hasOwnProperty('schema:startDate') ){
+						//post-processing - this needs to go to a filter imho...
 						res.data[i]['displayDate'] = parseInt(res.data[i]['schema:startDate'])*1000;
 						res.data[i]['headline'] = parseInt(res.data[i]['schema:headline'])*1000;
 					}
 				}
-				console.log(res.data);
 				$scope.Model['newsevents'] = res.data;
 			},
 			function(err){ console.log('err newsevents: ', err); }
@@ -94,7 +104,6 @@
 		$scope.getNewOrder = function(a) {
 			if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
       		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
-			console.log(a);
 		}
 		/////////////////////////////////////////////////////////////////
 	}]);
@@ -122,7 +131,19 @@
 	});
 
   }]);
-  app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
+  app.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
+  	$scope.mySingle = [];
+	$attrs.$observe('tid', function(val){
+		var curList = getContent.getTerms({"tid": $attrs.tid});
+		curList.then(
+			function(res){
+			  $scope.mySingle = res.data;
+			},
+			function(err){ console.log('err singlePaCtrl: ', err); }
+		);		
+	});
+  }]);
+  app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', function($scope, $http, $state, $stateParams, getContent){
 	var curList = getContent.getTerms({"tid": $stateParams.nID});
 	curList.then(
 		function(res){
@@ -146,6 +167,7 @@
   }]);
   app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
+	$rootScope.uiview.current = "tiles";
 	var curList = getContent.getNodes({'type':'project'});
 	curList.then(
 		function(res){

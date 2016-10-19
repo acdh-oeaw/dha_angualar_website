@@ -6,7 +6,7 @@
     </div>
     <p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
   </div>
-  <div ng-show="uiview.list">
+  <div ng-show="uiview.current=='list'">
     <md-table-container>
       <table md-table ng-model="selected" md-progress="curList">
         <thead md-head md-on-reorder="getNewOrder">
@@ -56,9 +56,20 @@
       </md-list>
     </md-whiteframe>  
   </div>
-  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak  ng-show="uiview.grid">
+  <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-show="uiview.current=='tiles'">
     <md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
-    	<img class="md-card-image" style="height: 200px!important;" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+      <md-card-header>
+        <md-card-avatar  tid="{{pro['schema:sourceOrganization'][0].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+          <img class="md-user-avatar" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
+        </md-card-avatar>
+        <md-card-header-text>
+          <span class="md-title">{{pro['schema:sourceOrganization'][0].name}}</span>
+          <span class="md-subhead"></span>
+        </md-card-header-text>             
+      </md-card-header>
+      <div class="md-card-image" style="height: 200px!important; overflow: hidden;" style="width: 100%; height: initial;">
+        <img  ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" style="height: initial!important;"/>   
+      </div>
       <md-card-actions >
         <md-card-icon-actions layout="row" layout-align="end end">
           <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">

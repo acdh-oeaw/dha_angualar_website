@@ -39,15 +39,8 @@
 		</md-fab-trigger>
 
 		<md-fab-actions>
-			<md-button aria-label="List" class="md-fab md-raised md-mini" ng-click="onGrid()">
-				<md-icon aria-label="{{Icon.arialabel}}">view_comfy</md-icon>
+			<md-button ng-repeat="view in Model.aviews" aria-label="{{view.key}}" class="md-fab md-raised md-mini" ng-click="swapView(view.key)">
+				<md-icon aria-label="{{view.key}}">{{view.icon}}</md-icon>
 			</md-button>
-			<md-button aria-label="List" class="md-fab md-raised md-mini" ng-click="onList()">
-				<md-icon aria-label="{{Icon.arialabel}}">view_list</md-icon>
-			</md-button>
-			<md-button aria-label="List" class="md-fab md-raised md-mini" ng-click="onMap()">
-				<md-icon aria-label="{{Icon.arialabel}}">map</md-icon>
-			</md-button>
-		</md-fab-actions>
 	</md-fab-speed-dial>
 </div>

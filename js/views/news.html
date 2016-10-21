@@ -8,10 +8,10 @@
 	</div>
 	<md-content ng-if="uiview.current=='combined'" >
 		<div layout="row">
-			<md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="ev in Model.newsevents | futureEvents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+			<md-card class="spinentry md-whiteframe-3dp spinexit projecttile" ng-repeat="ev in Model.newsevents | futureEvents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 		        <md-card-header>
 		          <md-card-avatar  tid="{{ev['schema:sourceOrganization'].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{ev['schema:sourceOrganization'].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-		            <img class="md-user-avatar" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
+		            <img class="tableicon md-whiteframe-3dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
 		          </md-card-avatar>
 		          <md-card-header-text>
 		            <span class="md-title">{{ev['displayDate'] | date:'short'}}</span>
@@ -21,12 +21,11 @@
 			            <md-icon md-colors="{color: 'primary-800'}" aria-label="library_books">library_books</md-icon>
 			          </md-button>		          
 		        </md-card-header>
-		        <div class="md-card-image" style="height: 100px!important; overflow: hidden;" style="width: 100%; height: initial;">
-		        	<img  ng-src="{{ev['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" style="height: initial!important;"/>   
+		        <div class="md-card-image" style="height: 100px!important; width: 100%; height: initial; background: url({{ev['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " >
 		        </div>
 			    <md-card-title>
 			        <md-card-title-text>
-			          <span class="md-headline" ><h4 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h4></span>
+			          <span class="md-headline" ><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></span>
 			          <span class="md-subhead">{{ev['schema:description']}}</span>
 			        </md-card-title-text>
 			    </md-card-title>     
@@ -56,9 +55,9 @@
 		      		ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})"
 		      		class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 				<td md-cell>
-					<img class="tableicon" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+					<img class="tableicon md-whiteframe-3dp" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
 				</td>
-		        <td md-cell><h4 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h4></td>
+		        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
 		        <td md-cell>{{ev['displayDate'] | date:'short'}}</td>
 		        <td md-cell>{{ev['schema:description']}}</td>
 		        <td md-cell>{{ev['schema:organizer']}} / {{ev['schema:location']}}</td>
@@ -71,7 +70,7 @@
 			<md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="ev in Model.newsevents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 		        <md-card-header>
 		          <md-card-avatar  tid="{{ev['schema:sourceOrganization'].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{ev['schema:sourceOrganization'].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-		            <img class="md-user-avatar" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
+		            <img class="tableicon md-whiteframe-3dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
 		          </md-card-avatar>
 		          <md-card-header-text>
 		            <span class="md-title">{{ev['displayDate'] | date:'short'}}</span>
@@ -81,12 +80,11 @@
 			            <md-icon md-colors="{color: 'primary-800'}" aria-label="library_books">library_books</md-icon>
 			          </md-button>		          
 		        </md-card-header>
-		        <div class="md-card-image" style="height: 100px!important; overflow: hidden;" style="width: 100%; height: initial;">
-		        	<img  ng-src="{{ev['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" style="height: initial!important;"/>   
+		        <div class="md-card-image" style="height: 100px!important; width: 100%; height: initial; background: url({{ev['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " >
 		        </div>
 			    <md-card-title>
 			        <md-card-title-text>
-			          <span class="md-headline" ><h4 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h4></span>
+			          <span class="md-headline" ><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></span>
 			          <span class="md-subhead">{{ev['schema:description']}}</span>
 			        </md-card-title-text>
 			    </md-card-title>     
@@ -112,9 +110,9 @@
 		      		ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})"
 		      		class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 				<td md-cell>
-					<img class="tableicon" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
+					<img class="tableicon md-whiteframe-3dp" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
 				</td>
-		        <td md-cell><h4 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h4></td>
+		        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
 		        <td md-cell>{{ev['displayDate'] | date:'short'}}</td>
 		        <td md-cell>{{ev['schema:description']}}</td>
 		        <td md-cell>{{ev['schema:organizer']}} / {{ev['schema:location']}}</td>

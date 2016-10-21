@@ -7,27 +7,31 @@
     	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
   	</div>
 	<div ng-show="uiview.current=='list'">
-		<md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
-		  <md-list flex>
-		    <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="know in Model.knowmore" ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
-		        <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
-		        <div class="md-list-item-text" >
-		              <h3 style="color: #EF6C00">{{know['schema:headline']}}</h3>
-		              <p class="desctext">{{know['schema:description']}}</p>
-		        </div>
-		        <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{know['schema:name'].replace('dha:','')}}})">
-		          <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
-		        </md-button>
-		        <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Favorite" href="{{know['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
-		          <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
-		        </md-button>
-		        <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="s-project({nID:{{know['schema:name'].replace('dha:','')}}})">
-		          <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
-		        </md-button>
-		        <md-divider ></md-divider>
-		    </md-list-item>
-		  </md-list>
-		</md-whiteframe>  
+	    <md-table-container>
+	      <table md-table ng-model="selected" md-progress="curList">
+	        <thead md-head md-on-reorder="getNewOrder">
+	          <tr md-row>
+	            <th md-column><span></span></th>
+	            <th md-column md-order-by="headline"><span>Title</span></th>
+	            <th md-column ><span>Description</span></th>
+	            <th md-column md-order-by="source"><span>Details</span></th>
+	          </tr>
+	        </thead>
+	        <tbody md-body>
+	          <tr md-row 
+	              md-select="ev" 
+	              md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
+	              ng-repeat="pro in Model.knowmore | orderBy:sortfield:reverse"
+	              ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
+	              class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
+	        <td md-cell>icon tbd</td>
+	            <td md-cell><h3>{{pro['schema:headline']}}</h3></td>
+	            <td md-cell>{{pro['schema:description']}}</td>
+	            <td md-cell>{{pro["schema:sourceOrganization"]["0"].name}}</td>
+	          </tr>
+	        </tbody>
+	      </table>
+	    </md-table-container>
 	</div>
 
 	<div ng-show="uiview.current=='grid'">

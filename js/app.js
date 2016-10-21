@@ -1,3 +1,16 @@
+viewconfig = {
+  "dha.newsevents":
+    [
+      {"key":"list","icon":"view_list"},
+      {"key":"tiles","icon":"view_comfy"},
+      {"key":"combined","icon":"view_quilt"}
+    ],
+    "dha.projects":
+    [
+      {"key":"list","icon":"view_list"},
+      {"key":"tiles","icon":"view_comfy"}
+    ],
+};
 (function () {
   'use strict';
   var app = angular.module('DHA_webapp', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services','md.data.table']);

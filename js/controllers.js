@@ -1,5 +1,5 @@
 viewconfig = {
-	"dha.newsevents":
+	"dha.news-events":
 		[
 			{"key":"list","icon":"view_list"},
 			{"key":"tiles","icon":"view_comfy"},
@@ -8,8 +8,7 @@ viewconfig = {
 		"dha.projects":
 		[
 			{"key":"list","icon":"view_list"},
-			{"key":"tiles","icon":"view_comfy"},
-			{"key":"combined","icon":"view_quilt"}
+			{"key":"tiles","icon":"view_comfy"}
 		],
 };
 (function () {
@@ -75,9 +74,10 @@ viewconfig = {
 		};
 		///////// UI-Switch init ////////////////////
 		if(typeof($rootScope.uiview) == 'undefined'){
-		  $scope.Model.aviews = viewconfig[$state.current.name];
+		  $rootScope.aviews = [];
 		  $rootScope.uiview = {};
 		}
+		console.log($scope.Model.aviews);
 		$rootScope.swapView = function(a){
 			$rootScope.uiview.current = a;
 			console.log(a);
@@ -86,6 +86,7 @@ viewconfig = {
 	app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		$scope.Model = {};
 		$rootScope.uiview.current = "combined";
+		$rootScope.aviews = viewconfig[$state.current.name];
 		var curList = getContent.getNodes({"type":"event"});
 		curList.then(
 			function(res){ 
@@ -162,6 +163,7 @@ viewconfig = {
   app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	$rootScope.uiview.current = "list";
+	$rootScope.aviews = viewconfig[$state.current.name];
 	var curList = getContent.getNodes({'type':'biblio'});
 	curList.then(function(res){ 
 		$scope.Model['knowmore'] = res.data;
@@ -177,6 +179,7 @@ viewconfig = {
   app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	$rootScope.uiview.current = "tiles";
+	$rootScope.aviews = viewconfig[$state.current.name];
 	var curList = getContent.getNodes({'type':'project'});
 	curList.then(
 		function(res){

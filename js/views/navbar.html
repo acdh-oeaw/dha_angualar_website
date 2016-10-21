@@ -1,14 +1,13 @@
 <div class="navmenu">
-	<div></div>
-		<div layout="row" layout-align="space-between end">
-			<a ui-sref="start"><img style="height: 75px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png"></a>
-			<div layout="row" layout-align="center end">
-			<md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
-					<h3><md-icon md-colors="{color: 'primary-800'}" class="navicon" aria-label="{{me['schema:headline']}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-			        	{{me["schema:headline"]}}</h3>
-			</md-button>
-			</div>
-		</div>
+	<div class="topnav" layout="row" layout-align="space-between end">
+		<a ui-sref="start"><img style="height: 50px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png"></a>
+		<md-nav-bar md-selected-nav-item="$state.current.name.split('.')[1]" nav-bar-aria-label="navigation links" style="border-style: none;">
+			<md-nav-item md-nav-sref="dha.{{me.ctrl}}" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
+			<h3 class="menucaption"><md-icon md-colors="{color: 'primary-800'}" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+			{{me['schema:headline']}}</h3>
+			</md-nav-item>
+		</md-nav-bar>
+	</div>
     <md-menu md-position-mode="target-right target" class="sidenav">
       <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
         <md-icon style="color: #EF6C00" aria-label="menu">menu</md-icon>
@@ -17,8 +16,8 @@
         <md-menu-item ng-repeat="me in Model.navbar">
           <md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })">
               <div layout="row" flex>
-                <p flex>{{me['headline']}}</p>
-                <md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+                <md-icon md-colors="{color: 'primary-800'}"  aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+                <p flex>{{me['schema:headline']}}</p>
               </div>
           </md-button>
         </md-menu-item>
@@ -49,7 +48,7 @@
 		</md-fab-trigger>
 
 		<md-fab-actions>
-			<md-button ng-repeat="view in Model.aviews" aria-label="{{view.key}}" class="md-fab md-raised md-mini" ng-click="swapView(view.key)">
+			<md-button ng-repeat="view in aviews" aria-label="{{view.key}}" class="md-fab md-raised md-mini" ng-click="swapView(view.key)">
 				<md-icon aria-label="{{view.key}}">{{view.icon}}</md-icon>
 			</md-button>
 	</md-fab-speed-dial>

@@ -37,6 +37,13 @@ viewconfig = {
 			},
 			function(err){ console.log('err startCtrl: ', err); }
 		  );
+		var getstart = getContent.getNodes({"nid":"1078"});
+		getstart.then(
+			function(res){
+			  $scope.Model['starttext'] = res.data[0];
+			},
+			function(err){ console.log('err startCtrl: ', err); }
+		  );
 	}]);
 	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
@@ -47,7 +54,7 @@ viewconfig = {
 		$scope.Model = {};
 		getContent.updateLanguage($stateParams.lang);
 		$scope.Model.language = getContent.language;
-		var curList = getContent.getNodes({"field_tags":"214"});
+		var curList = getContent.getNodes({"field_tags":"226"});
 		$rootScope.captions = curList;
 		curList.then(
 		  function(res){
@@ -154,9 +161,11 @@ viewconfig = {
   }]);
   app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
+	$rootScope.uiview.current = "list";
 	var curList = getContent.getNodes({'type':'biblio'});
 	curList.then(function(res){ 
 		$scope.Model['knowmore'] = res.data;
+		console.log($scope.Model['knowmore']);
 		},
 		function(err){ console.log('err knowmoreCtrl: ', err); }
 	);

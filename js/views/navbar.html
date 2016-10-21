@@ -1,22 +1,32 @@
 <div class="navmenu">
-	<md-fab-toolbar md-open="false" count="" md-direction="right" >
-	    <md-fab-trigger >
-	      <md-button aria-label="menu" class="md-fab md-primary">
-	        <md-icon class="navicon">menu</md-icon>
-	      </md-button>
-	    </md-fab-trigger>
-	    <md-toolbar class="md-fab md-primary">
-	      <md-fab-actions class="md-toolbar-tools md-primary">
-				<md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar" >
-						<md-icon  class="navicon" aria-label="{{me['schema:headline']}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-						{{me["schema:headline"]}}
-				</md-button>
-	      </md-fab-actions>
-	    </md-toolbar>
-	</md-fab-toolbar>
+	<div></div>
+		<div layout="row" layout-align="space-between end">
+			<a ui-sref="start"><img style="height: 75px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png"></a>
+			<div layout="row" layout-align="center end">
+			<md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar">
+					<h3><md-icon md-colors="{color: 'primary-800'}" class="navicon" aria-label="{{me['schema:headline']}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+			        	{{me["schema:headline"]}}</h3>
+			</md-button>
+			</div>
+		</div>
+    <md-menu md-position-mode="target-right target" class="sidenav">
+      <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon style="color: #EF6C00" aria-label="menu">menu</md-icon>
+      </md-button>
+      <md-menu-content width="4" >
+        <md-menu-item ng-repeat="me in Model.navbar">
+          <md-button ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })">
+              <div layout="row" flex>
+                <p flex>{{me['headline']}}</p>
+                <md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+              </div>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
 </div>
 <div class="languagemenu">
-	<md-fab-speed-dial ng-cloak md-open="language.menuOpen" md-direction="down" class="md-scale" ng-mouseenter="language.menuOpen=true" ng-mouseleave="language.menuOpen=false">
+	<md-fab-speed-dial ng-cloak md-open="language.menuOpen" md-direction="up" class="md-scale" ng-mouseenter="language.menuOpen=true" ng-mouseleave="language.menuOpen=false">
 		<md-fab-trigger >
 			<md-button aria-label="menu" class="md-fab md-primary">
 				<md-icon aria-label="{{Icon.arialabel}}">language</md-icon>

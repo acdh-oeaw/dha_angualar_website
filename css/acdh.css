@@ -40,6 +40,9 @@ h4 {
     font-size: 1pc!important
 }
 
+body {
+  overflow: hidden;
+}
 
 
 
@@ -184,16 +187,44 @@ h4 {
 
 /******** navigation elements *********/
 .navicon {
-  color: #ffffff!important;
+  font-size: 24px;
+  bottom: 0px;
+  cursor: pointer;
 }
 
 .sidenav {
-  padding: 0px!important;
-  width: 40px!important;
+
 }
 
 md-icon.sidenav {
   margin: 0px;
+}
+
+md-icon.caption {
+  
+}
+
+/******** Containers *********/
+#wrapper {
+  position: absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+}
+
+.contentcontainer {
+  max-width: 1400px;
+  margin: 0 auto;  
+  top: 75px;
+  position: relative;
+}
+
+.startcontainer {
+  max-width: 880px;
+  margin: 0 auto;  
+  top: 75px;
+  position: relative;
 }
 
 .viewmenu {
@@ -205,12 +236,14 @@ md-icon.sidenav {
 
 .languagemenu {
   position: fixed;
-  top: 5px;
-  right: 5px;
+  bottom: 5px;
+  left: 5px;
   z-index: 100;
 }
 
 .navmenu {
+  padding: 5px;
+  height: 70px;
   position: fixed;
   width: 100%;
   top: 5px;

@@ -6,7 +6,7 @@
     	</div>
     	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
   	</div>
-	<div ng-show="uiview.list">
+	<div ng-show="uiview.current=='list'">
 		<md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
 		  <md-list flex>
 		    <md-list-item class="spinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="know in Model.knowmore" ui-sref="s-knowmore({nID:{{know['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
@@ -30,7 +30,7 @@
 		</md-whiteframe>  
 	</div>
 
-	<div ng-show="uiview.grid">
+	<div ng-show="uiview.current=='grid'">
 		<md-grid-list
 		    md-cols="2" md-cols-sm="3" md-cols-md="5" md-cols-gt-md="8"
 		    md-row-height-gt-md="1:1" md-row-height="1:1"

@@ -24,7 +24,7 @@
 			}
         }
 	})
-	  .state('dha.newsevents',{
+	  .state('dha.news-events',{
 		  url: '/newsevents',
 		  views: {
             'content@': {
@@ -60,7 +60,7 @@
             }
           }				  
 	  })
-	  .state('dha.knowmore',{
+	  .state('dha.know-more',{
 		  url: '/knowmore',
 		  views: {
             'content@': {

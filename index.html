@@ -28,8 +28,8 @@
 </head>
 <body>
     <div id="wrapper">
-        <div ui-view="navbar"></div>
-        <div ui-view="content"></div>
+        <div ui-view="navbar" style="height: 75px;"></div>
+        <div ui-view="content" style="overflow-y: scroll;height: calc(100% - 75px);"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery/dist/jquery.min.js"><\/script>')</script>

@@ -3,7 +3,7 @@
 /////////// refactoring above as a service 
 /////////// to be moved to separate file
 var Config = {
-    "baseURL":"https://dhdev.eos.arz.oeaw.ac.at",
+    "baseURL":"http://dhcurate.apollo.arz.oeaw.ac.at",
     "pagesize": "all", //limiting pagesize currently does not work properly d/t bug with unpublished nodes
     "currentView":"list",
     "localStorage":"DHAStorage",

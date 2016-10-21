@@ -34,7 +34,7 @@
         </tbody>
       </table>
     </md-table-container>
-    <md-whiteframe class="md-whiteframe-11dp" layout layout-align="center center">
+    <md-whiteframe class="md-whiteframe-3dp" layout layout-align="center center">
   	  <md-list flex>
         <md-list-item class="vspinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/20 + 's'}">
             <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
@@ -57,7 +57,7 @@
     </md-whiteframe>  
   </div>
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-show="uiview.current=='tiles'">
-    <md-card class="spinentry md-whiteframe-11dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+    <md-card class="spinentry md-whiteframe-3dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
       <md-card-header>
         <md-card-avatar  tid="{{pro['schema:sourceOrganization'][0].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
           <img class="md-user-avatar" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>

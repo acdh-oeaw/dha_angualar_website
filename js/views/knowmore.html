@@ -25,7 +25,7 @@
 	              ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
 	              class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 	        <td md-cell>icon tbd</td>
-	            <td md-cell><h3>{{pro['schema:headline']}}</h3></td>
+	            <td md-cell><h3 md-colors="{color: 'primary-800'}">{{pro['schema:headline']}}</h3></td>
 	            <td md-cell>{{pro['schema:description']}}</td>
 	            <td md-cell>{{pro["schema:sourceOrganization"]["0"].name}}</td>
 	          </tr>

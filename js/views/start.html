@@ -1,11 +1,11 @@
-<div  class="startcontainer"> 
+<div  class="startcontainer" > 
 	<div layout="column" layout-align="start stretch">
-		<div  layout="row" layout-wrap layout-align="space-around start" ng-cloak>
-			<div style="width: 50%; max-width: 440px; padding: 20px;">
+		<div  layout="row" layout-wrap layout-align="center center" ng-cloak>
+			<div style=" max-width: 440px; padding: 20px;">
 				<img src="http://www.digital-humanities.at/components/dha-custom/highres_logo.png" style="width: 100%;"/>  
 			</div>
-			<div style="width: 50%;padding: 20px; overflow: hidden;">
-				<p flex layout-padding ng-bind-html='Model.starttext["schema:description"] | unsafe'></p>
+			<div style="max-width: 750px; padding: 20px;">
+				<p flex layout-padding class="md-caption" ng-bind-html='Model.starttext["schema:description"] | unsafe'></p>
 			</div>
 		</div>
 		<div layout="row" layout-padding layout-wrap layout-align="center start" ng-cloak>
@@ -13,7 +13,7 @@
 			  	<md-icon md-colors="{color: 'primary-800'}" style="font-size: 50px; width: 50px; height: 50px; margin-top: 25px;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
 
 				<md-card-content>
-					<h3 layout="column" layout-align="center center" class="splashhead"> {{me['schema:headline']}}</h3>
+					<h2 layout="column" layout-align="center center" class="splashhead"> {{me['schema:headline']}}</h2>
 					<md-divider></md-divider>
 					<p class="splashtext md-caption" >
 					{{me['schema:description']}}

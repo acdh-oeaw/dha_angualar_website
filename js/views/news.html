@@ -12,7 +12,7 @@
 		<div layout="row">
 			<md-card class="spinentry md-whiteframe-1dp spinexit projecttile" ng-repeat="ev in Model.newsevents | futureEvents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 		        <md-card-header>
-		          <md-card-avatar  tid="{{ev['schema:sourceOrganization'].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{ev['schema:sourceOrganization'].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+		          <md-card-avatar  tid="{{ev['schema:organizer'][0].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
 		            <img class="tableicon md-whiteframe-1dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
 		          </md-card-avatar>
 		          <md-card-header-text>
@@ -46,7 +46,8 @@
 		        <th md-column md-order-by="headline"><span>Title</span></th>
 		        <th md-column md-order-by="displayDate"><span>Date</span></th>
 		        <th md-column ><span>Description</span></th>
-		        <th md-column ><span>Institution</span></th>
+		        <th md-column ><span>Organizer</span></th>
+		        <th md-column ><span>Location</span></th>
 		      </tr>
 		    </thead>
 		    <tbody md-body>
@@ -62,7 +63,8 @@
 		        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
 		        <td md-cell>{{ev['displayDate'] | date:'short'}}</td>
 		        <td md-cell>{{ev['schema:description']}}</td>
-		        <td md-cell>{{ev['schema:organizer']}} / {{ev['schema:location']}}</td>
+		        <td md-cell  tid="{{ev['schema:organizer'][0].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/> </td>
+		        <td md-cell>{{ev['schema:location']}}</td>
 		      </tr>
 		    </tbody>
 		  </table>

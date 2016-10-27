@@ -1,8 +1,8 @@
 <div class="contentcontainer" layout="column">
 	<div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
 		<div layout="row" layout-align="start start">
-			<md-icon md-colors="{color: 'primary-800'}" style="font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-			<h4>{{me['schema:headline']}}</h4>
+			<md-icon md-colors="{color: 'primary-800'}" class="captionicons" aria-label='{{me["schema:primaryImageOfPage"]}}' >{{me["schema:primaryImageOfPage"]}}</md-icon>
+			<h1>{{me['schema:headline']}}</h1>
 		</div>
 		<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
 	</div>

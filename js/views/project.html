@@ -1,11 +1,13 @@
 <div class="contentcontainer" layout="column">
+  <!-- ****** page caption template ******* -->
   <div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
     <div layout="row" layout-align="start start">
-      <md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-      <h4>{{me['schema:headline']}}</h4>
+      <md-icon md-colors="{color: 'primary-800'}" class="captionicons" aria-label='{{me["schema:primaryImageOfPage"]}}' >{{me["schema:primaryImageOfPage"]}}</md-icon>
+      <h1 >{{me['schema:headline']}}</h1>
     </div>
     <p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
   </div>
+  <!-- ****** List view template ******* -->
   <div ng-show="uiview.current=='list'">
     <md-table-container>
       <table md-table ng-model="selected" md-progress="curList">
@@ -25,7 +27,7 @@
               ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
               class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
         <td md-cell>
-          <img class="tableicon md-whiteframe-3dp" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+          <img class="tableicon md-whiteframe-2dp" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
         </td>
             <td md-cell>{{pro['schema:headline']}}</td>
             <td md-cell>{{pro['schema:description']}}</td>
@@ -34,36 +36,37 @@
         </tbody>
       </table>
     </md-table-container>
-    <md-whiteframe class="md-whiteframe-3dp" layout layout-align="center center">
+    <md-whiteframe class="md-whiteframe-2dp" layout layout-align="center center">
   	  <md-list flex>
         <md-list-item class="vspinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/20 + 's'}">
             <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
             <div class="md-list-item-text" >
-                  <h3 style="color: #EF6C00">{{pro['schema:headline']}}</h3>
+                  <h3 md-colors="{color: 'primary-800'}">{{pro['schema:headline']}}</h3>
                   <p class="desctext">{{pro['schema:description']}}</p>
             </div>
             <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-              <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
+              <md-icon md-colors="{color: 'primary-800'}" aria-label="library_books">library_books</md-icon>
             </md-button>
             <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Open Project" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
-              <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
+              <md-icon md-colors="{color: 'primary-800'}" aria-label="open_in_new">open_in_new</md-icon>
             </md-button>
             <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-              <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
+              <md-icon md-colors="{color: 'primary-800'}" aria-label="share-arrow">share_arrow</md-icon>
             </md-button>
             <md-divider ></md-divider>
         </md-list-item>
       </md-list>
     </md-whiteframe>  
   </div>
+  <!-- ****** Tile view template ******* -->
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-show="uiview.current=='tiles'">
-    <md-card class="spinentry md-whiteframe-3dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+    <md-card class="spinentry md-whiteframe-2dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
       <md-card-header>
         <md-card-avatar  tid="{{pro['schema:sourceOrganization'][0].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-          <img class="tableicon md-whiteframe-3dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
+          <img class="tableicon md-whiteframe-2dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
         </md-card-avatar>
         <md-card-header-text>
-          <span class="md-title">{{pro['schema:sourceOrganization'][0].name}}</span>
+          <span class="md-caption">{{pro['schema:sourceOrganization'][0].name}}</span>
           <span class="md-subhead"></span>
         </md-card-header-text>             
       </md-card-header>
@@ -72,19 +75,19 @@
       <md-card-actions >
         <md-card-icon-actions layout="row" layout-align="end end">
           <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-            <md-icon style="color: #EF6C00" aria-label="library_books">library_books</md-icon>
+            <md-icon md-colors="{color: 'primary-800'}" aria-label="library_books">library_books</md-icon>
           </md-button>
           <md-button class="md-icon-button md-raised" aria-label="Favorite" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
-            <md-icon style="color: #EF6C00" aria-label="open_in_new">open_in_new</md-icon>
+            <md-icon md-colors="{color: 'primary-800'}" aria-label="open_in_new">open_in_new</md-icon>
           </md-button>
           <md-button class="md-icon-button md-raised" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-            <md-icon style="color: #EF6C00" aria-label="share-arrow">share_arrow</md-icon>
+            <md-icon md-colors="{color: 'primary-800'}" aria-label="share-arrow">share_arrow</md-icon>
           </md-button>
         </md-card-icon-actions>
       </md-card-actions>
     	<md-card-title>
         <md-card-title-text>
-          <span class="md-headline" style="color: #EF6C00"><h3>{{pro['schema:headline']}}</h3></span>
+          <span class="md-headline" md-colors="{color: 'primary-800'}"><h3>{{pro['schema:headline']}}</h3></span>
           <span class="md-subhead">{{pro['schema:description']}}</span>
         </md-card-title-text>
       </md-card-title>

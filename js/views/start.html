@@ -1,16 +1,31 @@
-<div layout="row" class="startcontainer" layout-xs="column" layout-align="start start"> 
-	<div style="width: 50%;">
-		<img src="http://www.digital-humanities.at/components/dha-custom/highres_logo.png" style="width: 100%;"/>  
+<div  class="startcontainer" > 
+	<div layout="column" layout-padding layout-align="start stretch" style="overflow-y: auto;">
+		<div  layout="row" layout-padding layout-wrap layout-align="space-around start" ng-cloak>
+			<div style="width: 50%; max-width: 440px; padding: 20px;">
+				<img src="http://www.digital-humanities.at/components/dha-custom/highres_logo.png" style="width: 100%;"/>  
+			</div>
+			<div style="width: 50%;padding: 20px; overflow: hidden;">
+				<p flex layout-padding ng-bind-html='Model.starttext["schema:description"] | unsafe'></p>
+			</div>
+		</div>
+		<div layout="row" layout-padding layout-wrap layout-align="center start" ng-cloak>
+		    <md-card md-colors="{color: 'primary-800'}" class="spinentry md-whiteframe-2dp splashtile" layout="column" layout-align="start center" ng-repeat="me in Model.start" ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
+			  	<md-icon md-colors="{color: 'primary-800'}" style="font-size: 50px; width: 50px; height: 50px; margin-top: 25px;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
+
+				<md-card-content>
+					<h3 layout="column" layout-align="center center" class="splashhead"> {{me['schema:headline']}}</h3>
+					<md-divider></md-divider>
+					<p class="splashtext md-caption" >
+					{{me['schema:description']}}
+					</p>
+				</md-card-content>
+		    </md-card>
+		</div>
 	</div>
-	<div style="width: 50%;">
-		<p flex layout-padding ng-bind-html='Model.starttext["schema:description"] | unsafe'></p>
-	</div>
-</div> 
-<div layout="row" class="startcontainer" layout-xs="column" layout-align="space-between center" ng-cloak style="min-height: 5px">
-    <md-card md-colors="{color: 'primary-800'}" class="spinentry md-whiteframe-11dp splashtile md-button md-ink-ripple" layout="column" layout-align="center center" ng-repeat="me in Model.start" ui-sref="dha.{{me.ctrl}}({ lang: '{{Model.language}}' })" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/10 + 's'}">
-	  <md-icon md-colors="{color: 'primary-800'}" style="font-size: 50px; width: 50px; height: 50px;" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
-		<div class="md-headline" style="margin: auto;text-align:center;" layout-align="center start"> {{me['schema:headline']}}</div>
-		  <md-card-content><p style="font-weight:normal;font-size:9px;"><md-divider></md-divider>{{me['schema:description']}}<md-divider></md-divider></p></md-card-content>
-    </md-card>
 </div>
-<div class="popover"></div>
+<div class="dhapopover" layout="column" layout-align="center center" ui-sref="dha.s-news({nID:1118})">
+	<h3 style="line-height: 0pc; font-weight: 800!important;">dha2016</h3>
+	<h3 style="line-height: 0pc;">conference</h3>
+	<h3 style="line-height: 0pc;">5. - 7. Dezember 2016</h3>
+	<md-icon style="color:#FFFFFF; font-size: 70px; width: 70px; height: 70px;" aria-label="">group_add</md-icon>
+</div>

@@ -16,6 +16,7 @@ var D7_API_Services = angular.module('D7_API_Services', []);
 D7_API_Services.service('getContent', ['$http' ,function($http){
 	var pagesize = Config.pagesize;
 	var language = Config.language;
+	var institutions;
 	//////////Parameter Parsers///////////////////////////////
 		var parseFields = function(fields){
 			var fieldstring = "";
@@ -45,6 +46,10 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 			if(!pagesize) var pagesize = this.pagesize;
 			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/taxterm?"+this.parseFields(fields)+this.parseLimit(pagesize));
 		}
+		var getInstitutions = function(id){
+			if(this.institutions == undefined) this.institutions = this.getTerms({'vid':'5'});
+			return this.institutions;
+		}
 	//////////// Parameter getters / setters ///////////////////////////////
 		var updateLanguage = function(language){console.log('updateLanguage: ', language);
 			if(language == "en" || "de") {
@@ -61,11 +66,14 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 		parseVersion: parseVersion,
 	  	getNodes: getNodes,
 	  	getTerms: getTerms,
+	  	getInstitutions: getInstitutions,
 	  	updateLanguage: updateLanguage,
 	  	pagesize: pagesize,
-		language: language
+		language: language,
+		institutions: institutions
   	};
 }]);
+
 
 
 })();

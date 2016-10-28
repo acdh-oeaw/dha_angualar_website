@@ -43,6 +43,9 @@ viewconfig = {
 			},
 			function(err){ console.log('err startCtrl: ', err); }
 		  );
+		var closepop = function(){
+			document.getElementsByClassName("dhapopover").style.display = "none";
+		}
 	}]);
 	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
@@ -82,6 +85,12 @@ viewconfig = {
 			$rootScope.uiview.current = a;
 			console.log(a);
 		};
+		///////// Taxonomies init ///////////////////
+		var InstInit = getContent.getInstitutions();
+		InstInit.then(function(res){
+			$rootScope.Institutions = res.data;
+			console.log(res.data);
+		}); 
 	}]);
 	app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		$scope.Model = {};
@@ -146,9 +155,14 @@ viewconfig = {
 		curList.then(
 			function(res){
 			  $scope.mySingle = res.data;
+
 			},
 			function(err){ console.log('err singlePaCtrl: ', err); }
 		);		
+		var testlist = getContent.getInstitutions($attrs.tid);
+		testlist.then(function(res){
+			console.log(res);
+		})
 	});
   }]);
   app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', function($scope, $http, $state, $stateParams, getContent){

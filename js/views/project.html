@@ -62,8 +62,8 @@
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-show="uiview.current=='tiles'">
     <md-card class="spinentry md-whiteframe-2dp spinexit projecttile" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
       <md-card-header>
-        <md-card-avatar  tid="{{pro['schema:sourceOrganization'][0].tid}}" ng-controller="embedTermCtrl" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-          <img class="tableicon md-whiteframe-2dp" ng-src="{{mySingle[0]['schema:thumbnailUrl'].src}}"/>
+        <md-card-avatar  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+          <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:thumbnailUrl'].src}}"/>
         </md-card-avatar>
         <md-card-header-text>
           <span class="md-caption">{{pro['schema:sourceOrganization'][0].name}}</span>

@@ -17,6 +17,7 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 	var pagesize = Config.pagesize;
 	var language = Config.language;
 	var institutions;
+	var DHATax;
 	//////////Parameter Parsers///////////////////////////////
 		var parseFields = function(fields){
 			var fieldstring = "";
@@ -40,15 +41,19 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 	//////////Callable retrieval functions///////////////////////////////
 		var getNodes = function(fields, pagesize){console.log('getNodes: ', fields, pagesize);
 			if(!pagesize) var pagesize = this.pagesize;
-			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/nodes?"+this.parseFields(fields)+this.parseLimit(pagesize));
+			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/nodes.json?"+this.parseFields(fields)+this.parseLimit(pagesize));
 		}
 		var getTerms = function(fields, pagesize){console.log('getTerms: ', fields, pagesize);
 			if(!pagesize) var pagesize = this.pagesize;
-			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/taxterm?"+this.parseFields(fields)+this.parseLimit(pagesize));
+			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/taxterm.json?"+this.parseFields(fields)+this.parseLimit(pagesize));
 		}
-		var getInstitutions = function(id){
+		var getInstitutions = function(){
 			if(this.institutions == undefined) this.institutions = this.getTerms({'vid':'5'});
 			return this.institutions;
+		}
+		var getDHATax = function(){
+			if(this.DHATax == undefined) this.DHATax = this.getTerms({'vid':'4'});
+			return this.DHATax;
 		}
 	//////////// Parameter getters / setters ///////////////////////////////
 		var updateLanguage = function(language){console.log('updateLanguage: ', language);
@@ -67,10 +72,12 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 	  	getNodes: getNodes,
 	  	getTerms: getTerms,
 	  	getInstitutions: getInstitutions,
+	  	getDHATax: getDHATax,
 	  	updateLanguage: updateLanguage,
 	  	pagesize: pagesize,
 		language: language,
-		institutions: institutions
+		institutions: institutions,
+		DHATax: DHATax
   	};
 }]);
 

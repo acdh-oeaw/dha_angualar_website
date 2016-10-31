@@ -56,6 +56,7 @@ viewconfig = {
 		$scope.Model = {};
 		getContent.updateLanguage($stateParams.lang);
 		$scope.Model.language = getContent.language;
+		$rootScope.language = getContent.language;
 		var curList = getContent.getNodes({"field_tags":"226"});
 		$rootScope.captions = curList;
 		curList.then(
@@ -72,6 +73,7 @@ viewconfig = {
 		///////// I18n-Switch init  //////////////////////
 		$rootScope.toggleLang = function(lang){
 		  $scope.Model.language = lang;
+		  $rootScope.language = lang;
 		  $stateParams.lang = lang;
 		  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
 		};

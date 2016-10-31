@@ -51,6 +51,33 @@ body {
   border-style: none!important;
 }
 
+.raise {
+  -webkit-transition: box-shadow 0.3s; /* Safari */
+  transition: box-shadow 0.3s;
+}
+
+.raise:hover {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.tiletoolbar {
+  background: white;
+  opacity: 0.8;
+  -webkit-transition: height 0.3s; /* Safari */
+  transition: height 0.3s;
+  height: 0px;
+  overflow: hidden;
+}
+
+md-card-title {
+  padding-top: 0px!important;
+  cursor: pointer;
+}
+
+md-card:hover .tiletoolbar {
+  height: 35px;
+}
+
 /******** layout elements - splashpage *********/
 .splashtile {
   margin: 8px;
@@ -59,6 +86,7 @@ body {
   max-width: 220px;
   cursor: pointer;
 }
+
 .splashtext {
   height: 80px;
   overflow: hidden;

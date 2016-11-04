@@ -22,7 +22,6 @@ app.filter('currentCaption', function() { // for start page
 app.filter('termByID', function() { // for start page
   return function(terms, id) {
 		var result = [];
-		console.log(terms, id);
 		angular.forEach(terms, function(value) {
 			if (value.hasOwnProperty('tid') && value['tid'] == id) {
 				result.push(value);

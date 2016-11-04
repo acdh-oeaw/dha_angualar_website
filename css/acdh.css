@@ -270,6 +270,7 @@ md-icon.sidenav {
   max-width: 1400px;
   margin: 0 auto; 
   position: relative;
+  margin-bottom: 10px;
 }
 
 .startcontainer {
@@ -326,16 +327,14 @@ md-icon.sidenav {
 }
 @media (max-width: 692px) {
     .contentcontainer {
-        max-width: 440px;
+      max-width: 440px;
+      width: calc(100% - 30px);
     }
     .projecttile {
         width: calc(100% - 16px);
     }
     .topnav {
       display: none;
-    }
-    .contentcontainer{
-      width: calc(100% - 30px);
     }
 }
 @media (min-width: 692px){

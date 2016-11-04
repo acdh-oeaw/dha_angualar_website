@@ -17,7 +17,7 @@
 		            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:thumbnailUrl'].src || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 		          </md-card-avatar>
 		          <md-card-header-text>
-		            <span class="md-title">{{ev['displayDate'] | date:'short'}}</span>
+		            <span class="md-title">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
 		            <span class="md-subhead">{{ev['schema:location']}}</span>
 		          </md-card-header-text>		          
 		        </md-card-header>
@@ -35,13 +35,13 @@
 					          Share
 					        </md-tooltip>							
 						</md-button>
-						<md-button class="md-icon-button" aria-label="get data as XML" ng-href="http://dhcurate.digital-humanities.at/{{language}}/api_0_1/nodes.xml?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+						<md-button class="md-icon-button" aria-label="get data as XML" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.xml?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
 							<md-icon md-colors="{color: 'primary-800'}" >code</md-icon>
 						    <md-tooltip md-direction="bottom">
 					          XML
 					        </md-tooltip>							
 						</md-button>
-						<md-button class="md-icon-button" aria-label="get data as JSON" ng-href="http://dhcurate.digital-humanities.at/{{language}}/api_0_1/nodes.json?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+						<md-button class="md-icon-button" aria-label="get data as JSON" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.json?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
 							<md-icon md-colors="{color: 'primary-800'}" >settings_ethernet</md-icon>
 						    <md-tooltip md-direction="bottom">
 					          JSON
@@ -86,7 +86,7 @@
 					<img class="tableicon md-whiteframe-1dp" ng-src="{{ev['schema:thumbnailUrl']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
 				</td>
 		        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
-		        <td md-cell>{{ev['displayDate'] | date:'short'}}</td>
+		        <td md-cell>{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</td>
 		        <td md-cell>{{ev['schema:description']}}</td>
 		        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst[0]['schema:thumbnailUrl'].src || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/> </td>
 		        <td md-cell>{{ev['schema:location']}}</td>
@@ -103,7 +103,7 @@
 		            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:thumbnailUrl'].src}}"/>
 		          </md-card-avatar>
 		          <md-card-header-text>
-		            <span class="md-title">{{ev['displayDate'] | date:'short'}}</span>
+		            <span class="md-title">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
 		            <span class="md-subhead">{{ev['schema:location']}}</span>
 		          </md-card-header-text>		          
 		        </md-card-header>

@@ -47,7 +47,7 @@ viewconfig = {
 			document.getElementsByClassName("dhapopover").style.display = "none";
 		}
 	}]);
-	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', function($rootScope, $scope, $http, $state, $stateParams, getContent){
+	app.controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', function($rootScope, $scope, $http, $state, $stateParams, getContent, Geocoder){
 		if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
 			var navLang = window.navigator.language.split("-")[0];
 			if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
@@ -91,6 +91,9 @@ viewconfig = {
 		var InstInit = getContent.getInstitutions();
 		InstInit.then(function(res){
 			$rootScope.Institutions = res.data;
+			res.data.forEach(function(inst){
+				if(inst['schema:address'] != "") inst.geo = Geocoder.latLngForAddress(inst['schema:address']);
+			});
 			console.log(res.data);
 		}); 
 	}]);
@@ -157,7 +160,6 @@ viewconfig = {
 		curList.then(
 			function(res){
 			  $scope.mySingle = res.data;
-
 			},
 			function(err){ console.log('err singlePaCtrl: ', err); }
 		);		

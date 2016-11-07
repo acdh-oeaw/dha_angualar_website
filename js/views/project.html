@@ -27,7 +27,7 @@
               ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
               class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
         <td md-cell>
-          <img class="tableicon md-whiteframe-1dp" ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+          <img class="tableicon md-whiteframe-1dp" ng-src="{{pro['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
         </td>
             <td md-cell>{{pro['schema:headline']}}</td>
             <td md-cell>{{pro['schema:description']}}</td>
@@ -39,7 +39,7 @@
     <md-whiteframe class="md-whiteframe-2dp" layout layout-align="center center">
   	  <md-list flex>
         <md-list-item class="vspinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/20 + 's'}">
-            <img ng-src="{{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
+            <img ng-src="{{pro['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
             <div class="md-list-item-text" >
                   <h3 md-colors="{color: 'primary-800'}">{{pro['schema:headline']}}</h3>
                   <p class="desctext">{{pro['schema:description']}}</p>
@@ -63,14 +63,14 @@
     <md-card class="spinentry md-whiteframe-1dp spinexit projecttile raise" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
       <md-card-header>
         <md-card-avatar  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-          <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:thumbnailUrl'].src}}"/>
+          <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:image']['styles']['thumb']}}"/>
         </md-card-avatar>
         <md-card-header-text>
           <span class="md-caption">{{pro['schema:sourceOrganization'][0].name}}</span>
           <span class="md-subhead"></span>
         </md-card-header-text>             
       </md-card-header>
-      <div class="md-card-image" style="height: 200px!important; width: 100%; height: initial; background: url({{pro['schema:image']['src'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+      <div class="md-card-image" style="height: 200px!important; width: 100%; height: initial; background: url({{pro['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
         <div class="tiletoolbar" layout="row" layout-align="end">
           <md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-project({nID:{{pro['schema:name'].split(':')[1]}}})">
             <md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>

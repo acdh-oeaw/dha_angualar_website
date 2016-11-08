@@ -117,7 +117,7 @@ md-card:hover .tiletoolbar {
 }
 
 /******** layout elements - projects page *********/
-.projecttile {
+.projecttile, .shorttile {
   width: 320px;
   padding: 0px;
 }

@@ -6,7 +6,7 @@ var app = angular.module('DHA_webapp');
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
 
-app.filter('currentCaption', function() { // for start page
+app.filter('currentCaption', function() { 
   return function(items, state) {
 		var result = [];
 		angular.forEach(items, function(value) {
@@ -19,7 +19,7 @@ app.filter('currentCaption', function() { // for start page
 	};
 });
 
-app.filter('termByID', function() { // for start page
+app.filter('termByID', function() { 
   return function(terms, id) {
 		var result = [];
 		angular.forEach(terms, function(value) {
@@ -31,7 +31,7 @@ app.filter('termByID', function() { // for start page
 	};
 });
 
-app.filter('pastEvents', function() { // for start page
+app.filter('pastEvents', function() { 
   return function(items) {
 		var now = Date.now();
 		var result = [];
@@ -44,7 +44,7 @@ app.filter('pastEvents', function() { // for start page
 	};
 });
 
-app.filter('futureEvents', function() { // for start page
+app.filter('futureEvents', function() { 
   return function(items) {
 		var now = Date.now();
 		var result = [];

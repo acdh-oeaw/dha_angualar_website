@@ -1,9 +1,9 @@
 <div class="contentcontainer" layout="column" ng-repeat="ev in mySingle" layout-align="start center">
 	<div class='md-padding' layout="row" layout-align="center center" layout-wrap>
-		<div flex="30" style="padding: 20px;">
+		<div flex-gt-sm="30" flex="100" style="padding: 20px;">
 			<img style="width: 100%;" ng-src="{{ev['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/dha_logo.png'}}" />
 		</div>
-		<div flex="70" style="padding: 20px;">
+		<div flex-gt-sm="70" flex="100" style="padding: 20px;">
 			<h1>{{ev['schema:headline']}}</h1>
 			<md-content flex layout-padding ng-bind-html='ev["schema:description"] | unsafe'></md-content>
 			<p flex layout-padding ng-bind-html='ev["schema:text"] | unsafe'></p>

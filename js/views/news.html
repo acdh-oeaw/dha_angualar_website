@@ -11,9 +11,9 @@
 	<div ng-if="uiview.current=='combined'" >
 		<div layout="row" layout-wrap layout-align="center stretch">
 			<!-- ****** future events as tiles ******* -->
-			<div flex-gt-sm="70" flex="100" style="" layout="column">
+			<div flex-gt-sm="70" flex="100" class="bgbox" layout="column">
 				<div >
-					<h4>Coming Up</h4>
+					<h4 md-colors="{color: 'primary-800'}">Coming Up</h4>
 				</div>
 				<div layout="row" layout-wrap layout-align="start center">
 					<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
@@ -64,9 +64,9 @@
 			    </div>								
 		    </div>
 		    <!-- ****** featured: recorded events ******* -->
-		    <div flex-gt-sm="30" flex="100" style="" layout="column" layout-align="start start">
+		    <div flex-gt-sm="30" flex="100" class="bgbox" layout="column" layout-align="start start">
 				<div >
-					<h4>Recorded</h4>
+					<h4 md-colors="{color: 'primary-800'}">Recorded</h4>
 				</div>		    	
 			    <div layout="column" layout-wrap layout-align="start center" >
 			    	<div class="spinentry md-whiteframe-1dp shorttile" ng-repeat="ev in Model.newsevents | recorded">

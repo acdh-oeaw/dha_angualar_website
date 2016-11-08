@@ -306,6 +306,12 @@ md-icon.sidenav {
   z-index: 100;
 }
 
+.bgbox {
+  background-color: lightgray;
+  border-radius: 3px;
+  padding: 5px;
+}
+
 @media (min-width: 1132px) {
     .contentcontainer {
       width: calc(100% - 150px);

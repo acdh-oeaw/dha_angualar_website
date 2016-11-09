@@ -31,6 +31,33 @@ app.filter('termByID', function() {
 	};
 });
 
+app.filter('byProperty', function() { 
+  return function(entities, property, val) {
+  		console.log(entities, property, val);
+		var result = [];
+		angular.forEach(entities, function(value) {
+			if (value.hasOwnProperty(property) && value[property] == val) {
+				result.push(value);
+			}			
+		});
+		return result;
+	};
+});
+
+app.filter('recorded', function() { 
+  return function(events) {
+		var result = [];
+		angular.forEach(events, function(value) {
+			if (value.hasOwnProperty('schema:recordedIn') && value['schema:recordedIn']['url'] != undefined) {
+				result.push(value);
+			}			
+		});
+		return result;
+	};
+});
+
+
+
 app.filter('pastEvents', function() { 
   return function(items) {
 		var now = Date.now();

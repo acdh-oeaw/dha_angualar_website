@@ -307,9 +307,18 @@ md-icon.sidenav {
 }
 
 .bgbox {
-  background-color: lightgray;
-  border-radius: 3px;
   padding: 5px;
+}
+
+.innerbgbox {
+  border-radius: 3px;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.greybox {
+  background-color: lightgray;
 }
 
 @media (min-width: 1132px) {

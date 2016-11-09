@@ -72,11 +72,38 @@
 						<h4 md-colors="{color: 'primary-800'}">Recorded</h4>
 					</div>		    	
 				    <div layout="column" layout-wrap layout-align="start center" >
-				    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in Model.newsevents | byProperty:'schema:recordedIn.url':!undefined">
-				    		<div layout="row">
-				    			<img ng-src="{{ev['schema:recordedIn']['']}}">
-				    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3>
-				    		</div>
+				    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in Model.newsevents | byProperty:'schema:recordedIn.url':undefined" >
+					        <div class="md-card-image" ng-repeat="preview in ev['schema:sameAs'] | byProperty:'title':'_preview'" style="height: 100px!important; width: 100%; background: url({{preview['url']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+					        	<div class="tiletoolbar" layout="row" layout-align="end">
+									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+										<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          Details
+								        </md-tooltip>
+									</md-button>
+									<md-button class="md-icon-button" aria-label="Share">
+										<md-icon md-colors="{color: 'primary-800'}" >share_arrow</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          Share
+								        </md-tooltip>							
+									</md-button>
+									<md-button class="md-icon-button" aria-label="get data as XML" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.xml?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+										<md-icon md-colors="{color: 'primary-800'}" >code</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          XML
+								        </md-tooltip>							
+									</md-button>
+									<md-button class="md-icon-button" aria-label="get data as JSON" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.json?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+										<md-icon md-colors="{color: 'primary-800'}" >settings_ethernet</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          JSON
+								        </md-tooltip>							
+									</md-button>												
+					        	</div>
+					        </div>	
+			    			<div  style="padding-left: 10px; cursor: pointer;" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+			    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3>
+			    			</div>
 				    	</md-card>
 				    </div>				
 			    </div>

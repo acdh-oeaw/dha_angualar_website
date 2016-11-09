@@ -129,15 +129,16 @@ viewconfig = {
 		}
 		/////////////////////////////////////////////////////////////////
 	}]);
-  app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent',  function($scope, $http, $state, $stateParams, getContent){
-	var curList = getContent.getNodes({"nid": $stateParams.nID});
-	curList.then(
-		function(res){
-		  $scope.mySingle = res.data;
-		},
-		function(err){ console.log('err singleEvent: ', err); }
-	);
-  }]);
+	app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent', '$sce',  function($scope, $http, $state, $stateParams, getContent, $sce){
+		var curList = getContent.getNodes({"nid": $stateParams.nID});
+		curList.then(
+			function(res){
+			  $scope.mySingle = res.data;
+			  if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
+			},
+			function(err){ console.log('err singleEvent: ', err); }
+		);
+	}]);
   app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	var curList = getContent.getTerms({"vid":"5","tags":"207"});

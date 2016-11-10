@@ -69,6 +69,12 @@ body {
   overflow: hidden;
 }
 
+.detailtoolbar {
+  background: white;
+  opacity: 0.8;
+  overflow: hidden;
+}
+
 md-card-title {
   padding-top: 0px!important;
   cursor: pointer;
@@ -315,6 +321,7 @@ md-icon.sidenav {
   padding: 10px;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .greybox {
@@ -329,7 +336,7 @@ md-icon.sidenav {
 
 @media (max-width: 1132px) {
     .contentcontainer {
-        max-width: 880px;
+        max-width: 890px;
     }
 }
 @media (min-width: 912px) {
@@ -345,12 +352,25 @@ md-icon.sidenav {
       max-width: 440px;
       width: calc(100% - 30px);
     }
-    .projecttile {
+    .projecttile, .shorttile {
         width: calc(100% - 16px);
     }
     .topnav {
       display: none;
     }
+    h1 {
+      font-size: 20px!important;
+      font-weight: 300!important;
+      letter-spacing: 0!important;
+      margin: 8px 0!important
+    }
+    .captionicons {
+      line-height: 1em;
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+    }    
 }
 @media (min-width: 692px){
     .sidenav {

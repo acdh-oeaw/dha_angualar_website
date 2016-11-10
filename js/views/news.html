@@ -11,13 +11,13 @@
 	<div ng-if="uiview.current=='combined'" >
 		<div layout="row" layout-wrap layout-align="center stretch">
 			<!-- ****** future events as tiles ******* -->
-			<div flex-gt-sm="70" flex="100" class="bgbox" >
+			<div flex-gt-sm="60" flex="100" class="bgbox" >
 				<div class="innerbgbox greybox" layout="column">
 					<div >
 						<h4 md-colors="{color: 'primary-800'}">Coming Up</h4>
 					</div>
-					<div layout="row" layout-wrap layout-align="start center">
-						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+					<div layout-gt-sm="row" layout="column" layout-align="start center" layout-align-gt-sm="start stretch">
+						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents | limitTo:2" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 					        <md-card-header>
 					          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
 					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
@@ -66,13 +66,13 @@
 			    </div>
 		    </div>
 		    <!-- ****** featured: recorded events ******* -->
-		    <div flex-gt-sm="30" flex="100" class="bgbox">
-			    <div class="innerbgbox greybox" layout="column" layout-align="start start">
+		    <div flex-gt-sm="40" flex="100" class="bgbox">
+			    <div class="innerbgbox greybox" layout="column" >
 					<div >
 						<h4 md-colors="{color: 'primary-800'}">Recorded</h4>
 					</div>		    	
-				    <div layout="column" layout-wrap layout-align="space-between start" >
-				    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in Model.newsevents | byProperty:'schema:recordedIn.url':undefined" >
+				    <div layout="column" layout-wrap layout-align-gt-sm="space-between start" layout-align="start center" >
+				    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in Model.newsevents | byProperty:'schema:recordedIn.url':undefined | limitTo:2" >
 					    	<md-card-header style="padding: 0px!important;">
 				    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})" layout="row" layout-align="space-between center">
 					    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>

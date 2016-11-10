@@ -134,7 +134,12 @@ viewconfig = {
 		curList.then(
 			function(res){
 			  $scope.mySingle = res.data;
-			  if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
+			  	if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
+		  		if($scope.mySingle[0].hasOwnProperty('schema:startDate') ){
+					//post-processing - this needs to go to a filter imho...
+					$scope.mySingle[0]['displayDate'] = parseInt($scope.mySingle[0]['schema:startDate'])*1000;
+					$scope.mySingle[0]['headline'] = parseInt($scope.mySingle[0]['schema:headline'])*1000;
+				}
 			},
 			function(err){ console.log('err singleEvent: ', err); }
 		);

@@ -13,7 +13,7 @@ viewconfig = {
 };
 (function () {
   'use strict';
-  var app = angular.module('DHA_webapp', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services','md.data.table', 'geocoder']);
+  var app = angular.module('DHA_webapp', ['ngAria', 'ui.router','ngAnimate','ngSanitize','ngMaterial','D7_API_Services','md.data.table', 'geocoder', 'ui-leaflet']);
   app.config(config);
   app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
   function config($stateProvider, $urlRouterProvider, $mdThemingProvider){

@@ -129,17 +129,31 @@ viewconfig = {
 		}
 		/////////////////////////////////////////////////////////////////
 	}]);
-	app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent', '$sce',  function($scope, $http, $state, $stateParams, getContent, $sce){
+	app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
 		var curList = getContent.getNodes({"nid": $stateParams.nID});
 		curList.then(
 			function(res){
 			  $scope.mySingle = res.data;
 			  	if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
+			  	if($scope.mySingle[0]['schema:location'] != "") {
+			  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:location']);
+			  		$scope.mySingle[0]['geo'].then(function(res){
+			  			console.log(res);
+					  	leafletData.getMap().then(function(map) {
+					  		console.log(map);
+					    	map.setView(res, 16);
+					    	map.invalidateSize();
+					    });
+						  $scope.$on('leafletDirectiveMap.resize', function(event){
+						      console.log(event);
+						  });					    
+			  		});
+			  	}
 		  		if($scope.mySingle[0].hasOwnProperty('schema:startDate') ){
 					//post-processing - this needs to go to a filter imho...
 					$scope.mySingle[0]['displayDate'] = parseInt($scope.mySingle[0]['schema:startDate'])*1000;
-					$scope.mySingle[0]['headline'] = parseInt($scope.mySingle[0]['schema:headline'])*1000;
 				}
+				console.log($scope.mySingle[0]);
 			},
 			function(err){ console.log('err singleEvent: ', err); }
 		);

@@ -20,7 +20,7 @@
 						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents | limitTo:2" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 					        <md-card-header>
 					          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
+					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 					          </md-card-avatar>
 					          <md-card-header-text>
 					            <span class="md-title">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>

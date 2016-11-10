@@ -63,7 +63,7 @@
     <md-card class="spinentry md-whiteframe-1dp spinexit projecttile raise" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
       <md-card-header>
         <md-card-avatar  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-          <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:image']['styles']['thumb']}}"/>
+          <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb']}}"/>
         </md-card-avatar>
         <md-card-header-text>
           <span class="md-caption">{{pro['schema:sourceOrganization'][0].name}}</span>

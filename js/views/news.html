@@ -71,9 +71,15 @@
 					<div >
 						<h4 md-colors="{color: 'primary-800'}">Recorded</h4>
 					</div>		    	
-				    <div layout="column" layout-wrap layout-align="start center" >
+				    <div layout="column" layout-wrap layout-align="space-between start" >
 				    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in Model.newsevents | byProperty:'schema:recordedIn.url':undefined" >
-					        <div class="md-card-image" ng-repeat="preview in ev['schema:sameAs'] | byProperty:'title':'_preview'" style="height: 100px!important; width: 100%; background: url({{preview['url']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+					    	<md-card-header style="padding: 0px!important;">
+				    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})" layout="row" layout-align="space-between center">
+					    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>
+					    			<span class="md-subhead">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
+				    			</md-card-header-text>
+				    		</md-card-header>
+					        <div class="md-card-image" ng-repeat="preview in ev['schema:sameAs'] | byProperty:'title':'_preview'" style="height: 90px!important; width: 100%; background: url({{preview['url']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
 					        	<div class="tiletoolbar" layout="row" layout-align="end">
 									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
 										<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
@@ -101,9 +107,6 @@
 									</md-button>												
 					        	</div>
 					        </div>	
-			    			<div  style="padding-left: 10px; cursor: pointer;" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
-			    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3>
-			    			</div>
 				    	</md-card>
 				    </div>				
 			    </div>

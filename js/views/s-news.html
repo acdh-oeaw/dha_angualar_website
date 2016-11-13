@@ -1,4 +1,4 @@
-<div class="contentcontainer" layout="column" ng-repeat="ev in mySingle" layout-align="start center">
+<div class="contentcontainer" layout="column" ng-repeat="ev in mySingle" layout-align="start stretch">
     <div class="" style="height: 300px!important; width: 100%; background: url({{ev['schema:image']['styles']['banner']}}) no-repeat scroll 50% 50% / cover; margin-top: 20px;" layout="column" layout-align="space-between stretch">
     	<div class="detailtoolbar" layout="row" layout-align="space-between center" style="padding-right: 20px; padding-left: 20px;">
 			<div layout="row" layout-align="end center">
@@ -48,15 +48,15 @@
 			<p flex layout-padding ng-bind-html='ev["schema:text"] | unsafe'></p>
 		</div>
 	</div>
-	<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
-		<div flex-gt-sm="30" flex="100" style="padding: 20px;" >
-			<leaflet width="100%" height="100%"></leaflet>
-		</div>
-		<div flex-gt-sm="30" flex="100" style="padding: 20px;">
+	<div layout="row" layout-align="space-between stretch" layout-wrap>
+		<div flex-gt-sm="30" flex="100" style="padding: 20px;" class="spinentry md-whiteframe-1dp raise">
 			
 		</div>
-		<div flex-gt-sm="30" flex="100" style="padding: 20px;">
+		<div flex-gt-sm="30" flex="100" style="padding: 20px;" class="spinentry md-whiteframe-1dp raise">
 			
+		</div>
+		<div flex-gt-sm="30" flex="100" style="" class="spinentry md-whiteframe-1dp raise">
+			<leaflet markers="markers"  style="min-width: 300px; height: 200px;" ng-if="ev['geo']"></leaflet>
 		</div>
 	</div>	
 </div>

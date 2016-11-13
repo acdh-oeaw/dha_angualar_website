@@ -154,7 +154,8 @@ angular.module('geocoder', ['ngStorage']).factory('Geocoder', function ($localSt
   return {
     latLngForAddress : function (address) {
       var d = $q.defer();
-      var _ = JSON.parse($localStorage.locations);
+
+      if($localStorage.locations) var _ = JSON.parse($localStorage.locations);
       if (_ && _.hasOwnProperty(address)) {
         $timeout(function () {
           d.resolve(_[address]);

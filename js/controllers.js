@@ -131,6 +131,12 @@ viewconfig = {
 	}]);
 	app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
 		var curList = getContent.getNodes({"nid": $stateParams.nID});
+		  var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 19.5, 42.4 ],[ 12.2, 54 ]]); //creating yemen bounds - maybe get coordinates from GeoNames as well?
+		  angular.extend($scope, {
+		    bounds: bounds,
+		    center: {},
+		    markers: {}
+		  });		
 		curList.then(
 			function(res){
 			  $scope.mySingle = res.data;
@@ -138,10 +144,10 @@ viewconfig = {
 			  	if($scope.mySingle[0]['schema:location'] != "") {
 			  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:location']);
 			  		$scope.mySingle[0]['geo'].then(function(res){
-			  			console.log(res);
+			  			console.log($scope.mySingle[0]['geo']);
 					  	leafletData.getMap().then(function(map) {
-					  		console.log(map);
 					    	map.setView(res, 16);
+					    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}}
 					    	map.invalidateSize();
 					    });
 						  $scope.$on('leafletDirectiveMap.resize', function(event){

@@ -49,13 +49,20 @@
 		</div>
 	</div>
 	<div layout="row" layout-align="space-between stretch" layout-wrap>
-		<div flex-gt-sm="30" flex="100" style="padding: 20px;" class="spinentry md-whiteframe-1dp raise">
-			
+		<div flex-gt-sm="30" flex="100" class="spinentry md-whiteframe-1dp raise">
+			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Links</h3>
 		</div>
-		<div flex-gt-sm="30" flex="100" style="padding: 20px;" class="spinentry md-whiteframe-1dp raise">
-			
+		<div flex-gt-sm="30" flex="100"  class="spinentry md-whiteframe-1dp raise">
+			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Downloads / Links</h3>
+			<div layout="row" layout-align="start center" style="padding-left: 20px;" ng-repeat="link in ev['schema:sameAs']">
+				<a href="{{link.url}}"><h4 class="md-caption">{{link.title}}</h4></a>
+			</div>	
+			<div layout="row" layout-align="start center" style="padding-left: 20px;" ng-repeat="link in ev['schema:attachmt']">
+				<a href="{{link.url}}"><h4 class="md-caption">{{link.title}}</h4></a>
+			</div>						
 		</div>
 		<div flex-gt-sm="30" flex="100" style="" class="spinentry md-whiteframe-1dp raise">
+			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Event Location</h3>
 			<leaflet markers="markers"  style="min-width: 300px; height: 200px;" ng-if="ev['geo']"></leaflet>
 		</div>
 	</div>	

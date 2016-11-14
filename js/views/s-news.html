@@ -32,10 +32,10 @@
     		<div class="detailtoolbar" layout="row" layout-align="space-between end" style="padding-right: 20px; padding-left: 20px;">
     			<div layout="column" layout-align="center end">
 					<md-chips ng-model="ev['schema:keywords']" name="" readonly="true" md-removable="false" md-max-chips="5" hide-sm hide-xs>
-						<md-chip-template >
+						<md-chip-template ng-repeat="tag in DHATax | termByID:$chip.tid">
 							<md-icon md-colors="{color: 'primary-800'}" >label_outline</md-icon>						
 							<strong>{{$chip.name}}</strong>
-							<em>({{$chip.tid}})</em>
+							<em>({{tag.node_count}})</em>
 						</md-chip-template>
 					</md-chips>    				  			
     			</div>

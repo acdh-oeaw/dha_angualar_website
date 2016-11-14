@@ -32,10 +32,10 @@
     		<div class="detailtoolbar" layout="row" layout-align="space-between end" style="padding-right: 20px; padding-left: 20px;">
     			<div layout="column" layout-align="center end" >
 					<md-chips ng-model="pro['schema:keywords']" name="" readonly="true" md-removable="false" md-max-chips="5" hide-sm hide-xs >
-						<md-chip-template class="md-tag-chips">
+						<md-chip-template ng-repeat="tag in DHATax | termByID:$chip.tid">
 							<md-icon md-colors="{color: 'primary-800'}" >label_outline</md-icon>
 							<strong>{{$chip.name}}</strong>
-							<em>({{$chip.tid}})</em>
+							<em>({{tag.node_count}})</em>
 						</md-chip-template>
 					</md-chips>    				
     			</div>
@@ -54,7 +54,7 @@
 			<p flex layout-padding ng-bind-html='pro["schema:text"] | unsafe'></p>
 		</div>
 	</div>
-	<div layout="row" layout-align="start stretch" layout-wrap>
+	<div style="padding: 5px;" layout="row" layout-align="start stretch" layout-wrap>
 		<div flex-gt-sm="70" flex="100" >
 			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Details</h3>		
 			<div layout="row" layout-align="start center" style="padding-left: 20px;">
@@ -86,5 +86,106 @@
 				<a href="{{link.url}}"><h4 class="md-caption">{{link.title}}</h4></a>
 			</div>						
 		</div>
-	</div>	
+	</div>
+	<div ng-controller="embedTermCtrl" tags="{{pro['schema:keywords']}}">
+		<div class="bgbox" >
+			<div class="innerbgbox greybox" layout="column">
+				<div >
+					<h4 md-colors="{color: 'primary-800'}">Similar DHA Projects</h4>
+				</div>
+				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
+					<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'schema:creativework'" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+				        <md-card-header>
+				          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+				            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
+				          </md-card-avatar>
+				          <md-card-header-text>
+				            <span class="md-title">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
+				            <span class="md-subhead">{{ev['schema:location']}}</span>
+				          </md-card-header-text>		          
+				        </md-card-header>
+				        <div class="md-card-image" style="height: 100px!important; width: 100%; background: url({{ev['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+				        	<div class="tiletoolbar" layout="row" layout-align="end">
+								<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+									<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
+								    <md-tooltip md-direction="bottom">
+							          Details
+							        </md-tooltip>
+								</md-button>
+								<md-button class="md-icon-button" aria-label="Share">
+									<md-icon md-colors="{color: 'primary-800'}" >share_arrow</md-icon>
+								    <md-tooltip md-direction="bottom">
+							          Share
+							        </md-tooltip>							
+								</md-button>
+								<md-button class="md-icon-button" aria-label="get data as XML" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.xml?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+									<md-icon md-colors="{color: 'primary-800'}" >code</md-icon>
+								    <md-tooltip md-direction="bottom">
+							          XML
+							        </md-tooltip>							
+								</md-button>
+								<md-button class="md-icon-button" aria-label="get data as JSON" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.json?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+									<md-icon md-colors="{color: 'primary-800'}" >settings_ethernet</md-icon>
+								    <md-tooltip md-direction="bottom">
+							          JSON
+							        </md-tooltip>							
+								</md-button>												
+				        	</div>
+				        </div>
+					    <md-card-title ui-sref="dha.s-project({nID:{{ev['schema:name'].split(':')[1]}}})">
+					        <md-card-title-text>
+					          <span class="md-headline" ><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></span>
+					          <span class="md-subhead">{{ev['schema:description']}}</span>
+					        </md-card-title-text>
+					    </md-card-title>     
+					</md-card>  
+			    </div>								
+		    </div>
+	    </div>
+		<div class="bgbox" >
+			<div class="innerbgbox greybox" layout="column">
+				<div >
+					<h4 md-colors="{color: 'primary-800'}">Related Resources</h4>
+				</div>
+				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
+				    <md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'t_resource'" >
+					    	<md-card-header style="padding: 0px!important;">
+				    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})" layout="row" layout-align="space-between center">
+					    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>
+					    			<span class="md-subhead">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
+				    			</md-card-header-text>
+				    		</md-card-header>
+					        <div class="md-card-image" ng-repeat="preview in ev['schema:sameAs'] | byProperty:'title':'_preview'" style="height: 90px!important; width: 100%; background: url({{preview['url']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+					        	<div class="tiletoolbar" layout="row" layout-align="end">
+									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+										<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          Details
+								        </md-tooltip>
+									</md-button>
+									<md-button class="md-icon-button" aria-label="Share">
+										<md-icon md-colors="{color: 'primary-800'}" >share_arrow</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          Share
+								        </md-tooltip>							
+									</md-button>
+									<md-button class="md-icon-button" aria-label="get data as XML" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.xml?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+										<md-icon md-colors="{color: 'primary-800'}" >code</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          XML
+								        </md-tooltip>							
+									</md-button>
+									<md-button class="md-icon-button" aria-label="get data as JSON" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.json?parameters[nid]={{ev['schema:name'].split(':')[1]}}">
+										<md-icon md-colors="{color: 'primary-800'}" >settings_ethernet</md-icon>
+									    <md-tooltip md-direction="bottom">
+								          JSON
+								        </md-tooltip>							
+									</md-button>												
+					        	</div>
+					        </div>	
+				    </md-card> 
+			    </div>								
+		    </div>
+	    </div>		    
+    </div>
 </div>

@@ -95,7 +95,12 @@ viewconfig = {
 				if(inst['schema:address'] != "") inst.geo = Geocoder.latLngForAddress(inst['schema:address']);
 			});
 			console.log(res.data);
-		}); 
+		});
+		var TaxInit = getContent.getDHATax();
+		TaxInit.then(function(res){
+			$rootScope.DHATax = res.data;
+			console.log(res.data);
+		});  
 	}]);
 	app.controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 		$scope.Model = {};
@@ -164,37 +169,38 @@ viewconfig = {
 			function(err){ console.log('err singleEvent: ', err); }
 		);
 	}]);
-  app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
+	app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
 	var curList = getContent.getTerms({"vid":"5","tags":"207"});
-	curList.then(
-		function(res){ var tags = [];
-	    	$scope.Model['partners'] = res.data;
-		},
-		function(err){ console.log('err partnerCtrl: ', err); }
-	);
-	$rootScope.captions.then(function(res){
-		$scope.state = $state;
-		$scope.Model.navbar = res.data;
-	});
-
-  }]);
-  app.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
-  	$scope.mySingle = [];
-	$attrs.$observe('tid', function(val){
-		var curList = getContent.getTerms({"tid": $attrs.tid});
 		curList.then(
-			function(res){
-			  $scope.mySingle = res.data;
+			function(res){ var tags = [];
+		    	$scope.Model['partners'] = res.data;
 			},
-			function(err){ console.log('err singlePaCtrl: ', err); }
-		);		
-		var testlist = getContent.getInstitutions($attrs.tid);
-		testlist.then(function(res){
-			console.log(res);
-		})
-	});
-  }]);
+			function(err){ console.log('err partnerCtrl: ', err); }
+		);
+		$rootScope.captions.then(function(res){
+			$scope.state = $state;
+			$scope.Model.navbar = res.data;
+		});
+	}]);
+	app.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
+		$scope.myList = [];
+		$attrs.$observe('tags', function(val){
+			var tags = JSON.parse(val);
+			var tids = "";
+			tags.forEach(function(ctag){
+				tids += ctag.tid + ","
+			})
+			var curList = getContent.getNodes({"field_dha_tags": tids});
+			curList.then(
+				function(res){
+				  $scope.myList = res.data;
+				  console.log(res.data);
+				},
+				function(err){ console.log('err embedTermCtrl: ', err); }
+			);		
+		});
+	}]);
   app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', function($scope, $http, $state, $stateParams, getContent){
 	var curList = getContent.getTerms({"tid": $stateParams.nID});
 	curList.then(

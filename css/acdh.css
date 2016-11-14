@@ -83,6 +83,10 @@ md-card:hover .tiletoolbar {
   height: 35px;
 }
 
+md-chips md-chip {
+  background: #BDBDBD!important;
+}
+
 /******** layout elements - splashpage *********/
 .splashtile {
   margin: 8px;
@@ -339,7 +343,14 @@ md-icon.sidenav {
     }
 }
 @media (min-width: 912px) {
-
+  .startcontainer {
+    position: relative;
+  }
+  .innerstartcontainer {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 @media (max-width: 912px) {
     .contentcontainer {

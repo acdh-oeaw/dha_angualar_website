@@ -169,9 +169,10 @@ viewconfig = {
 			function(err){ console.log('err singleEvent: ', err); }
 		);
 	}]);
-	app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	$scope.Model = {};
-	var curList = getContent.getTerms({"vid":"5","tags":"207"});
+	app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'leafletData', 'leafletBoundsHelpers',  function($rootScope, $scope, $http, $state, $stateParams, getContent, leafletData, leafletBoundsHelpers){
+		$scope.Model = {};
+		$scope.markers = [];
+		var curList = getContent.getTerms({"vid":"5","tags":"207"});
 		curList.then(
 			function(res){ var tags = [];
 		    	$scope.Model['partners'] = res.data;
@@ -182,6 +183,13 @@ viewconfig = {
 			$scope.state = $state;
 			$scope.Model.navbar = res.data;
 		});
+	  	leafletData.getMap().then(function(map) {
+	    	$rootScope.Institutions.forEach(function(inst){
+	    		console.log(inst);
+	    		$scope.markers.push({"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}});
+	    	});
+	    	map.invalidateSize();
+	    });		
 	}]);
 	app.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
 		$scope.myList = [];

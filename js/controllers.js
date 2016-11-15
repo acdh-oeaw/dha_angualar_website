@@ -88,13 +88,11 @@ viewconfig = {
 			console.log(a);
 		};
 		///////// Taxonomies init ///////////////////
-		var InstInit = getContent.getInstitutions();
-		InstInit.then(function(res){
-			$rootScope.Institutions = res.data;
+		getContent.getInstitutions().then(function(res){
 			res.data.forEach(function(inst){
 				if(inst['schema:address'] != "") inst.geo = Geocoder.latLngForAddress(inst['schema:address']);
 			});
-			console.log(res.data);
+			console.log(getContent.getInstitutions());
 		});
 		var TaxInit = getContent.getDHATax();
 		TaxInit.then(function(res){
@@ -124,6 +122,9 @@ viewconfig = {
 			$scope.state = $state;
 			$scope.Model.navbar = res.data;
 		});
+		getContent.getInstitutions().then(function(res){
+			$scope.Institutions = res.data;
+		});
 		//////////// data-Table-helpers //////////////////////////////////
 		$scope.sortfield = "displayDate";
 		$scope.reverse = true;
@@ -135,13 +136,17 @@ viewconfig = {
 		/////////////////////////////////////////////////////////////////
 	}]);
 	app.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
+		getContent.getInstitutions().then(function(res){
+			$scope.Institutions = res.data;
+		});
 		var curList = getContent.getNodes({"nid": $stateParams.nID});
-		  var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 19.5, 42.4 ],[ 12.2, 54 ]]); //creating yemen bounds - maybe get coordinates from GeoNames as well?
-		  angular.extend($scope, {
-		    bounds: bounds,
-		    center: {},
-		    markers: {}
-		  });		
+		var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  17.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
+		angular.extend($scope, {
+			bounds: bounds,
+			center: {},
+			markers: {},
+			layers: {}
+		});		
 		curList.then(
 			function(res){
 			  $scope.mySingle = res.data;
@@ -150,9 +155,12 @@ viewconfig = {
 			  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:location']);
 			  		$scope.mySingle[0]['geo'].then(function(res){
 			  			console.log($scope.mySingle[0]['geo']);
-					  	leafletData.getMap().then(function(map) {
+					  	leafletData.getMap().then(function(map) {  		
 					    	map.setView(res, 16);
 					    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}}
+					  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
+							    id: 'mapbox.light',
+							}).addTo(map);					    	
 					    	map.invalidateSize();
 					    });
 						  $scope.$on('leafletDirectiveMap.resize', function(event){
@@ -171,25 +179,50 @@ viewconfig = {
 	}]);
 	app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'leafletData', 'leafletBoundsHelpers',  function($rootScope, $scope, $http, $state, $stateParams, getContent, leafletData, leafletBoundsHelpers){
 		$scope.Model = {};
-		$scope.markers = [];
-		var curList = getContent.getTerms({"vid":"5","tags":"207"});
-		curList.then(
-			function(res){ var tags = [];
-		    	$scope.Model['partners'] = res.data;
-			},
-			function(err){ console.log('err partnerCtrl: ', err); }
-		);
+		$scope.icons = {};
+		getContent.getInstitutions().then(function(res){
+			$scope.Institutions = res.data;
+			res.data.forEach(function(inst){
+				if(inst['schema:logo']['styles']){
+					$scope.icons[inst.tid] = {
+			            iconUrl: inst['schema:logo']['styles']['thumbnail'],
+			            shadowUrl: '',
+			            iconSize:     [100, 70], // size of the icon
+			            shadowSize:   [40, 40], // size of the shadow
+			            iconAnchor:   [0, 20], // point of the icon which will correspond to marker's location
+			            shadowAnchor: [0, 20],  // the same for the shadow
+			            popupAnchor:  [20, -20] // point from which the popup should open relative to the iconAnchor
+			        };
+			    }
+			});
+		});
+		$scope.ATbounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  20.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
+		angular.extend($scope, {
+			bounds: $scope.ATbounds,
+			center: {},
+			markers: {},
+			layers: {}
+		});
+	  	leafletData.getMap().then(function(map) {
+	  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
+			    id: 'mapbox.light',
+			}).addTo(map);
+	  		getContent.getInstitutions().then(function(res){
+				res.data.forEach(function(inst){
+					if(inst.geo){
+						inst.geo.then(function(c){
+							$scope.markers[inst.tid] = {"lat":c.lat, "lng": c.lng, "message":inst['schema:address']}
+						})
+					}
+				});
+			});
+			map.invalidateSize();
+			window.onresize = setTimeout(function(){ map.invalidateSize()}, 400);
+	    });		
 		$rootScope.captions.then(function(res){
 			$scope.state = $state;
 			$scope.Model.navbar = res.data;
-		});
-	  	leafletData.getMap().then(function(map) {
-	    	$rootScope.Institutions.forEach(function(inst){
-	    		console.log(inst);
-	    		$scope.markers.push({"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}});
-	    	});
-	    	map.invalidateSize();
-	    });		
+		});	    
 	}]);
 	app.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
 		$scope.myList = [];
@@ -219,7 +252,7 @@ viewconfig = {
 	);
   }]);
   app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	$scope.Model = {};
+	$scope.Model = {"Partners":[]};
 	$rootScope.uiview.current = "list";
 	$rootScope.aviews = viewconfig[$state.current.name];
 	var curList = getContent.getNodes({'type':'biblio'});
@@ -235,6 +268,9 @@ viewconfig = {
 	});
   }]);
   app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
+	getContent.getInstitutions().then(function(res){
+		$scope.Institutions = res.data;
+	});	
 	$scope.Model = {};
 	$rootScope.uiview.current = "tiles";
 	$rootScope.aviews = viewconfig[$state.current.name];

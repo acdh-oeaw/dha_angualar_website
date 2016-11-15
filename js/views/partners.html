@@ -1,11 +1,11 @@
-<leaflet markers="markers"  style="width: 100%; height: 100%; position: absolute;z-index: 4;" ></leaflet>
-<div class="caption" style="margin-top: 20px; z-index: 5;" ng-repeat="me in Model.navbar | currentCaption:state" >
+<leaflet markers="markers" bounds="bounds" center="center" layers="layers" style="width: 100%; height: 100%; position: absolute;z-index: 4;" ></leaflet>
+<md-card class="caption" style="padding: 10px; z-index: 5; width: 20%; min-width: 300px; position: absolute; right: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
 	<div layout="row" layout-align="start start">
-	  <md-icon style="color: #EF6C00; font-size: 50px;width: 50px; height: 50px;margin: 5px" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-	  <h4>{{me['schema:headline']}}</h4>
+	  <md-icon class="captionicons" md-colors="{color: 'primary-800'}" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
+	  <h1>{{me['schema:headline']}}</h1>
 	</div>
 	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
-</div>
+</md-card>
 <div class="contentcontainer">	
 	<md-content ng-if="uiview.list">
 		<md-card layout="row" ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" class="md-3-line md-ink-ripple md-raised" ng-repeat="pa in Model.partners" flex>

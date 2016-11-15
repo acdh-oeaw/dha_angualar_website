@@ -16,7 +16,7 @@ var D7_API_Services = angular.module('D7_API_Services', []);
 D7_API_Services.service('getContent', ['$http' ,function($http){
 	var pagesize = Config.pagesize;
 	var language = Config.language;
-	var institutions;
+	var Institutions;
 	var DHATax;
 	//////////Parameter Parsers///////////////////////////////
 		var parseFields = function(fields){
@@ -69,14 +69,14 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 		parseFields: parseFields,
 		parseLimit: parseLimit,
 		parseVersion: parseVersion,
-	  	getNodes: getNodes,
-	  	getTerms: getTerms,
-	  	getInstitutions: getInstitutions,
-	  	getDHATax: getDHATax,
-	  	updateLanguage: updateLanguage,
-	  	pagesize: pagesize,
+  	getNodes: getNodes,
+  	getTerms: getTerms,
+  	getInstitutions: getInstitutions,
+  	getDHATax: getDHATax,
+  	updateLanguage: updateLanguage,
+  	pagesize: pagesize,
 		language: language,
-		institutions: institutions,
+		Institutions: Institutions,
 		DHATax: DHATax
   	};
 }]);

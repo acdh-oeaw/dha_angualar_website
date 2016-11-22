@@ -28,7 +28,7 @@ viewconfig = {
 			function(res){
 			  for(var i=0; i<res.data.length; i++){
 				if( res.data[i].hasOwnProperty('schema:url') ){
-					res.data[i]['ctrl'] = res.data[i]['schema:url'].split('/')[res.data[i]['schema:url'].split('/').length-1];
+					res.data[i]['ctrl'] = res.data[i]['schema:url']['base'].split('/')[res.data[i]['schema:url']['base'].split('/').length-1];
 					res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '').substring(0,120) + '...';
 				}
 			  }
@@ -63,7 +63,8 @@ viewconfig = {
 		  function(res){
 			for(var i=0; i<res.data.length; i++){
 			  if( res.data[i].hasOwnProperty('schema:url') ){
-				res.data[i]['ctrl'] = res.data[i]['schema:url'].split('/')[res.data[i]['schema:url'].split('/').length-1];
+				res.data[i]['ctrl'] = res.data[i]['schema:url']['base'].split('/')[res.data[i]['schema:url']['base'].split('/').length-1];
+				console.log(res.data[i]['ctrl']);
 			  }
 			}
 			$scope.Model['navbar'] = res.data;

@@ -84,13 +84,13 @@
                   Share
                 </md-tooltip>             
           </md-button>
-          <md-button class="md-icon-button" aria-label="get data as XML" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.xml?parameters[nid]={{pro['schema:name'].split(':')[1]}}">
+          <md-button class="md-icon-button" aria-label="get data as XML" ng-href="{{pro['schema:url']['xml']}}">
             <md-icon md-colors="{color: 'primary-800'}" >code</md-icon>
               <md-tooltip md-direction="bottom">
                   XML
                 </md-tooltip>             
           </md-button>
-          <md-button class="md-icon-button" aria-label="get data as JSON" ng-href="https://dhcuratedev.eos.arz.oeaw.ac.at/{{language}}/api_0_1/nodes.json?parameters[nid]={{pro['schema:name'].split(':')[1]}}">
+          <md-button class="md-icon-button" aria-label="get data as JSON" ng-href="{{pro['schema:url']['json']}}">
             <md-icon md-colors="{color: 'primary-800'}" >settings_ethernet</md-icon>
               <md-tooltip md-direction="bottom">
                   JSON

@@ -24,7 +24,7 @@
 	              ng-repeat="pro in Model.knowmore | orderBy:sortfield:reverse"
 	              ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
 	              class="vspinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
-	        <td md-cell>icon tbd</td>
+	        	<td md-cell><img class="tableicon md-whiteframe-1dp" ng-src="img/biblio_screenshots/mini/{{pro['schema:name'].split(':')[1]}}.jpg" /></td>
 	            <td md-cell><h3 md-colors="{color: 'primary-800'}">{{pro['schema:headline']}}</h3></td>
 	            <td md-cell>{{pro['schema:description']}}</td>
 	            <td md-cell>{{pro["schema:sourceOrganization"]["0"].name}}</td>
@@ -46,6 +46,7 @@
 			              md-colspan-xs="1"
 			              class="spinentry" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 			  	<md-icon style="color: #EF6C00; margin: auto 3px auto 0;" aria-label="">view_headline</md-icon>
+			  	<img class="" ng-src="img/biblio_screenshots/mini/{{know['schema:name'].split(':')[1]}}.jpg" />
 			  	<md-grid-tile-footer layout="column" layout-align="center center">
 			  		<h5 style="color: #EF6C00;width:100%;text-align: center; margin: 0;">{{know['schema:headline']}}</h5>
 			  	</md-grid-tile-footer>

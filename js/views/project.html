@@ -36,27 +36,6 @@
         </tbody>
       </table>
     </md-table-container>
-    <md-whiteframe class="md-whiteframe-2dp" layout layout-align="center center">
-  	  <md-list flex>
-        <md-list-item class="vspinentry projectline md-3-line md-long-text" style="margin-top: 0px;" ng-repeat="pro in Model.projects" ui-sref="s-project({nID:{{pro['schema:name'].replace('dha:','')}}})" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/20 + 's'}">
-            <img ng-src="{{pro['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" class="md-avatar"/>
-            <div class="md-list-item-text" >
-                  <h3 md-colors="{color: 'primary-800'}">{{pro['schema:headline']}}</h3>
-                  <p class="desctext">{{pro['schema:description']}}</p>
-            </div>
-            <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-              <md-icon md-colors="{color: 'primary-800'}" aria-label="library_books">library_books</md-icon>
-            </md-button>
-            <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Open Project" href="{{pro['schema:sameAs'][0]['url'] || '\:\)'}}" target="_blank">
-              <md-icon md-colors="{color: 'primary-800'}" aria-label="open_in_new">open_in_new</md-icon>
-            </md-button>
-            <md-button class="md-icon-button md-raised md-secondary desctext" aria-label="Share" ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})">
-              <md-icon md-colors="{color: 'primary-800'}" aria-label="share-arrow">share_arrow</md-icon>
-            </md-button>
-            <md-divider ></md-divider>
-        </md-list-item>
-      </md-list>
-    </md-whiteframe>  
   </div>
   <!-- ****** Tile view template ******* -->
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-show="uiview.current=='tiles'">

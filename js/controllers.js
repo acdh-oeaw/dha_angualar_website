@@ -5,10 +5,15 @@ viewconfig = {
 			{"key":"tiles","icon":"view_comfy"},
 			{"key":"combined","icon":"view_quilt"}
 		],
-		"dha.projects":
+	"dha.projects":
 		[
 			{"key":"list","icon":"view_list"},
 			{"key":"tiles","icon":"view_comfy"}
+		],
+	"dha.know-more":
+		[
+			{"key":"list","icon":"view_list"},
+			{"key":"grid","icon":"view_comfy"}
 		],
 };
 (function () {
@@ -243,31 +248,41 @@ viewconfig = {
 			);		
 		});
 	}]);
-  app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', function($scope, $http, $state, $stateParams, getContent){
-	var curList = getContent.getTerms({"tid": $stateParams.nID});
-	curList.then(
-		function(res){
-		  $scope.mySingle = res.data;
-		},
-		function(err){ console.log('err singlePaCtrl: ', err); }
-	);
-  }]);
-  app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
-	$scope.Model = {"Partners":[]};
-	$rootScope.uiview.current = "list";
-	$rootScope.aviews = viewconfig[$state.current.name];
-	var curList = getContent.getNodes({'type':'biblio'});
-	curList.then(function(res){ 
-		$scope.Model['knowmore'] = res.data;
-		console.log($scope.Model['knowmore']);
-		},
-		function(err){ console.log('err knowmoreCtrl: ', err); }
-	);
-	$rootScope.captions.then(function(res){
-		$scope.state = $state;
-		$scope.Model.navbar = res.data;
-	});
-  }]);
+	app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', function($scope, $http, $state, $stateParams, getContent){
+		var curList = getContent.getTerms({"tid": $stateParams.nID});
+		curList.then(
+			function(res){
+			  $scope.mySingle = res.data;
+			},
+			function(err){ console.log('err singlePaCtrl: ', err); }
+		);
+	}]);
+	app.controller('knowmoreCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
+		$scope.Model = {"Partners":[]};
+		$rootScope.uiview.current = "list";
+		$rootScope.aviews = viewconfig[$state.current.name];
+		var curList = getContent.getNodes({'type':'biblio'});
+		curList.then(function(res){ 
+			$scope.Model['knowmore'] = res.data;
+			console.log($scope.Model['knowmore']);
+			},
+			function(err){ console.log('err knowmoreCtrl: ', err); }
+		);
+		$rootScope.captions.then(function(res){
+			$scope.state = $state;
+			$scope.Model.navbar = res.data;
+		});
+		//////////// data-Table-helpers //////////////////////////////////
+		$scope.sortfield = "headline";
+		$scope.reverse = false;
+		$scope.selected = [];		
+		$scope.getNewOrder = function(a) {
+			if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
+	  		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
+			console.log(a);
+		}
+		/////////////////////////////////////////////////////////////////		
+	}]);
   app.controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	getContent.getInstitutions().then(function(res){
 		$scope.Institutions = res.data;

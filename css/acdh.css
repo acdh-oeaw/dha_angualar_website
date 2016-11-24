@@ -141,6 +141,13 @@ md-chips md-chip {
   height: 40px;
 }
 
+.gridicon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+
 /******** spinentry animation class - to be replaced by ngAnimate + transitions? *********/
 .spinentry{
   -webkit-animation: spinentry 0.4s forwards; /* Safari, Chrome and Opera > 12.1 */

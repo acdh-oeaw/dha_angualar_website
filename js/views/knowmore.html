@@ -12,8 +12,8 @@
 	        <thead md-head md-on-reorder="getNewOrder">
 	          <tr md-row>
 	            <th md-column><span></span></th>
-	            <th md-column md-order-by="schema:headline"><span>Type</span></th>
-	            <th md-column md-order-by="schema:additionalType"><span>Title</span></th>
+	            <th md-column md-order-by="type" style="padding: 0px!important;"><span>Type</span></th>
+	            <th md-column md-order-by="headline"><span>Title</span></th>
 	            <th md-column ><span>Description</span></th>
 	            <th md-column md-order-by="source"><span>Details</span></th>
 	          </tr>
@@ -24,17 +24,14 @@
 	              md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
 	              ng-repeat="pro in Model.knowmore | orderBy:sortfield:reverse"
 	              ui-sref="dha.s-knowmore({nID: '{{pro['schema:url']['alias']}}'})"
-	              class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
+	              class="raise" >
 	        	<td md-cell>
 	        		<img class="tableicon md-whiteframe-1dp" ng-src="img/biblio_screenshots/mini/{{pro['schema:name'].split(':')[1]}}.jpg" />
 	        	</td>
-	        	<td md-cell>
+	        	<td md-cell style="padding: 0px!important;">
 	        		<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">{{pro['schema:additionalType'] | bibIcon}}
-			         <md-tooltip>
-			            {{pro['schema:additionalType'].split('_')[1]}}
-			          </md-tooltip>
+	        		<md-tooltip>{{pro['schema:additionalType'].split('_')[1]}}</md-tooltip>
 	        		</md-icon>
-
 	        	</td>	        	
 	            <td md-cell><h3 md-colors="{color: 'primary-800'}">{{pro['schema:headline']}}</h3></td>
 	            <td md-cell>{{pro['schema:description']}}</td>
@@ -57,8 +54,8 @@
 			              md-colspan-xs="1"
 			              class="spinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}"
 			              ui-sref="dha.s-knowmore({nID: '{{know['schema:url']['alias']}}'})">
-			  	<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">{{know['schema:additionalType'] | bibIcon}}</md-icon>
-			  	<img class="" ng-src="img/biblio_screenshots/mini/{{know['schema:name'].split(':')[1]}}.jpg" />
+			  	<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0; z-index: 1;" aria-label="">{{know['schema:additionalType'] | bibIcon}}</md-icon>
+			  	<img class="gridicon" ng-src="img/biblio_screenshots/medium/{{know['schema:name'].split(':')[1]}}.jpg" />
 			  	<md-grid-tile-footer layout="column" layout-align="center center">
 			  		<h5 md-colors="{color: 'primary-800'}" style="width:100%;text-align: center; margin: 0;">{{know['schema:headline']}}</h5>
 			  	</md-grid-tile-footer>

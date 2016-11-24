@@ -267,7 +267,7 @@ var viewconfig = {
 			for(var i=0; i<res.data.length; i++){
 				if( res.data[i].hasOwnProperty('schema:headline') ){
 					res.data[i]['headline'] = res.data[i]['schema:headline'];
-					res.data[i]['source'] = res.data[i]['schema:sourceOrganization'][0].name;
+					res.data[i]['type'] = res.data[i]['schema:additionalType'][0].name;
 				}
 			}
 			$scope.Model['knowmore'] = res.data;

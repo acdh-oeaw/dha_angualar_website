@@ -34,7 +34,7 @@ var viewconfig = {
 			function(res){
 			  for(var i=0; i<res.data.length; i++){
 				if( res.data[i].hasOwnProperty('schema:url') ){
-					res.data[i]['ctrl'] = res.data[i]['schema:url']['base'].split('/')[res.data[i]['schema:url']['base'].split('/').length-1];
+					res.data[i]['ctrl'] = res.data[i]['schema:url']['alias'];
 					res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '').substring(0,120) + '...';
 				}
 			  }
@@ -69,7 +69,7 @@ var viewconfig = {
 		  function(res){
 			for(var i=0; i<res.data.length; i++){
 			  if( res.data[i].hasOwnProperty('schema:url') ){
-				res.data[i]['ctrl'] = res.data[i]['schema:url']['base'].split('/')[res.data[i]['schema:url']['base'].split('/').length-1];
+				res.data[i]['ctrl'] = res.data[i]['schema:url']['alias'];
 				console.log(res.data[i]['ctrl']);
 			  }
 			}
@@ -264,6 +264,12 @@ var viewconfig = {
 		$rootScope.aviews = viewconfig[$state.current.name];
 		var curList = getContent.getNodes({'type':'biblio'});
 		curList.then(function(res){ 
+			for(var i=0; i<res.data.length; i++){
+				if( res.data[i].hasOwnProperty('schema:headline') ){
+					res.data[i]['headline'] = res.data[i]['schema:headline'];
+					res.data[i]['source'] = res.data[i]['schema:sourceOrganization'][0].name;
+				}
+			}
 			$scope.Model['knowmore'] = res.data;
 			},
 			function(err){ console.log('err knowmoreCtrl: ', err); }

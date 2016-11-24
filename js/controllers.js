@@ -1,4 +1,4 @@
-viewconfig = {
+var viewconfig = {
 	"dha.news-events":
 		[
 			{"key":"list","icon":"view_list"},
@@ -16,6 +16,7 @@ viewconfig = {
 			{"key":"grid","icon":"view_comfy"}
 		],
 };
+
 (function () {
 	'use strict';
 	var app = angular.module('DHA_webapp');
@@ -264,7 +265,6 @@ viewconfig = {
 		var curList = getContent.getNodes({'type':'biblio'});
 		curList.then(function(res){ 
 			$scope.Model['knowmore'] = res.data;
-			console.log($scope.Model['knowmore']);
 			},
 			function(err){ console.log('err knowmoreCtrl: ', err); }
 		);

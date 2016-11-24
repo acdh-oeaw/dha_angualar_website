@@ -2,7 +2,7 @@
     <div class="md-whiteframe-1dp" style="height: 300px!important; width: 100%; background: url({{ev['schema:image']['styles']['banner']}}) no-repeat scroll 50% 50% / cover; margin-top: 20px;" layout="column" layout-align="space-between stretch">
     	<div class="detailtoolbar" layout="row" layout-align="space-between center" style="padding-right: 20px; padding-left: 20px;">
 			<div layout="row" layout-align="end center">
-				<md-button  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" layout="row" layout-align="center center">
+				<md-button  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="center center">
 				    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 				    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 				</md-button>

@@ -24,7 +24,7 @@
               md-select="ev" 
               md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
               ng-repeat="pro in Model.projects | orderBy:sortfield:reverse"
-              ui-sref="dha.s-project({nID:{{pro['schema:name'].replace('dha:','')}}})"
+              ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})"
               class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
         <td md-cell>
           <img class="tableicon md-whiteframe-1dp" ng-src="{{pro['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
@@ -41,7 +41,7 @@
   <div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-show="uiview.current=='tiles'">
     <md-card class="spinentry md-whiteframe-1dp spinexit projecttile raise" ng-repeat="pro in Model.projects" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
       <md-card-header>
-        <md-card-avatar  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID:'{{pro['schema:sourceOrganization'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+        <md-card-avatar  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" style="cursor: pointer;">
           <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb']}}"/>
         </md-card-avatar>
         <md-card-header-text>
@@ -51,7 +51,7 @@
       </md-card-header>
       <div class="md-card-image" style="height: 200px!important; width: 100%; height: initial; background: url({{pro['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
         <div class="tiletoolbar" layout="row" layout-align="end">
-          <md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-project({nID:{{pro['schema:name'].split(':')[1]}}})">
+          <md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})">
             <md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
               <md-tooltip md-direction="bottom">
                   Details
@@ -77,7 +77,7 @@
           </md-button>                        
         </div>      
       </div>
-    	<md-card-title ui-sref="dha.s-project({nID:{{pro['schema:name'].split(':')[1]}}})">
+    	<md-card-title ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})">
         <md-card-title-text>
           <span class="md-headline" md-colors="{color: 'primary-800'}"><h3>{{pro['schema:headline']}}</h3></span>
           <span class="md-subhead">{{pro['schema:description']}}</span>

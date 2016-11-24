@@ -19,7 +19,7 @@
 					<div layout-gt-sm="row" layout="column" layout-align="start center" layout-align-gt-sm="start stretch">
 						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents | limitTo:2" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 					        <md-card-header>
-					          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+					          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" style="cursor: pointer;">
 					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 					          </md-card-avatar>
 					          <md-card-header-text>
@@ -29,7 +29,7 @@
 					        </md-card-header>
 					        <div class="md-card-image" style="height: 100px!important; width: 100%; background: url({{ev['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
 					        	<div class="tiletoolbar" layout="row" layout-align="end">
-									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 										<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
 									    <md-tooltip md-direction="bottom">
 								          Details
@@ -55,7 +55,7 @@
 									</md-button>												
 					        	</div>
 					        </div>
-						    <md-card-title ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+						    <md-card-title ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 						        <md-card-title-text>
 						          <span class="md-headline" ><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></span>
 						          <span class="md-subhead">{{ev['schema:description']}}</span>
@@ -74,14 +74,14 @@
 				    <div layout="column" layout-wrap layout-align-gt-sm="space-between start" layout-align="start center" >
 				    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in Model.newsevents | byProperty:'schema:recordedIn.url':undefined | limitTo:2" >
 					    	<md-card-header style="padding: 0px!important;">
-				    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})" layout="row" layout-align="space-between center">
+				    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})" layout="row" layout-align="space-between center">
 					    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>
 					    			<span class="md-subhead">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
 				    			</md-card-header-text>
 				    		</md-card-header>
 					        <div class="md-card-image" ng-repeat="preview in ev['schema:sameAs'] | byProperty:'title':'_preview'" style="height: 90px!important; width: 100%; background: url({{preview['url']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
 					        	<div class="tiletoolbar" layout="row" layout-align="end">
-									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 										<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
 									    <md-tooltip md-direction="bottom">
 								          Details
@@ -135,7 +135,7 @@
 				      		md-select="ev" 
 				      		md-select-id="{{ev['schema:name'].replace('dha:','')}}" 
 				      		ng-repeat="ev in Model.newsevents | pastEvents | orderBy:sortfield:reverse"
-				      		ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})"
+				      		ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})"
 				      		class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 						<td md-cell>
 							<img class="tableicon md-whiteframe-1dp" ng-src="{{ev['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
@@ -143,7 +143,7 @@
 				        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
 				        <td md-cell>{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</td>
 				        <td md-cell>{{ev['schema:description']}}</td>
-				        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/> </td>
+				        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/> </td>
 				        <td md-cell>{{ev['schema:location']}}</td>
 				      </tr>
 				    </tbody>
@@ -156,8 +156,8 @@
 	<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-if="uiview.current=='tiles'">
 			<md-card class="spinentry md-whiteframe-3dp projecttile raise" ng-repeat="ev in Model.newsevents" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 		        <md-card-header>
-		          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-		            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:image']['styles']['thumb']}}"/>
+		          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+		            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb']}}"/>
 		          </md-card-avatar>
 		          <md-card-header-text>
 		            <span class="md-title">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
@@ -166,7 +166,7 @@
 		        </md-card-header>
 		        <div class="md-card-image" style="height: 100px!important; width: 100%; height: initial; background: url({{ev['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover;" layout="column" layout-align="end" >
 		        	<div class="tiletoolbar" layout="row" layout-align="end">
-						<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+						<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 							<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
 						    <md-tooltip md-direction="bottom">
 					          Details
@@ -192,7 +192,7 @@
 						</md-button>												
 		        	</div>
 		        </div>		        
-			    <md-card-title ui-sref="dha.s-news({nID:{{ev['schema:name'].split(':')[1]}}})">
+			    <md-card-title ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 			        <md-card-title-text>
 			          <span class="md-headline" ><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></span>
 			          <span class="md-subhead">{{ev['schema:description']}}</span>
@@ -219,7 +219,7 @@
 		      		md-select="ev" 
 		      		md-select-id="{{ev['schema:name'].replace('dha:','')}}" 
 		      		ng-repeat="ev in Model.newsevents"
-		      		ui-sref="dha.s-news({nID:{{ev['schema:name'].replace('dha:','')}}})"
+		      		ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})"
 		      		class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 				<td md-cell>
 					<img class="tableicon md-whiteframe-3dp" ng-src="{{ev['schema:image']['styles']['thumb'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" />
@@ -227,7 +227,7 @@
 		        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
 		        <td md-cell>{{ev['displayDate'] | date:'short'}}</td>
 		        <td md-cell>{{ev['schema:description']}}</td>
-		        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID:'{{ev['schema:organizer'][0].tid}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:image']['styles']['thumb']}}"/> </td>
+		        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb']}}"/> </td>
 		        <td md-cell>{{ev['schema:location']}}</td>
 		      </tr>
 		    </tbody>

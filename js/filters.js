@@ -16,6 +16,13 @@ window.PropertybyString = function(o, s) {
     return o;
 }
 
+var biblioconfig = {
+	"t_organisation":"group_work",
+	"t_reading":"import_contacts",
+	"t_resource":"description",
+	"t_software":"save"
+};
+
 /* Filters */
 var app = angular.module('DHA_webapp');
 
@@ -88,5 +95,12 @@ app.filter('futureEvents', function() {
 			}
 		});
 		return result;
+	};
+});
+
+app.filter('bibIcon', function() { 
+  return function(type) {
+  		if(biblioconfig.hasOwnProperty(type)) return biblioconfig[type];
+  		else return "view_headline";
 	};
 });

@@ -1,24 +1,43 @@
-<leaflet markers="markers" bounds="bounds" center="center" layers="layers" style="width: 100%; height: 100%; position: absolute;z-index: 4;" ></leaflet>
-<md-card class="caption" style="padding: 10px; z-index: 5; width: 20%; min-width: 300px; position: absolute; right: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
-	<div layout="row" layout-align="start start">
-	  <md-icon class="captionicons" md-colors="{color: 'primary-800'}" aria-label="{{me["schema:primaryImageOfPage"]}}" >{{me["schema:primaryImageOfPage"]}}</md-icon>
-	  <h1>{{me['schema:headline']}}</h1>
+<div class="contentcontainer">
+	<!-- ****** page caption template ******* -->
+	<div class="caption" style="margin-top: 20px;" ng-repeat="me in Model.navbar | currentCaption:state" >
+		<div layout="row" layout-align="start start">
+		  <md-icon md-colors="{color: 'primary-800'}" class="captionicons" aria-label='{{me["schema:primaryImageOfPage"]}}' >{{me["schema:primaryImageOfPage"]}}</md-icon>
+		  <h1 >{{me['schema:headline']}}</h1>
+		</div>
+		<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
 	</div>
-	<p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
-</md-card>
-<div class="contentcontainer">	
-	<md-content ng-if="uiview.list">
-		<md-card layout="row" ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" class="md-3-line md-ink-ripple md-raised" ng-repeat="pa in Model.partners" flex>
-				<div flex="10"><img height="auto" width="auto" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" /></div>
-				<div flex="5"></div>
-				<div flex="70" layout-align="start center">
-				  <h3 md-colors="{color: 'primary-700'}">{{pa['schema:legalName']}} </h3>
-
-				</div>
-				<div flex="15" layout-align="center center"><i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{pa['schema:tags'].join(', ') || 'No Tags'}}</div>
-		</md-card>
-	</md-content>    
-	<md-content ng-if="uiview.grid">
+	<!-- ****** List view template ******* -->
+	<div ng-show="uiview.current=='list'">
+		<md-table-container>
+		  <table md-table ng-model="selected" md-progress="curList">
+		    <thead md-head md-on-reorder="getNewOrder">
+		      <tr md-row>
+		        <th md-column><span></span></th>
+		        <th md-column md-order-by="headline"><span>Name</span></th>
+		        <th md-column ><span>Address</span></th>
+		        <th md-column md-order-by="source"><span></span></th>
+		      </tr>
+		    </thead>
+		    <tbody md-body>
+		      <tr md-row 
+		          md-select="ev" 
+		          md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
+		          ng-repeat="pa in Institutions"
+		          ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})"
+		          class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
+		    <td md-cell>
+		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+		    </td>
+		        <td md-cell>{{pa['schema:legalName']}}</td>
+		        <td md-cell>{{pa['schema:address']}}</td>
+		        <td md-cell></td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</md-table-container>
+	</div>		 
+	<md-content ng-show="uiview.current=='grid'">
 			<div class='md-padding' layout="row" layout-wrap>
 			  <md-card ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" style="width:275px;" ng-repeat="pa in Model.partners">
 				<md-card-content>

@@ -15,6 +15,11 @@ var viewconfig = {
 			{"key":"list","icon":"view_list"},
 			{"key":"grid","icon":"view_comfy"}
 		],
+	"dha.partners":
+		[
+			{"key":"list","icon":"view_list"},
+			{"key":"grid","icon":"view_comfy"}
+		],		
 };
 
 (function () {
@@ -187,7 +192,7 @@ var viewconfig = {
 	app.controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'leafletData', 'leafletBoundsHelpers',  function($rootScope, $scope, $http, $state, $stateParams, getContent, leafletData, leafletBoundsHelpers){
 		$scope.Model = {};
 		$scope.icons = {};
-		getContent.getInstitutions().then(function(res){
+		getContent.getTerms({'vid':'5', 'field_tags':'207'}).then(function(res){
 			$scope.Institutions = res.data;
 			res.data.forEach(function(inst){
 				if(inst['schema:logo']['styles']){
@@ -203,33 +208,47 @@ var viewconfig = {
 			    }
 			});
 		});
-		$scope.ATbounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  20.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
-		angular.extend($scope, {
-			bounds: $scope.ATbounds,
-			center: {},
-			markers: {},
-			layers: {}
-		});
-	  	leafletData.getMap().then(function(map) {
-	  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
-			    id: 'mapbox.light',
-			}).addTo(map);
-	  		getContent.getInstitutions().then(function(res){
-				res.data.forEach(function(inst){
-					if(inst.geo){
-						inst.geo.then(function(c){
-							$scope.markers[inst.tid] = {"lat":c.lat, "lng": c.lng, "message":inst['schema:address']}
-						})
-					}
-				});
+		$rootScope.uiview.current = "list";
+		$rootScope.aviews = viewconfig[$state.current.name];		
+		//map not rendered for now
+			$scope.ATbounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  20.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
+			angular.extend($scope, {
+				bounds: $scope.ATbounds,
+				center: {},
+				markers: {},
+				layers: {}
 			});
-			map.invalidateSize();
-			window.onresize = setTimeout(function(){ map.invalidateSize()}, 400);
-	    });		
+		  	leafletData.getMap().then(function(map) {
+		  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
+				    id: 'mapbox.light',
+				}).addTo(map);
+		  		getContent.getInstitutions().then(function(res){
+					res.data.forEach(function(inst){
+						if(inst.geo){
+							inst.geo.then(function(c){
+								$scope.markers[inst.tid] = {"lat":c.lat, "lng": c.lng, "message":inst['schema:address']}
+							})
+						}
+					});
+				});
+				map.invalidateSize();
+				window.onresize = setTimeout(function(){ map.invalidateSize()}, 400);
+		    });
+		///////////////////////////////		
 		$rootScope.captions.then(function(res){
 			$scope.state = $state;
 			$scope.Model.navbar = res.data;
-		});	    
+		});
+		//////////// data-Table-helpers //////////////////////////////////
+		$scope.sortfield = "headline";
+		$scope.reverse = false;
+		$scope.selected = [];		
+		$scope.getNewOrder = function(a) {
+			if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
+	  		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
+			console.log(a);
+		}
+		/////////////////////////////////////////////////////////////////				    
 	}]);
 	app.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
 		$scope.myList = [];
@@ -249,11 +268,52 @@ var viewconfig = {
 			);		
 		});
 	}]);
-	app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', function($scope, $http, $state, $stateParams, getContent){
+	app.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, Geocoder, leafletData, leafletBoundsHelpers){
+		var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  17.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
+		angular.extend($scope, {
+			bounds: bounds,
+			center: {},
+			markers: {},
+			layers: {},
+			mySingle: [],
+			evList: [],
+			proList: []
+		});			
 		var curList = getContent.getTerms({"tid": $stateParams.nID});
 		curList.then(
 			function(res){
-			  $scope.mySingle = res.data;
+				$scope.mySingle = res.data;
+				var evList = getContent.getNodes({"field_organizer": $scope.mySingle[0].tid});
+				evList.then(
+					function(res){
+					  $scope.evList = res.data;
+					},
+					function(err){ console.log('err singlePaCtrl: ', err); }
+				);
+				var proList = getContent.getNodes({"field_publisher_institution": $scope.mySingle[0].tid});
+				proList.then(
+					function(res){
+					  $scope.proList = res.data;
+					},
+					function(err){ console.log('err singlePaCtrl: ', err); }
+				);
+			  	if($scope.mySingle[0]['schema:address'] != "") {
+			  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:address']);
+			  		$scope.mySingle[0]['geo'].then(function(res){
+			  			console.log($scope.mySingle[0]['geo']);
+					  	leafletData.getMap().then(function(map) {  		
+					    	map.setView(res, 16);
+					    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:address'],"focus":true}}
+					  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
+							    id: 'mapbox.light',
+							}).addTo(map);					    	
+					    	map.invalidateSize();
+					    });
+						  $scope.$on('leafletDirectiveMap.resize', function(event){
+						      console.log(event);
+						  });					    
+			  		});
+			  	}				
 			},
 			function(err){ console.log('err singlePaCtrl: ', err); }
 		);

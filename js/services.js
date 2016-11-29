@@ -1,15 +1,4 @@
-(function () {
-  'use strict';
-/////////// refactoring above as a service 
-/////////// to be moved to separate file
-var Config = {
-    "baseURL":"https://dhcuratedev.eos.arz.oeaw.ac.at",
-    "pagesize": "all", //limiting pagesize currently does not work properly d/t bug with unpublished nodes
-    "currentView":"list",
-    "localStorage":"DHAStorage",
-    "language":"en", // default english, set to browser language if either de or en
-    "version":"0.1" 
-}
+'use strict';
 
 var D7_API_Services = angular.module('D7_API_Services', []);
 
@@ -176,4 +165,3 @@ angular.module('geocoder', ['ngStorage']).factory('Geocoder', function ($localSt
 });
 
 
-})();

@@ -1,10 +1,9 @@
 'use strict';
 
-/* Directoves */
+/* Directives */
 var app = angular.module('DHA_webapp');
 
-
-
+// draft for taxonomy viz - not in use yet
 app.directive('linearChart', function() {
   return {
     restrict: 'EA',

@@ -10,11 +10,12 @@
     "jquery":"~2.1.1",
     "angular-ui-router":"0.2.x",
     "angular-animate":"1.5.x",
-    "angular-material":"1.1.0-rc.5",
+    "angular-material":"1.1.x",
     "angular-sanitize":"1.5.x",
     "ui-leaflet":"1.0.0",
     "angular-cookies":"1.5.x",
     "angular-material-data-table":"0.10.9",
-    "ngstorage":"0.3.11"
+    "ngstorage":"0.3.11",
+    "d3":"4.4.x"
   }
 }

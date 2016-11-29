@@ -16,18 +16,10 @@ window.PropertybyString = function(o, s) {
     return o;
 }
 
-var biblioconfig = {
-	"t_organisation":"group_work",
-	"t_reading":"import_contacts",
-	"t_resource":"description",
-	"t_software":"save"
-};
-
 /* Filters */
 var app = angular.module('DHA_webapp');
 
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
-
 
 app.filter('currentCaption', function() { 
   return function(items, state) {

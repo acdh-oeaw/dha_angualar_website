@@ -5,7 +5,7 @@
       <md-icon md-colors="{color: 'primary-800'}" class="captionicons" aria-label='{{me["schema:primaryImageOfPage"]}}' >{{me["schema:primaryImageOfPage"]}}</md-icon>
       <h1 >{{me['schema:headline']}}</h1>
     </div>
-    <p class="md-body-2" ng-bind-html="me['schema:description'] | unsafe"></p>
+    <p class="md-body-2" ng-bind-html="me['schema:text'] | unsafe"></p>
   </div>
   <!-- ****** List view template ******* -->
   <div ng-show="uiview.current=='list'">

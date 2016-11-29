@@ -40,7 +40,6 @@ var viewconfig = {
 			  for(var i=0; i<res.data.length; i++){
 				if( res.data[i].hasOwnProperty('schema:url') ){
 					res.data[i]['ctrl'] = res.data[i]['schema:url']['alias'];
-					res.data[i]['schema:description'] = res.data[i]['schema:description'].replace(/<[^<>]+>/gm, '').substring(0,120) + '...';
 				}
 			  }
 			  $scope.Model['start'] = res.data;

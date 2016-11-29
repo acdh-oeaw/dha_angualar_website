@@ -1,7 +1,7 @@
 <div class="navmenu">
 	<div class="topnav" layout="row" layout-align="space-between end">
 		<a ui-sref="start"><img style="height: 50px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png"></a>
-		<md-nav-bar md-selected-nav-item="$state.current.name.split('.')[1]" nav-bar-aria-label="navigation links" style="border-style: none;">
+		<md-nav-bar md-selected-nav-item="$state.current.name" nav-bar-aria-label="navigation links" style="border-style: none;">
 			<md-nav-item md-nav-sref="dha.{{me.ctrl}}" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar" >
 			<h3 class="menucaption"><md-icon md-colors="{color: 'primary-800'}" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
 			{{me['schema:headline']}}</h3>

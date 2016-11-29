@@ -226,6 +226,45 @@ md-chips md-chip {
     to   { transform: rotateX(0deg);}
 }
 
+/******** spinentry animation class - to be replaced by ngAnimate + transitions? *********/
+.fadeout{
+  animation-delay: 5s;
+  -webkit-animation: fadeout 0.4s forwards; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadeout 0.4s forwards; /* Firefox < 16 */
+  -ms-animation: fadeout 0.4s forwards; /* Internet Explorer */
+  -o-animation: fadeout 0.4s forwards; /* Opera < 12.1 */
+  animation: fadeout 0.4s forwards;
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0;}
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeout {
+    from { opacity: 1;}
+    to   { opacity: 0;}
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeout {
+    from { opacity: 1;}
+    to   { opacity: 0;}
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeout {
+    from { opacity: 1;}
+    to   { opacity: 0;}
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadeout {
+    from { opacity: 1;}
+    to   { opacity: 0;}
+}
+
 /******** layout elements - knowmore page *********/
  md-grid-list {
   margin: 8px; }

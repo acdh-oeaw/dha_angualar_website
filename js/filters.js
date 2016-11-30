@@ -36,6 +36,7 @@ app.filter('currentCaption', function() {
 
 app.filter('termByID', function() { 
   return function(terms, id) {
+  		console.log(terms,id);
 		var result = [];
 		angular.forEach(terms, function(value) {
 			if (value.hasOwnProperty('tid') && value['tid'] == id) {

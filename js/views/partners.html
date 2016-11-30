@@ -15,39 +15,29 @@
 		      <tr md-row>
 		        <th md-column><span></span></th>
 		        <th md-column md-order-by="headline"><span>Name</span></th>
-		        <th md-column ><span>Address</span></th>
-		        <th md-column md-order-by="source"><span></span></th>
+		        <th md-column ><span>Part of</span></th>
+		        <th md-column ><span>Website</span></th>
 		      </tr>
 		    </thead>
 		    <tbody md-body>
 		      <tr md-row 
 		          md-select="ev" 
 		          md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
-		          ng-repeat="pa in Institutions"
+		          ng-repeat="pa in Institutions | byProperty:'schema:keywords.0.tid':'207'"
 		          ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})"
 		          class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 		    <td md-cell>
 		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
 		    </td>
 		        <td md-cell>{{pa['schema:legalName']}}</td>
-		        <td md-cell>{{pa['schema:address']}}</td>
+		        <td md-cell ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})">
+					    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
+					    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
+		        </td>
 		        <td md-cell></td>
 		      </tr>
 		    </tbody>
 		  </table>
 		</md-table-container>
 	</div>		 
-	<md-content ng-show="uiview.current=='grid'">
-			<div class='md-padding' layout="row" layout-wrap>
-			  <md-card ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})" style="width:275px;" ng-repeat="pa in Model.partners">
-				<md-card-content>
-				<img height="55px" ng-src="{{pa['schema:thumbnailUrl']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/styles/thumbnail/public/dha_logo.png'}}" alt="{{pa['schema:legalName']}}" />
-				  <h4 md-colors="{color: 'primary-500'}">{{pa['schema:legalName']}}</h4>
-				</md-card-content>
-				<md-card-footer layout='row' layout-align="end center">
-				  <i md-colors="{color: 'primary-800'}" class="material-icons">&#xE892;</i> <span style="text-transform:capitalize;font-size:11px;font-style:italic;">{{pa['schema:tags'].join(', ') || 'No Tags'}}</span>
-				</md-card-footer>
-			  </md-card>
-			</div>
-	</md-content>
 </div>

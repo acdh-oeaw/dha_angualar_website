@@ -168,7 +168,7 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 .controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'leafletData', 'leafletBoundsHelpers',  function($rootScope, $scope, $http, $state, $stateParams, getContent, leafletData, leafletBoundsHelpers){
 	$scope.Model = {};
 	$scope.icons = {};
-	getContent.getTerms({'vid':'5', 'field_tags':'207'}).then(function(res){
+	getContent.getTerms({'vid':'5'}).then(function(res){
 		$scope.Institutions = res.data;
 		res.data.forEach(function(inst){
 			if(inst['schema:logo']['styles']){

@@ -254,6 +254,9 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 }])
 .controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, Geocoder, leafletData, leafletBoundsHelpers){
 	var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  17.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
+	getContent.getInstitutions().then(function(res){
+		$scope.Institutions = res.data;
+	});	
 	angular.extend($scope, {
 		bounds: bounds,
 		center: {},

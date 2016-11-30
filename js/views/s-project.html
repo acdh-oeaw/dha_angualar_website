@@ -78,7 +78,7 @@
 				  <p style="width: 60%; text-align: justify;" href="{{page.url}}">{{pro['displayDate'] | date:'dd. MMMM yyyy'  }}</p>
 				  <md-divider></md-divider>
 				</md-list-item>	
-				<md-list-item class="vspinentry">
+				<md-list-item class="vspinentry" ng-if="pro['schema:license']">
 				  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">License:  </h3>
 				  <p style="width: 60%; text-align: justify;" href="{{page.url}}">{{pro['schema:license']}}</p>
 				  <md-divider></md-divider>

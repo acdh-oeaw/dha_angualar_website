@@ -99,7 +99,7 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 				if( res.data[i].hasOwnProperty('schema:startDate') ){
 					//post-processing - this needs to go to a filter imho...
 					res.data[i]['displayDate'] = parseInt(res.data[i]['schema:startDate'])*1000;
-					res.data[i]['headline'] = parseInt(res.data[i]['schema:headline'])*1000;
+					res.data[i]['headline'] = res.data[i]['schema:headline'];
 				}
 			}
 			$scope.Model['newsevents'] = res.data;
@@ -114,6 +114,7 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 		$scope.Institutions = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
+	$scope.currentSorting = "displayDate"
 	$scope.sortfield = "displayDate";
 	$scope.reverse = true;
 	$scope.selected = [];		
@@ -169,7 +170,6 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 	$scope.Model = {};
 	$scope.icons = {};
 	getContent.getTerms({'vid':'5'}).then(function(res){
-		$scope.Institutions = res.data;
 		res.data.forEach(function(inst){
 			if(inst['schema:logo']['styles']){
 				$scope.icons[inst.tid] = {
@@ -183,6 +183,12 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 		        };
 		    }
 		});
+		for(var i=0; i<res.data.length; i++){
+			if( res.data[i].hasOwnProperty('schema:legalName') ){
+				res.data[i]['legalName'] = res.data[i]['schema:legalName'];
+			}
+		}		
+		$scope.Institutions = res.data;
 	});
 	$rootScope.uiview.current = "list";
 	$rootScope.aviews = viewconfig[$state.current.name];		
@@ -216,7 +222,8 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 		$scope.Model.navbar = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
-	$scope.sortfield = "headline";
+	$scope.currentSorting = "legalName"
+	$scope.sortfield = "legalName";
 	$scope.reverse = false;
 	$scope.selected = [];		
 	$scope.getNewOrder = function(a) {
@@ -315,6 +322,7 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 		$scope.Model.navbar = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
+	$scope.currentSorting = "headline"
 	$scope.sortfield = "headline";
 	$scope.reverse = false;
 	$scope.selected = [];		
@@ -351,6 +359,7 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 		$scope.Model.navbar = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
+	$scope.currentSorting = "headline"
 	$scope.sortfield = "headline";
 	$scope.reverse = false;
 	$scope.selected = [];		

@@ -17,7 +17,7 @@
 						<h4 md-colors="{color: 'primary-800'}">Coming Up</h4>
 					</div>
 					<div layout-gt-sm="row" layout="column" layout-align="start center" layout-align-gt-sm="start stretch">
-						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents | limitTo:2" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
+						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents | limitTo:2 | orderBy:displayDate:reverse" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 					        <md-card-header>
 					          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" style="cursor: pointer;">
 					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
@@ -120,7 +120,7 @@
 				</div>
 				<md-table-container>
 				  <table md-table ng-model="selected" md-progress="curList">
-				    <thead md-head md-on-reorder="getNewOrder">
+				    <thead md-head md-on-reorder="getNewOrder" md-order="currentSorting">
 				      <tr md-row>
 				      	<th md-column><span></span></th>
 				        <th md-column md-order-by="headline"><span>Title</span></th>
@@ -204,7 +204,7 @@
 	<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-if="uiview.current=='list'">
 		<md-table-container>
 		  <table md-table ng-model="selected" md-progress="curList">
-		    <thead md-head md-on-reorder="getNewOrder">
+		    <thead md-head md-on-reorder="getNewOrder" md-order="currentSorting">
 		      <tr md-row>
 		      	<th md-column><span></span></th>
 		        <th md-column md-order-by="headline"><span>Title</span></th>

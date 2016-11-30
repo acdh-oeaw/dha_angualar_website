@@ -15,7 +15,7 @@
 		      <tr md-row>
 		        <th md-column><span></span></th>
 		        <th md-column md-order-by="legalName"><span>Name</span></th>
-		        <th md-column ><span>Part of</span></th>
+		        <th md-column md-order-by="parent"><span>Part of</span></th>
 		        <th md-column ><span>Website</span></th>
 		      </tr>
 		    </thead>
@@ -24,7 +24,7 @@
 		          md-select="ev" 
 		          md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
 		          ng-repeat="pa in Institutions | byProperty:'schema:keywords.0.tid':'207' | orderBy:sortfield:reverse"
-		          ui-sref="dha.s-partners({nID:'{{pa['tid']}}', lang:'{{curlang}}'})"
+		          ui-sref="dha.s-partners({nID: '{{pa['schema:url']['alias']}}', lang:'{{curlang}}'})"
 		          class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 		    <td md-cell>
 		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />

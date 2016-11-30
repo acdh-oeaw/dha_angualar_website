@@ -55,27 +55,35 @@
 		</div>
 	</div>
 	<div style="padding: 5px;" layout="row" layout-align="start stretch" layout-wrap>
-		<div flex-gt-sm="70" flex="100" >
-			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Details</h3>		
-			<div layout="row" layout-align="start center" style="padding-left: 20px;">
-				<h4 class="md-caption" >Organization: </h4>
-				<md-button  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="center center">
-				    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
-				    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
-				</md-button>
-			</div>
-			<div layout="row" layout-align="start center" style="padding-left: 20px;">
-				<h4 class="md-caption" >Responsible: </h4>
-				{{pro['schema:accountablePerson'][0] || 'n/a'}}
-			</div>
-			<div layout="row" layout-align="start center" style="padding-left: 20px;">
-				<h4 class="md-caption" >Started: </h4>
-				<span> {{pro['displayDate'] || ' n/a' | date:'dd. MMMM yyyy'  }}</span>
-			</div>
-			<div layout="row" layout-align="start center" style="padding-left: 20px;">
-				<h4 class="md-caption" >License: </h4>
-				{{pro['schema:license'] || ' n/a' }}
-			</div>					
+		<div flex-gt-sm="70" flex="100" style="padding-right: 20px;">
+			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Details</h3>
+		    <md-list class="md-dense" flex>
+				<md-list-item class="vspinentry" ng-repeat="org in pro['schema:sourceOrganization']">
+				  	<h3 class="md-title" style="width:40%; padding-right: 15px;text-align: right;">Organization: </h3>
+					<p style="width: 60%; text-align: justify;">
+						<md-button  ng-repeat="inst in Institutions | termByID:org.tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="center center">
+						    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
+						    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
+						</md-button>						
+					</p>
+				  	<md-divider></md-divider>
+				</md-list-item>
+				<md-list-item class="vspinentry" ng-repeat="per in pro['schema:accountablePerson']">
+				  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">Responsible: </h3>
+				  <p style="width: 60%; text-align: justify;">{{per}}</p>
+				  <md-divider></md-divider>
+				</md-list-item>
+				<md-list-item class="vspinentry">
+				  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">Started: </h3>
+				  <p style="width: 60%; text-align: justify;" href="{{page.url}}">{{pro['displayDate'] | date:'dd. MMMM yyyy'  }}</p>
+				  <md-divider></md-divider>
+				</md-list-item>	
+				<md-list-item class="vspinentry">
+				  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">License:  </h3>
+				  <p style="width: 60%; text-align: justify;" href="{{page.url}}">{{pro['schema:license']}}</p>
+				  <md-divider></md-divider>
+				</md-list-item>					
+			</md-list>					
 		</div>
 		<div flex-gt-sm="30" flex="100"  class="spinentry md-whiteframe-1dp raise">
 			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Downloads / Links</h3>

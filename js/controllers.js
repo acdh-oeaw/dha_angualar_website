@@ -186,6 +186,7 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 		for(var i=0; i<res.data.length; i++){
 			if( res.data[i].hasOwnProperty('schema:legalName') ){
 				res.data[i]['legalName'] = res.data[i]['schema:legalName'];
+				res.data[i]['parent'] = res.data[i]['schema:parentOrganization'];
 			}
 		}		
 		$scope.Institutions = res.data;
@@ -346,8 +347,10 @@ app.controller('startCtrl',['$scope','$http', '$state', '$stateParams','getConte
 			for(var i=0; i<res.data.length; i++){
 				if( res.data[i].hasOwnProperty('schema:headline') ){
 					res.data[i]['headline'] = res.data[i]['schema:headline'];
-					res.data[i]['source'] = res.data[i]['schema:sourceOrganization'][0].name;
 				}
+				if( res.data[i].hasOwnProperty('schema:sourceOrganization') ){
+					res.data[i]['source'] = res.data[i]['schema:sourceOrganization'][0].name;
+				}				
 			}
 			$scope.Model['projects'] = res.data;
 			

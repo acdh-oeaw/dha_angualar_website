@@ -131,7 +131,8 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	}
 	/////////////////////////////////////////////////////////////////
 }])
-.controller('singleCtrl',['$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
+.controller('singleCtrl',['$rootScope', '$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($rootScope, $scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
+	$rootScope.aviews = viewconfig[$state.current.name];
 	getContent.getInstitutions().then(function(res){
 		$scope.Institutions = res.data;
 	});
@@ -241,7 +242,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	}
 	/////////////////////////////////////////////////////////////////				    
 }])
-.controller('embedTermCtrl',['$scope','$http', 'getContent', '$attrs',   function($scope, $http, getContent, $attrs){
+.controller('embedTermCtrl',['$rootScope','$scope','$http', 'getContent', '$attrs',   function($rootScope, $scope, $http, getContent, $attrs){
 	$scope.myList = [];
 	$attrs.$observe('tags', function(val){
 		var tags = JSON.parse(val);
@@ -260,6 +261,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	});
 }])
 .controller('singlePaCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($rootScope, $scope, $http, $state, $stateParams, getContent, Geocoder, leafletData, leafletBoundsHelpers){
+	$rootScope.aviews = viewconfig[$state.current.name];
 	var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  17.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
 	getContent.getInstitutions().then(function(res){
 		$scope.Institutions = res.data;
@@ -384,9 +386,16 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	/////////////////////////////////////////////////////////////////
 }])
 .controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
+	$rootScope.aviews = viewconfig[$state.current.name];
 	$scope.Model = {};
 	var pi = getContent.getNodes({"nid":"impressum"});
+	pi.then(function(res){
+		$scope.Model.impressum = res.data;
+	});
 	var pc = getContent.getNodes({"nid":"cookies"});
+	pc.then(function(res){
+		$scope.Model.cookies = res.data;
+	});
 	$rootScope.captions.then(function(res){
 		$scope.state = $state;
 		$scope.Model.navbar = res.data;

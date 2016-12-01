@@ -25,12 +25,7 @@ var viewconfig = {
     [
       {"key":"list","icon":"view_list"},
       {"key":"grid","icon":"view_comfy"}
-    ],
-  "dha.partners":
-    [
-      {"key":"list","icon":"view_list"},
-      {"key":"grid","icon":"view_comfy"}
-    ],    
+    ]   
 };
 
 //biblio types to icons mapping

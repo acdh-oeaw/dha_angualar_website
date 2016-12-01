@@ -1,7 +1,7 @@
 <div class="navmenu">
 	<div class="topnav" layout="row" layout-align="space-between end">
 		<a ui-sref="start"><img style="height: 50px;" src="http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png"></a>
-		<md-nav-bar md-selected-nav-item="$state.current.name" nav-bar-aria-label="navigation links" style="border-style: none;">
+		<md-nav-bar md-selected-nav-item="$state.current.name" nav-bar-aria-label="navigation links" style="border-style: none; padding-right: 10px;">
 			<md-nav-item md-nav-sref="dha.{{me.ctrl}}" name="dha.{{me.ctrl}}" ng-repeat="me in Model.navbar" >
 			<h3 class="menucaption"><md-icon md-colors="{color: 'primary-800'}" aria-label="{{me["schema:primaryImageOfPage"]}}">{{me["schema:primaryImageOfPage"]}}</md-icon>
 			{{me['schema:headline']}}</h3>
@@ -25,7 +25,7 @@
     </md-menu>
 </div>
 <div class="languagemenu">
-	<md-fab-speed-dial ng-cloak md-open="languagemenu.menuOpen" md-direction="up" class="md-scale" ng-mouseenter="languagemenu.menuOpen=true" ng-mouseleave="languagemenu.menuOpen=false">
+	<md-fab-speed-dial ng-cloak md-open="languagemenu.menuOpen" md-direction="up" class="md-scale" ng-mouseenter="languagemenu.menuOpen=true" ng-mouseleave="languagemenu.menuOpen=false" >
 		<md-fab-trigger >
 			<md-button aria-label="menu" class="md-fab md-primary">
 				<md-icon aria-label="{{Icon.arialabel}}">language</md-icon>
@@ -40,7 +40,7 @@
 	</md-fab-speed-dial>
 </div>
 <div class="viewmenu">
-	<md-fab-speed-dial ng-cloak md-open="uiview.menuOpen" md-direction="up" class="md-scale" ng-mouseenter="uiview.menuOpen=true" ng-mouseleave="uiview.menuOpen=false">
+	<md-fab-speed-dial ng-cloak md-open="uiview.menuOpen" md-direction="up" class="md-scale" ng-mouseenter="uiview.menuOpen=true" ng-mouseleave="uiview.menuOpen=false" ng-if="aviews != undefined">
 		<md-fab-trigger >
 			<md-button aria-label="menu" class="md-fab md-primary">
 				<md-icon aria-label="{{Icon.arialabel}}">pageview</md-icon>

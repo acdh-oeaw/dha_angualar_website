@@ -53,7 +53,7 @@
 					<h4 md-colors="{color: 'primary-800'}">Related Resources</h4>
 				</div>
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
-				    <md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'t_resource'" >
+				    <md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in myList | byProperty:'type':'biblio'" >
 					    	<md-card-header style="padding: 0px!important;">
 				    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.s-knowmore({nID: '{{ev['schema:url']['alias']}}'})" layout="row" layout-align="space-between center">
 					    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>

@@ -321,6 +321,11 @@ md-icon.sidenav {
   bottom:0px;
 }
 
+.scrollcontainer {
+  overflow-y: auto;
+  height: calc(100% - 65px);
+}
+
 .contentcontainer {
   max-width: 1400px;
   margin: 0 auto; 
@@ -432,4 +437,10 @@ md-icon.sidenav {
     .sidenav {
         display: none;
     }
+}
+
+@media print {
+  .scrollcontainer {
+    overflow-y: visible;
+  }
 }

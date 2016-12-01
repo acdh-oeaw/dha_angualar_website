@@ -259,7 +259,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		);		
 	});
 }])
-.controller('singlePaCtrl',['$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($scope, $http, $state, $stateParams, getContent, Geocoder, leafletData, leafletBoundsHelpers){
+.controller('singlePaCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($rootScope, $scope, $http, $state, $stateParams, getContent, Geocoder, leafletData, leafletBoundsHelpers){
 	var bounds = leafletBoundsHelpers.createBoundsFromArray([[ 49.02116, 9.53095  ],[ 46.37265,  17.16207 ]]); //creating austria bounds - maybe get coordinates from GeoNames as well?
 	getContent.getInstitutions().then(function(res){
 		$scope.Institutions = res.data;
@@ -385,6 +385,8 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 }])
 .controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};
+	var pi = getContent.getNodes({"nid":"impressum"});
+	var pc = getContent.getNodes({"nid":"cookies"});
 	$rootScope.captions.then(function(res){
 		$scope.state = $state;
 		$scope.Model.navbar = res.data;

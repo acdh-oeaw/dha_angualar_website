@@ -25,7 +25,7 @@
 					<md-list-item class="vspinentry" ng-if="pro['schema:parentOrganization'] != ''">
 					  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">Part of :</h3>
 					  	<p style="width: 60%; text-align: justify;">
-							<md-button  ng-repeat="inst in Institutions | termByID:pro['schema:parentOrganization']" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="start center">
+							<md-button  ng-repeat="inst in Institutions | termByID:pro['schema:parentOrganization']" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" layout="row" layout-align="start center">
 							    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 							    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 							</md-button>					  		
@@ -35,7 +35,7 @@
 					<md-list-item class="vspinentry" ng-repeat="inst in Institutions | byProperty:'schema:parentOrganization':pro['tid']">
 					  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">Suborganization :</h3>
 					  	<p style="width: 60%; text-align: justify;" >
-							<md-button   ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="start center">
+							<md-button   ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" layout="row" layout-align="start center">
 							    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 							    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 							</md-button>					  		

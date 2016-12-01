@@ -2,7 +2,7 @@
     <div class="md-whiteframe-1dp" style="height: 300px!important; width: 100%; background: url({{pro['schema:image']['styles']['banner']}}) no-repeat scroll 50% 50% / cover; margin-top: 20px;" layout="column" layout-align="space-between stretch">
     	<div class="detailtoolbar" layout="row" layout-align="space-between center" style="padding-right: 20px; padding-left: 20px;">
 			<div layout="row" layout-align="end center">
-				<md-button  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="center center">
+				<md-button  ng-repeat="inst in Institutions | termByID:pro['schema:sourceOrganization'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" layout="row" layout-align="center center">
 				    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 				    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 				</md-button>
@@ -61,7 +61,7 @@
 				<md-list-item class="vspinentry" ng-repeat="org in pro['schema:sourceOrganization']">
 				  	<h3 class="md-title" style="width:40%; padding-right: 15px;text-align: right;">Organization: </h3>
 					<p style="width: 60%; text-align: justify;">
-						<md-button  ng-repeat="inst in Institutions | termByID:org.tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" layout="row" layout-align="start center">
+						<md-button  ng-repeat="inst in Institutions | termByID:org.tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" layout="row" layout-align="start center">
 						    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 						    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 						</md-button>						
@@ -104,7 +104,7 @@
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
 					<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'schema:creativework'" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 				        <md-card-header ng-repeat="inst in Institutions | termByID:ev['schema:sourceOrganization'][0].tid">
-				          <md-card-avatar   ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" style="cursor: pointer;">
+				          <md-card-avatar   ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" style="cursor: pointer;">
 				            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 				          </md-card-avatar>
 				          <md-card-header-text>

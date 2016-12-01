@@ -49,6 +49,8 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 			if(language == "en" || "de") {
 				Config.language = language;
 				this.language = Config.language;
+        this.institutions = undefined;
+        this.DHATax = undefined;
 				//there needs to go more here, history clearing, refetching content? 
 			}
 			else console.log("No comprendo ",language);

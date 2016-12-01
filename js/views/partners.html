@@ -24,13 +24,13 @@
 		          md-select="ev" 
 		          md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
 		          ng-repeat="pa in Institutions | byProperty:'schema:keywords.0.tid':'207' | orderBy:sortfield:reverse"
-		          ui-sref="dha.s-partners({nID: '{{pa['schema:url']['alias']}}', lang:'{{curlang}}'})"
+		          ui-sref="dha.s-partners({nID: '{{pa['schema:url']['alias']}}'})"
 		          class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 		    <td md-cell>
 		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
 		    </td>
 		        <td md-cell>{{pa['legalName']}}</td>
-		        <td md-cell ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})">
+		        <td md-cell ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']">
 					    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 					    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 		        </td>

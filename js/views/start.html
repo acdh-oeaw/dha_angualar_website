@@ -32,3 +32,18 @@
 	</div>
 	<md-icon md-colors="{color: 'primary-200'}" style="position: absolute; top: 30px; right: 30px; font-size: 20px; width: 30px; height: 30px;" onClick="this.parentNode.style.display = 'none';" aria-label="">clear</md-icon>
 </div>
+<div class="languagemenu">
+	<md-fab-speed-dial ng-cloak md-open="languagemenu.menuOpen" md-direction="up" class="md-scale" ng-mouseenter="languagemenu.menuOpen=true" ng-mouseleave="languagemenu.menuOpen=false">
+		<md-fab-trigger >
+			<md-button aria-label="menu" class="md-fab md-primary">
+				<md-icon aria-label="{{Icon.arialabel}}">language</md-icon>
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>
+				<md-button ng-click="toggleLang('en');" class="md-fab md-raised md-mini" aria-label="English" title="EN" >EN
+				</md-button>
+				<md-button ng-click="toggleLang('de');" class="md-fab md-raised md-mini" aria-label="Deutsch" title="DE" >DE
+				</md-button>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+</div>

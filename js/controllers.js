@@ -339,6 +339,9 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	for(var key in biblioconfig) {
 		$scope.typefilter.push({'key':key, 'icon':biblioconfig[key], 'status':true});
 	}
+	$scope.updateTypeFilter = function(a) {
+		console.log(a);
+	}
 	/////////////////////////////////////////////////////////////////
 	//////////// data-Table-helpers /////////////////////////////////
 	$scope.currentSorting = "headline"

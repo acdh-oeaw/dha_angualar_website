@@ -16,7 +16,6 @@
 		        <th md-column><span></span></th>
 		        <th md-column md-order-by="legalName"><span>Name</span></th>
 		        <th md-column md-order-by="parent"><span>Part of</span></th>
-		        <th md-column ><span>Website</span></th>
 		      </tr>
 		    </thead>
 		    <tbody md-body>
@@ -30,11 +29,12 @@
 		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
 		    </td>
 		        <td md-cell>{{pa['legalName']}}</td>
-		        <td md-cell ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']">
+		        <td md-cell>
+		        	<span ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']" layout="row" layout-align="start center">
 					    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
 					    <span hide show-gt-md style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
+					</span>
 		        </td>
-		        <td md-cell></td>
 		      </tr>
 		    </tbody>
 		  </table>

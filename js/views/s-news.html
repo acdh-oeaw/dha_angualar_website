@@ -59,7 +59,10 @@
 		<div flex-gt-sm="33" flex="100" class="bgbox">
 			<div class="innerbgbox greybox" layout="column">
 				<div >
-					<h4 md-colors="{color: 'primary-800'}">Similar Events</h4>
+					<h4 flex="100" style="padding-left: 15px;">
+						<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">event</md-icon>
+						Similar Events
+					</h4>						
 				</div>
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
 			    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in myList | limitTo:3" >
@@ -103,7 +106,10 @@
 		</div>
 		<div flex-gt-sm="33" flex="100"  class="bgbox">
 			<div class="spinentry md-whiteframe-1dp raise innerbgbox" style="padding: 0px!important;">
-				<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Downloads / Links</h3>
+				<h4 flex="100" style="padding-left: 15px;">
+					<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">open_in_new</md-icon>
+					Downloads / Links
+				</h4>	
 				<div layout="row" layout-align="start center" style="padding-left: 20px;" ng-repeat="link in ev['schema:sameAs']">
 					<a href="{{link.url}}"><h4 class="md-caption">{{link.title}}</h4></a>
 				</div>	
@@ -114,7 +120,10 @@
 		</div>
 		<div flex-gt-sm="33" flex="100" style="" class="bgbox">
 			<div class="spinentry md-whiteframe-1dp raise innerbgbox" style="padding: 0px!important;">
-				<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Event Location</h3>
+				<h4 flex="100" style="padding-left: 15px;">
+					<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">place</md-icon>
+					Event Location
+				</h4>					
 				<leaflet markers="markers" layers="layers"  style="min-width: 300px; height: 500px;" ng-if="ev['geo']"></leaflet>
 			</div>
 		</div>

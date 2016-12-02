@@ -56,7 +56,10 @@
 	</div>
 	<div style="padding: 5px;" layout="row" layout-align="start stretch" layout-wrap>
 		<div flex-gt-sm="70" flex="100" style="padding-right: 20px;">
-			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Details</h3>
+			<h4 flex="100" style="padding-left: 15px;">
+				<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">library_books</md-icon>
+				Details
+			</h4>			
 		    <md-list class="md-dense" flex>
 				<md-list-item class="vspinentry" ng-repeat="org in pro['schema:sourceOrganization']">
 				  	<h3 class="md-title" style="width:40%; padding-right: 15px;text-align: right;">Organization: </h3>
@@ -86,7 +89,10 @@
 			</md-list>					
 		</div>
 		<div flex-gt-sm="30" flex="100"  class="spinentry md-whiteframe-1dp raise">
-			<h3 md-colors="{color: 'primary-800'}" style="padding-left: 20px;">Downloads / Links</h3>
+			<h4 flex="100" style="padding-left: 15px;">
+				<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">open_in_new</md-icon>
+				Downloads / Links
+			</h4>		
 			<div layout="row" layout-align="start center" style="padding-left: 20px;" ng-repeat="link in pro['schema:sameAs']">
 				<a href="{{link.url}}"><h4 class="md-caption">{{link.title}}</h4></a>
 			</div>	
@@ -99,7 +105,10 @@
 		<div class="bgbox" >
 			<div class="innerbgbox greybox" layout="column">
 				<div >
-					<h4 md-colors="{color: 'primary-800'}">Similar DHA Projects</h4>
+					<h4 flex="100" style="padding-left: 15px;">
+						<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">developer_board</md-icon>
+						Similar Projects
+					</h4>						
 				</div>
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
 					<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'schema:creativework'" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
@@ -153,7 +162,10 @@
 		<div class="bgbox" >
 			<div class="innerbgbox greybox" layout="column">
 				<div >
-					<h4 md-colors="{color: 'primary-800'}">Related Resources</h4>
+					<h4 flex="100" style="padding-left: 15px;">
+					<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">local_library</md-icon>
+					Related Resources
+					</h4>					
 				</div>
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
 				    <md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'t_resource'" >

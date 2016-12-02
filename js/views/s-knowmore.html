@@ -50,7 +50,10 @@
 		<div class="bgbox" >
 			<div class="innerbgbox greybox" layout="column">
 				<div >
-					<h4 md-colors="{color: 'primary-800'}">Related Resources</h4>
+					<h4 flex="100" style="padding-left: 15px;">
+						<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">description</md-icon>
+						Related Resources
+					</h4>	
 				</div>
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
 				    <md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-repeat="ev in myList | byProperty:'type':'biblio'" >
@@ -95,7 +98,10 @@
 		<div class="bgbox" >
 			<div class="innerbgbox greybox" layout="column">
 				<div >
-					<h4 md-colors="{color: 'primary-800'}">Related DHA Projects</h4>
+					<h4 flex="100" style="padding-left: 15px;">
+						<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">developer_board</md-icon>
+						Similar Projects
+					</h4>	
 				</div>
 				<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch">
 					<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in myList | byProperty:'schema:additionalType':'schema:creativework'" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">

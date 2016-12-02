@@ -334,7 +334,13 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		$scope.state = $state;
 		$scope.Model.navbar = res.data;
 	});
-	//////////// data-Table-helpers //////////////////////////////////
+	//////////// Tye Filter//////////////////////////////////////////
+	$scope.typefilter = [];
+	for(var key in biblioconfig) {
+		$scope.typefilter.push({'key':key, 'icon':biblioconfig[key], 'status':true});
+	}
+	/////////////////////////////////////////////////////////////////
+	//////////// data-Table-helpers /////////////////////////////////
 	$scope.currentSorting = "headline"
 	$scope.sortfield = "headline";
 	$scope.reverse = false;

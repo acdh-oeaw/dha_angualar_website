@@ -19,7 +19,7 @@
 					</h4>
 					<div flex="100" layout="row" layout-md="column" layout-align-md="" layout-wrap layout-align="space-around center">
 						<div flex="45" ng-repeat="type in typefilter">
-							<md-switch ng-model="type['status']" aria-label="Switch {{type.key.split('_')[1]}}" ng-change="updateTypeFilter">
+							<md-switch ng-model="type['status']" aria-label="Switch {{type.key.split('_')[1]}}" ng-change="updateTypeFilter()" ng-true-value="true" ng-false-value="false">
 				        		<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">{{type.icon}}
 				        		</md-icon>
 				        		<span hide-xs class="md-caption">{{type.key.split('_')[1]}}</span>
@@ -48,7 +48,7 @@
 	          <tr md-row 
 	              md-select="ev" 
 	              md-select-id="{{pro['schema:name'].replace('dha:','')}}" 
-	              ng-repeat="pro in Model.knowmore | orderBy:sortfield:reverse"
+	              ng-repeat="pro in Model.knowmore | orderBy:sortfield:reverse | byTypes:displayTypes"
 	              ui-sref="dha.s-knowmore({nID: '{{pro['schema:url']['alias']}}'})"
 	              class="raise" >
 	        	<td md-cell>

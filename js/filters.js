@@ -64,6 +64,19 @@ app.filter('byProperty', function() {
 	};
 });
 
+app.filter('byTypes', function() { 
+  return function(entities, types) {
+  		console.log(entities, types);
+		var result = [];
+		angular.forEach(entities, function(value) {
+			types.forEach(function(t){
+				if(value['schema:additionalType'] == t) result.push(value);
+			});
+		});
+		return result;
+	};
+});
+
 app.filter('pastEvents', function() { 
   return function(items) {
 		var now = Date.now();

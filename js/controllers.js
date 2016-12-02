@@ -334,13 +334,20 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		$scope.state = $state;
 		$scope.Model.navbar = res.data;
 	});
-	//////////// Tye Filter//////////////////////////////////////////
+	//////////// Type Filter//////////////////////////////////////////
 	$scope.typefilter = [];
+	$scope.displayTypes = [];
 	for(var key in biblioconfig) {
 		$scope.typefilter.push({'key':key, 'icon':biblioconfig[key], 'status':true});
+		$scope.displayTypes.push(key);
 	}
 	$scope.updateTypeFilter = function(a) {
-		console.log(a);
+		var disp = [];
+		$scope.typefilter.forEach(function(t){
+			if(t.status) disp.push(t.key);
+		})
+		$scope.displayTypes = disp;
+		console.log($scope.displayTypes);
 	}
 	/////////////////////////////////////////////////////////////////
 	//////////// data-Table-helpers /////////////////////////////////

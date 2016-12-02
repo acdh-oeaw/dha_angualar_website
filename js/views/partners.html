@@ -32,7 +32,7 @@
 		        <td md-cell>{{pa['legalName']}}</td>
 		        <td md-cell ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']">
 					    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
-					    <span hide show-gt-md class="md-caption" style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
+					    <span hide show-gt-md style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 		        </td>
 		        <td md-cell></td>
 		      </tr>

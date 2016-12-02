@@ -19,7 +19,9 @@ a {
     text-decoration: none!important;
     font-size: 14px!important;
     font-weight: 500!important;
-    letter-spacing: .018em!important
+    letter-spacing: .018em!important;
+    color: rgb(239, 108, 0);
+    cursor: pointer;
 }
 h1 {
     font-size: 45px!important;

@@ -73,7 +73,7 @@
 				  <p style="width: 60%; text-align: justify;">{{per}}</p>
 				  <md-divider></md-divider>
 				</md-list-item>
-				<md-list-item class="vspinentry">
+				<md-list-item class="vspinentry" ng-if="pro['schema:startDate'] != ''">
 				  	<h3 class="md-title" style="width:40%;padding-right: 15px;text-align: right;">Started: </h3>
 				  <p style="width: 60%; text-align: justify;" href="{{page.url}}">{{pro['displayDate'] | date:'dd. MMMM yyyy'  }}</p>
 				  <md-divider></md-divider>

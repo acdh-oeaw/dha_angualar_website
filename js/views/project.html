@@ -27,7 +27,7 @@
               ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})"
               class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
         <td md-cell>
-          <img class="tableicon md-whiteframe-1dp" ng-src="{{pro['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+          <img class="tableicon md-whiteframe-1dp" ng-src="{{pro['schema:image']['styles']['thumb'] || 'img/lowres_logo_1.png'}}" />
         </td>
             <td md-cell>{{pro['schema:headline']}}</td>
             <td md-cell>{{pro['schema:description']}}</td>
@@ -49,7 +49,7 @@
           <span class="md-subhead"></span>
         </md-card-header-text>             
       </md-card-header>
-      <div class="md-card-image" style="height: 200px!important; width: 100%; height: initial; background: url({{pro['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+      <div class="md-card-image" style="height: 200px!important; width: 100%; height: initial; background: url({{pro['schema:image']['styles']['tile'] || 'img/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
         <div class="tiletoolbar" layout="row" layout-align="end">
           <md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})">
             <md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>

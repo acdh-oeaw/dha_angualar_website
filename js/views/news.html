@@ -20,14 +20,14 @@
 						<md-card class="spinentry md-whiteframe-1dp projecttile raise" ng-repeat="ev in Model.newsevents | futureEvents | limitTo:2 | orderBy:displayDate:reverse" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}">
 					        <md-card-header>
 					          <md-card-avatar  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})" style="cursor: pointer;">
-					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
+					            <img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/>
 					          </md-card-avatar>
 					          <md-card-header-text>
 					            <span class="md-title">{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
 					            <span class="md-subhead">{{ev['schema:location']}}</span>
 					          </md-card-header-text>		          
 					        </md-card-header>
-					        <div class="md-card-image" style="height: 100px!important; width: 100%; background: url({{ev['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+					        <div class="md-card-image" style="height: 100px!important; width: 100%; background: url({{ev['schema:image']['styles']['tile'] || 'img/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
 					        	<div class="tiletoolbar" layout="row" layout-align="end">
 									<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 										<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>
@@ -138,12 +138,12 @@
 				      		ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})"
 				      		class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 						<td md-cell>
-							<img class="tableicon md-whiteframe-1dp" ng-src="{{ev['schema:image']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+							<img class="tableicon md-whiteframe-1dp" ng-src="{{ev['schema:image']['styles']['thumb'] || 'img/lowres_logo_1.png'}}" />
 						</td>
 				        <td md-cell><h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}}</h3></td>
 				        <td md-cell>{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</td>
 				        <td md-cell>{{ev['schema:description']}}</td>
-				        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/> </td>
+				        <td md-cell  ng-repeat="inst in Institutions | termByID:ev['schema:organizer'][0].tid" ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{curlang}}'})"><img class="tableicon md-whiteframe-1dp" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/> </td>
 				        <td md-cell>{{ev['schema:location']}}</td>
 				      </tr>
 				    </tbody>
@@ -164,7 +164,7 @@
 		            <span class="md-subhead">{{ev['schema:location']}}</span>
 		          </md-card-header-text>		          
 		        </md-card-header>
-		        <div class="md-card-image" style="height: 100px!important; width: 100%; height: initial; background: url({{ev['schema:image']['styles']['tile'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover;" layout="column" layout-align="end" >
+		        <div class="md-card-image" style="height: 100px!important; width: 100%; height: initial; background: url({{ev['schema:image']['styles']['tile'] || 'img/lowres_logo_1.png'}}) no-repeat scroll 50% 50% / cover;" layout="column" layout-align="end" >
 		        	<div class="tiletoolbar" layout="row" layout-align="end">
 						<md-button class="md-icon-button" aria-label="Details" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})">
 							<md-icon md-colors="{color: 'primary-800'}" >library_books</md-icon>

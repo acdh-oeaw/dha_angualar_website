@@ -1,7 +1,7 @@
 {
   "name": "dha-webapp",
   "description": "A decoupled frontend solution serving as the website of the DHA - consortium",
-  "version": "0.0.1b",
+  "version": "0.1",
   "homepage": "http://www.digital-humanities.at/",
   "license": "MIT",
   "private": true,

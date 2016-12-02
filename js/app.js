@@ -1,6 +1,6 @@
 // config for D7 Services
 var Config = {
-  "baseURL":"https://dhcuratedev.eos.arz.oeaw.ac.at",
+  "baseURL":"https://dha.acdh.oeaw.ac.at",
   "pagesize": "all", //limiting pagesize currently does not work properly d/t bug with unpublished nodes
   "currentView":"list",
   "localStorage":"DHAStorage",

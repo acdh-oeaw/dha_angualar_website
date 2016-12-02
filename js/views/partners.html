@@ -26,12 +26,12 @@
 		          ui-sref="dha.s-partners({nID: '{{pa['schema:url']['alias']}}'})"
 		          class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
 		    <td md-cell>
-		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}" />
+		      <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}" />
 		    </td>
 		        <td md-cell>{{pa['legalName']}}</td>
 		        <td md-cell>
 		        	<span ng-repeat="inst in Institutions | termByID:pa['schema:parentOrganization']" layout="row" layout-align="start center">
-					    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'http://www.digital-humanities.at/components/dha-custom/lowres_logo_1.png'}}"/>
+					    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/>
 					    <span hide show-gt-md style="padding-left: 5px;">{{inst['schema:legalName']}}</span>
 					</span>
 		        </td>

@@ -324,7 +324,9 @@ md-icon.sidenav {
 }
 
 .scrollcontainer {
-  overflow-y: auto;
+  overflow-y: scroll;
+  /*fix for iPhone */
+  -webkit-overflow-scrolling: touch;
   height: calc(100% - 65px);
 }
 

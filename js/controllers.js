@@ -32,7 +32,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	  );
 	var closepop = function(){
 		document.getElementsByClassName("dhapopover").style.display = "none";
-	}
+	};
 	///////// I18n-Switch init  //////////////////////
 	$rootScope.toggleLang = function(lang){
 	  $scope.Model.language = lang;
@@ -85,7 +85,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	///////// Taxonomies init ///////////////////
 	getContent.getInstitutions().then(function(res){
 		res.data.forEach(function(inst){
-			if(inst['schema:address'] != "") inst.geo = Geocoder.latLngForAddress(inst['schema:address']);
+			if(inst['schema:address'] !== "") inst.geo = Geocoder.latLngForAddress(inst['schema:address']);
 		});
 		console.log(getContent.getInstitutions());
 	});
@@ -121,14 +121,14 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		$scope.Institutions = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
-	$scope.currentSorting = "displayDate"
+	$scope.currentSorting = "displayDate";
 	$scope.sortfield = "displayDate";
 	$scope.reverse = true;
 	$scope.selected = [];		
 	$scope.getNewOrder = function(a) {
 		if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
   		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
-	}
+	};
 	/////////////////////////////////////////////////////////////////
 }])
 .controller('singleCtrl',['$rootScope', '$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($rootScope, $scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
@@ -148,13 +148,13 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		function(res){
 		  $scope.mySingle = res.data;
 		  	if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
-		  	if($scope.mySingle[0]['schema:location'] != "") {
+		  	if($scope.mySingle[0]['schema:location'] !== "") {
 		  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:location']);
 		  		$scope.mySingle[0]['geo'].then(function(res){
 		  			console.log($scope.mySingle[0]['geo']);
 				  	leafletData.getMap().then(function(map) {  		
 				    	map.setView(res, 16);
-				    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}}
+				    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}};
 				  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
 						    id: 'mapbox.light',
 						}).addTo(map);					    	
@@ -217,13 +217,13 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 				res.data.forEach(function(inst){
 					if(inst.geo){
 						inst.geo.then(function(c){
-							$scope.markers[inst.tid] = {"lat":c.lat, "lng": c.lng, "message":inst['schema:address']}
-						})
+							$scope.markers[inst.tid] = {"lat":c.lat, "lng": c.lng, "message":inst['schema:address']};
+						});
 					}
 				});
 			});
 			map.invalidateSize();
-			window.onresize = setTimeout(function(){ map.invalidateSize()}, 400);
+			window.onresize = setTimeout(function(){ map.invalidateSize();}, 400);
 	    });
 	///////////////////////////////		
 	$rootScope.captions.then(function(res){
@@ -231,7 +231,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		$scope.Model.navbar = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
-	$scope.currentSorting = "legalName"
+	$scope.currentSorting = "legalName";
 	$scope.sortfield = "legalName";
 	$scope.reverse = false;
 	$scope.selected = [];		
@@ -239,7 +239,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
   		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
 		console.log(a);
-	}
+	};
 	/////////////////////////////////////////////////////////////////				    
 }])
 .controller('embedTermCtrl',['$rootScope','$scope','$http', 'getContent', '$attrs',   function($rootScope, $scope, $http, getContent, $attrs){
@@ -248,8 +248,8 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		var tags = JSON.parse(val);
 		var tids = "";
 		tags.forEach(function(ctag){
-			tids += ctag.tid + ","
-		})
+			tids += ctag.tid + ",";
+		});
 		var curList = getContent.getNodes({"field_dha_tags": tids});
 		curList.then(
 			function(res){
@@ -293,13 +293,13 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 				},
 				function(err){ console.log('err singlePaCtrl: ', err); }
 			);
-		  	if($scope.mySingle[0]['schema:address'] != "") {
+		  	if($scope.mySingle[0]['schema:address'] !== "") {
 		  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:address']);
 		  		$scope.mySingle[0]['geo'].then(function(res){
 		  			console.log($scope.mySingle[0]['geo']);
 				  	leafletData.getMap().then(function(map) {  		
 				    	map.setView(res, 16);
-				    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:address'],"focus":true}}
+				    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:address'],"focus":true}};
 				  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
 						    id: 'mapbox.light',
 						}).addTo(map);					    	
@@ -345,13 +345,12 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		var disp = [];
 		$scope.typefilter.forEach(function(t){
 			if(t.status) disp.push(t.key);
-		})
+		});
 		$scope.displayTypes = disp;
-		console.log($scope.displayTypes);
-	}
+	};
 	/////////////////////////////////////////////////////////////////
 	//////////// data-Table-helpers /////////////////////////////////
-	$scope.currentSorting = "headline"
+	$scope.currentSorting = "headline";
 	$scope.sortfield = "headline";
 	$scope.reverse = false;
 	$scope.selected = [];		
@@ -359,7 +358,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
   		else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
 		console.log(a);
-	}
+	};
 	/////////////////////////////////////////////////////////////////		
 }])
 .controller('projectCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
@@ -390,7 +389,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		$scope.Model.navbar = res.data;
 	});
 	//////////// data-Table-helpers //////////////////////////////////
-	$scope.currentSorting = "headline"
+	$scope.currentSorting = "headline";
 	$scope.sortfield = "headline";
 	$scope.reverse = false;
 	$scope.selected = [];		
@@ -398,7 +397,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		if(a.slice(0,1) == "-") {$scope.reverse = true; $scope.sortfield = a.slice(1);}
 			else if(a.slice(0,1) != "-") {$scope.reverse = false; $scope.sortfield = a;}
 		console.log(a);
-	}
+	};
 	/////////////////////////////////////////////////////////////////
 }])
 .controller('contactCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){

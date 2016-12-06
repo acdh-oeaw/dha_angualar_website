@@ -6,7 +6,7 @@ var Config = {
   "localStorage":"DHAStorage",
   "language":"en", // default english, set to browser language if either de or en
   "version":"0.1" 
-}
+};
 
 // config of available views per state
 var viewconfig = {

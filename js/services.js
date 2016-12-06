@@ -17,33 +17,33 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 				}
 			}
 			return fieldstring;
-		}
+		};
 		var parseLimit = function(limit,page){
 			var limitstring = "";
 			if (!limit) var limit = this.pagesize; 
 			limitstring = "&pagesize="+limit;
 			return limitstring;
-		}
+		};
 		var parseVersion = function(){
 			return "api_"+Config.version.replace(".","_");
-		}
+		};
 	//////////Callable retrieval functions///////////////////////////////
 		var getNodes = function(fields, pagesize){console.log('getNodes: ', fields, pagesize);
 			if(!pagesize) var pagesize = this.pagesize;
 			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/nodes.json?"+this.parseFields(fields)+this.parseLimit(pagesize));
-		}
+		};
 		var getTerms = function(fields, pagesize){console.log('getTerms: ', fields, pagesize);
 			if(!pagesize) var pagesize = this.pagesize;
 			return $http.get(Config.baseURL+"/"+this.language+"/"+this.parseVersion()+"/taxterm.json?"+this.parseFields(fields)+this.parseLimit(pagesize));
-		}
+		};
 		var getInstitutions = function(){
 			if(this.institutions == undefined) this.institutions = this.getTerms({'vid':'5'});
 			return this.institutions;
-		}
+		};
 		var getDHATax = function(){
 			if(this.DHATax == undefined) this.DHATax = this.getTerms({'vid':'4'});
 			return this.DHATax;
-		}
+		};
 	//////////// Parameter getters / setters ///////////////////////////////
 		var updateLanguage = function(language){console.log('updateLanguage: ', language);
 			if(language == "en" || "de") {
@@ -54,7 +54,7 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 				//there needs to go more here, history clearing, refetching content? 
 			}
 			else console.log("No comprendo ",language);
-		}
+		};
 	///////////////// return Object //////////////////////////////////////////
 	return {
 		parseFields: parseFields,

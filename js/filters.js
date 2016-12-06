@@ -14,7 +14,7 @@ window.PropertybyString = function(o, s) {
         }
     }
     return o;
-}
+};
 
 /* Filters */
 var app = angular.module('DHA_webapp');
@@ -56,7 +56,7 @@ app.filter('byProperty', function() {
 		var result = [];
 		angular.forEach(entities, function(value) {
 			if (PropertybyString(value, property)) {
-				if(val == undefined) result.push(value);
+				if(val === undefined) result.push(value);
 				else if (PropertybyString(value, property) == val) result.push(value);
 			}			
 		});

@@ -39,7 +39,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	  $rootScope.language = lang;
 	  $stateParams.lang = lang;
 	  $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
-	};	
+	};
 }])
 .controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', function($rootScope, $scope, $http, $state, $stateParams, getContent, Geocoder){
 	if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
@@ -93,7 +93,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	TaxInit.then(function(res){
 		$rootScope.DHATax = res.data;
 		console.log(res.data);
-	});  
+	}); 
 }])
 .controller('newsCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	$scope.Model = {};

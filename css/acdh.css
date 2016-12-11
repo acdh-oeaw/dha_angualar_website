@@ -324,10 +324,12 @@ md-icon.sidenav {
 }
 
 .scrollcontainer {
+  height: calc(100% - 65px);  
   overflow-y: scroll;
-  /*fix for iPhone */
+  /*fix for iPhone 
+  tricks phone into using GPU for scroll rendering*/
   -webkit-overflow-scrolling: touch;
-  height: calc(100% - 65px);
+  -webkit-transform: translateZ(0px);
 }
 
 .contentcontainer {

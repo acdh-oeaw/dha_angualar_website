@@ -165,3 +165,11 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
     'default': '800' // by default use shade 400 from the pink palette for primary intentions
   });
 }
+app.run(function($rootScope, $location) {
+  $rootScope.$on('$stateChangeSuccess', function(event, current) {    
+    if(window._paq) {
+      window._paq.push(['setCustomUrl', $location.path() ]);
+      window._paq.push(['trackPageView']);
+    }
+  });
+});

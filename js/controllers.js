@@ -132,6 +132,16 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 	/////////////////////////////////////////////////////////////////
 }])
 .controller('singleCtrl',['$rootScope', '$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($rootScope, $scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
+	$scope.slideshow = {
+		current:0,
+		next:function(){
+			console.log($scope.slideshow.current);
+			$scope.slideshow.current < $scope.mySingle[0]['schema:associatedMedia'].length - 1 ? $scope.slideshow.current++ : $scope.slideshow.current = 0;
+		},
+		previous:function(){
+			$scope.slideshow.current > 0 ? $scope.slideshow.current-- : $scope.slideshow.current = $scope.mySingle[0]['schema:associatedMedia'].length - 1;
+		}
+	}
 	$rootScope.aviews = viewconfig[$state.current.name];
 	getContent.getInstitutions().then(function(res){
 		$scope.Institutions = res.data;
@@ -144,34 +154,41 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		markers: {},
 		layers: {}
 	});		
-	curList.then(
-		function(res){
-		  $scope.mySingle = res.data;
-		  	if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
-		  	if($scope.mySingle[0]['schema:location'] !== "") {
-		  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:location']);
-		  		$scope.mySingle[0]['geo'].then(function(res){
-		  			console.log($scope.mySingle[0]['geo']);
-				  	leafletData.getMap().then(function(map) {  		
-				    	map.setView(res, 16);
-				    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}};
-				  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
-						    id: 'mapbox.light',
-						}).addTo(map);					    	
-				    	map.invalidateSize();
-				    });
-					  $scope.$on('leafletDirectiveMap.resize', function(event){
-					      console.log(event);
-					  });					    
-		  		});
-		  	}
-	  		if($scope.mySingle[0].hasOwnProperty('schema:startDate') ){
-				//post-processing - this needs to go to a filter imho...
-				$scope.mySingle[0]['displayDate'] = parseInt($scope.mySingle[0]['schema:startDate'])*1000;
-			}
-			console.log($scope.mySingle[0]);
-		},
-		function(err){ console.log('err singleEvent: ', err); }
+	curList.then(function(res){
+	  	$scope.mySingle = res.data;
+	  	//we're trusting the youtube link 
+	  	//TODO: proper validation, could be done in drupal
+	  	if($scope.mySingle[0]['schema:additionalType'] == 'schema:event' && $scope.mySingle[0]['schema:recordedIn']['url']) $scope.mySingle[0]['schema:recordedIn']['url'] = $sce.trustAsResourceUrl($scope.mySingle[0]['schema:recordedIn']['url']);
+	  	// if there's an adress, render a map with a marker
+	  	if($scope.mySingle[0]['schema:location'] !== "") {
+	  		$scope.mySingle[0]['geo'] = Geocoder.latLngForAddress($scope.mySingle[0]['schema:location']);
+	  		$scope.mySingle[0]['geo'].then(function(res){
+	  			console.log($scope.mySingle[0]['geo']);
+			  	leafletData.getMap().then(function(map) {  		
+			    	map.setView(res, 16);
+			    	$scope.markers = {"venue":{"lat":res.lat, "lng": res.lng, "message":$scope.mySingle[0]['schema:location'],"focus":true}};
+			  		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGhhc2l0ZSIsImEiOiJjaXZoN2lvN3EwMDVpMnRwZ3A1OHB3YWlkIn0.FTT1Ihj1_QSB-n8M4K1rbQ', {
+					    id: 'mapbox.light',
+					}).addTo(map);					    	
+			    	map.invalidateSize();
+			    });
+				  $scope.$on('leafletDirectiveMap.resize', function(event){
+				      console.log(event);
+				  });					    
+	  		});
+	  	}
+	  	//post-processing dates
+  		if($scope.mySingle[0].hasOwnProperty('schema:startDate') ){
+			$scope.mySingle[0]['displayDate'] = parseInt($scope.mySingle[0]['schema:startDate'])*1000;
+		}
+		$scope.$watch('slideshow.current', function() {
+		  $scope.mySingle[0]['schema:associatedMedia'].forEach(function(image) {
+		    image.visible = false; // make every image invisible
+		  });
+		  $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current].visible = true; // make the current image visible
+		});		
+	},
+	function(err){ console.log('err singleEvent: ', err); }
 	);
 }])
 .controller('partnerCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'leafletData', 'leafletBoundsHelpers',  function($rootScope, $scope, $http, $state, $stateParams, getContent, leafletData, leafletBoundsHelpers){

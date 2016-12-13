@@ -49,7 +49,24 @@
 	<div layout="row" layout-align="center center" layout-wrap>
 		<div flex-gt-sm="30" flex="100" style="padding: 20px;" >
 			<iframe ng-if="ev['schema:recordedIn']['url']" width="100%" height="300px" ng-src="{{ev['schema:recordedIn']['url']}}" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" frameborder="0"></iframe>
-			<img ng-if="!ev['schema:recordedIn']['url']" style="width: 100%;" ng-src="{{ev['schema:image']['src'] || 'https://dhdev.eos.arz.oeaw.ac.at/sites/default/files/dha_logo.png'}}" />
+			<div ng-if="!ev['schema:recordedIn']['url'] && ev['schema:associatedMedia'][0]['src']" style="position: relative;height:380px;">
+				<md-button class="md-icon-button md-raised" aria-label="previous" ng-click="slideshow.previous()" style="position: absolute;top:50%;z-index: 10;">
+					<md-icon md-colors="{color: 'primary-800'}"  >chevron_left</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          Previous
+			        </md-tooltip>							
+				</md-button>
+				<div class="slide" style="height: 400px!important; width: 100%; background: url({{media['styles']['large']}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-repeat="media in ev['schema:associatedMedia']" ng-show="media.visible" ></div>
+				<md-button class="md-icon-button md-raised" aria-label="next" ng-click="slideshow.next()" style="position: absolute;top:50%;left:90%;z-index: 10;">
+					<md-icon md-colors="{color: 'primary-800'}" >chevron_right</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          Next
+			        </md-tooltip>							
+				</md-button>                
+            </div>
+			<div ng-if="!ev['schema:recordedIn']['url'] && ev['schema:associatedMedia'][0]['src'] && !ev['schema:associatedMedia'][1]['src']">
+                <img style="width: 100%;" ng-src="{{ev['schema:associatedMedia'][0]['src']}}"  />
+            </div>            
 		</div>
 		<div flex-gt-sm="70" flex="100" style="padding: 20px;">
 			<p flex layout-padding ng-bind-html='ev["schema:text"] | unsafe'></p>

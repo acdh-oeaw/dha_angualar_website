@@ -5,7 +5,7 @@ var app = angular.module('DHA_webapp');
 app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent',  function($rootScope, $scope, $http, $state, $stateParams, getContent){
 	if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
 		var navLang = window.navigator.language.split("-")[0];
-		if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
+		if(navLang == "de" || navLang == "en") $state.go($state.current, {"lang" : navLang});
 		else $state.go($state.current, {"lang" : Config.language});
 	}
 	$scope.Model = {};
@@ -44,7 +44,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 .controller('dhaNavCtrl',['$rootScope','$scope','$http', '$state', '$stateParams','getContent', 'Geocoder', function($rootScope, $scope, $http, $state, $stateParams, getContent, Geocoder){
 	if($stateParams.lang !== "de" && $stateParams.lang !== "en") {
 		var navLang = window.navigator.language.split("-")[0];
-		if(navLang == "de" || "en") $state.go($state.current, {"lang" : navLang});
+		if(navLang == "de" || navLang == "en") $state.go($state.current, {"lang" : navLang});
 		else $state.go($state.current, {"lang" : Config.language});
 	}
 	$scope.Model = {};

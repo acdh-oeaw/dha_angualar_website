@@ -91,6 +91,24 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
           }
         }
   })
+  .state('dha.slideshow',{
+    url: '/slideshow/:nID',
+    views: {
+          'content@': {
+              templateUrl: 'js/views/slideshow.html',
+              controller: 'singleCtrl'
+          }
+        }
+  })
+  .state('dha.recording',{
+    url: '/recording/:nID',
+    views: {
+          'content@': {
+              templateUrl: 'js/views/recording.html',
+              controller: 'singleCtrl'
+          }
+        }
+  })  
   .state('dha.partners',{
 	  url: '/partners',
 	  views: {

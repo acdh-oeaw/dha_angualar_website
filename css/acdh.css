@@ -148,6 +148,7 @@ md-chips md-chip {
   height: 100%;
   position: absolute;
   z-index: 0;
+  cursor: pointer;
 }
 
 .slideshow {
@@ -394,7 +395,7 @@ md-icon.sidenav {
 }
 
 .bgbox {
-  padding: 5px;
+  padding: 15px;
 }
 
 .innerbgbox {
@@ -413,6 +414,9 @@ md-icon.sidenav {
     .contentcontainer {
       width: calc(100% - 150px);
     }
+    .slide {
+        height: 100vh;
+    }    
 }
 
 @media (max-width: 1132px) {
@@ -429,10 +433,16 @@ md-icon.sidenav {
     top: 50%;
     transform: translateY(-50%);
   }
+  .slide {
+      height: 75vh;
+  }  
 }
 @media (max-width: 912px) {
     .contentcontainer {
         max-width: 700px;
+    }
+    .slide {
+        height: 50vh;
     }
 }
 @media (max-width: 692px) {

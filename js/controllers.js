@@ -140,6 +140,12 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		},
 		previous:function(){
 			$scope.slideshow.current > 0 ? $scope.slideshow.current-- : $scope.slideshow.current = $scope.mySingle[0]['schema:associatedMedia'].length - 1;
+		},
+		goto: function(index){
+			$scope.slideshow.current = index;
+			var scrollBox = angular.element(document.querySelector( '.scrollcontainer' ));
+			console.log(scrollBox);
+			scrollBox[0].scrollTop = "300";
 		}
 	}
 	$rootScope.aviews = viewconfig[$state.current.name];

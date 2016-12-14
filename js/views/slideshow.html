@@ -1,0 +1,102 @@
+<div class="contentcontainer" layout="column" ng-repeat="ev in mySingle" layout-align="start stretch">
+    <div class="md-whiteframe-1dp" style="height: 300px!important; width: 100%; background: url({{ev['schema:image']['styles']['banner']}}) no-repeat scroll 50% 50% / cover; margin-top: 20px;" layout="column" layout-align="space-between stretch">
+    	<div class="detailtoolbar" layout="row" layout-align="space-between center" style="padding-right: 20px; padding-left: 20px;">
+			<div layout="row" layout-align="end center">
+				<md-button layout="row" layout-align="center center" ui-sref="dha.s-news({nID: '{{ev['schema:url']['alias']}}'})" >
+				    <md-icon md-colors="{color: 'primary-800'}" >arrow_back</md-icon>
+				    <span class="md-caption" style="padding-left: 5px;">Details</span>
+				</md-button>
+			</div>
+    		<div layout="row" layout-align="center center">
+				<md-button class="md-icon-button" aria-label="Share">
+					<md-icon md-colors="{color: 'primary-800'}" >share_arrow</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          Share
+			        </md-tooltip>							
+				</md-button>
+				<md-button class="md-icon-button" aria-label="get data as XML" ng-href="{{ev['schema:url']['xml']}}">
+					<md-icon md-colors="{color: 'primary-800'}" >code</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          XML
+			        </md-tooltip>							
+				</md-button>
+				<md-button class="md-icon-button" aria-label="get data as JSON" ng-href="{{ev['schema:url']['json']}}">
+					<md-icon md-colors="{color: 'primary-800'}" >settings_ethernet</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          JSON
+			        </md-tooltip>							
+				</md-button>
+			</div>												
+    	</div>
+    	<div>
+    		<div class="detailtoolbar" layout="row" layout-align="space-between end" style="padding-right: 20px; padding-left: 20px;">
+    			<div layout="column" layout-align="center end">
+					<md-chips ng-model="ev['schema:keywords']" name="" readonly="true" md-removable="false" md-max-chips="5" hide-sm hide-xs>
+						<md-chip-template ng-repeat="tag in DHATax | termByID:$chip.tid">
+							<md-icon md-colors="{color: 'primary-800'}" >label_outline</md-icon>						
+							<strong>{{$chip.name}}</strong>
+							<em>({{tag.node_count}})</em>
+						</md-chip-template>
+					</md-chips>    				  			
+    			</div>
+    			<div layout="column" layout-align="center end">
+	    			<h1 style="margin-bottom: 0px; text-align: right;">{{ev['schema:headline']}}</h1>
+	    			<span class="md-subhead" >{{ev['displayDate'] | date:'dd. MMMM yyyy'}}</span>
+    			</div>
+    		</div>
+    	</div>    	
+    </div>
+	<div layout="row" layout-align="center start" layout-wrap>
+		<div style="padding: 20px;width: 100%;" >
+			<div ng-if="ev['schema:associatedMedia'][0]['src'] && ev['schema:associatedMedia'][1]['src']" style="position: relative;" layout-padding>
+				<md-button class="md-icon-button md-raised" aria-label="previous" ng-click="slideshow.previous()" style="position: absolute;top:50%;left: 0; z-index: 10;">
+					<md-icon md-colors="{color: 'primary-800'}"  >chevron_left</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          Previous
+			        </md-tooltip>							
+				</md-button>
+				<div class="slide"></div>
+				<div class="slide" style="width: 100%; background: url({{media['styles']['widescreen']}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-repeat="media in ev['schema:associatedMedia']" ng-show="media.visible" ></div>
+				<md-button class="md-icon-button md-raised" aria-label="next" ng-click="slideshow.next()" style="position: absolute;top:50%;left:calc(100% - 35px);z-index: 10;">
+					<md-icon md-colors="{color: 'primary-800'}" >chevron_right</md-icon>
+				    <md-tooltip md-direction="bottom">
+			          Next
+			        </md-tooltip>							
+				</md-button>                
+            </div>
+			<div ng-if="!ev['schema:recordedIn']['url'] && ev['schema:associatedMedia'][0]['src'] && !ev['schema:associatedMedia'][1]['src']">
+                <img style="width: 100%;" ng-src="{{ev['schema:associatedMedia'][0]['src']}}"  />
+            </div>            
+		</div>
+	</div>
+	<div layout="row" layout-align="space-between stretch" layout-wrap >
+		<div class="innerbgbox greybox" layout="column">
+			<div >
+				<h4 flex="100" style="padding-left: 15px;">
+					<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">view_comfy</md-icon>
+					Thumbnails
+				</h4>						
+			</div>
+			<div  layout-padding layout-wrap>
+				<md-grid-list
+				    md-cols="2" md-cols-sm="3" md-cols-md="5" md-cols-gt-md="8"
+				    md-row-height-gt-md="1:1" md-row-height="1:1"
+				    md-gutter="8px" md-gutter-gt-sm="4px" layout="row" layout-align="center start" ng-animate="'spinentry'">
+					<md-grid-tile ng-repeat="media in ev['schema:associatedMedia']"
+								  ng-click="slideshow.goto($index);"
+					              md-rowspan="1"
+					              md-colspan="1"
+					              md-colspan-sm="1"
+					              md-colspan-xs="1"
+					              class="spinentry raise " ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/50 + 's'}"
+					              >
+					  	<img class="gridicon" ng-src="{{media['styles']['medium']}}" />
+					  	<md-grid-tile-footer layout="column" layout-align="center center">
+					  		<h5 md-colors="{color: 'primary-800'}" style="width:100%;text-align: center; margin: 0;">{{media.name}}</h5>
+					  	</md-grid-tile-footer>
+					</md-grid-tile>
+				</md-grid-list>								 
+		    </div>								
+	    </div>	
+	</div>	
+</div>

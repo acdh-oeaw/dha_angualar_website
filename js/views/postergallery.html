@@ -48,7 +48,7 @@
     </div>
 	<div layout="row" layout-align="center start" layout-wrap>
 		<div style="padding: 20px;width: 100%;" >
-			<div ng-if="ev['schema:associatedMedia'][0]['src'] && ev['schema:associatedMedia'][1]['src']" style="position: relative;" layout-padding>
+			<div ng-if="ev['attachment_previews'][0]['src'] && ev['attachment_previews'][1]['src']" style="position: relative;" layout-padding>
 				<md-button class="md-icon-button md-raised" aria-label="previous" ng-click="slideshow.previous()" style="position: absolute;top:50%;left: 0; z-index: 10;">
 					<md-icon md-colors="{color: 'primary-800'}"  >chevron_left</md-icon>
 				    <md-tooltip md-direction="bottom">
@@ -56,7 +56,7 @@
 			        </md-tooltip>							
 				</md-button>
 				<div class="slide"></div>
-				<div class="slide" style="width: 100%; background: url({{media['styles']['widescreen']}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-repeat="media in ev['schema:associatedMedia']" ng-show="media.visible" ></div>
+				<div class="slide" style="width: 100%; background: url({{media['src']}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-repeat="media in ev['attachment_previews']" ng-show="media.visible" ></div>
 				<md-button class="md-icon-button md-raised" aria-label="next" ng-click="slideshow.next()" style="position: absolute;top:50%;left:calc(100% - 35px);z-index: 10;">
 					<md-icon md-colors="{color: 'primary-800'}" >chevron_right</md-icon>
 				    <md-tooltip md-direction="bottom">
@@ -64,8 +64,8 @@
 			        </md-tooltip>							
 				</md-button>                
             </div>
-			<div ng-if="ev['schema:associatedMedia'][0]['src'] && !ev['schema:associatedMedia'][1]['src']">
-                <img style="width: 100%;" ng-src="{{ev['schema:associatedMedia'][0]['src']}}"  />
+			<div ng-if="ev['attachment_previews'][0]['src'] && !ev['attachment_previews'][1]['src']">
+                <img style="width: 100%;" ng-src="{{ev['attachment_previews'][0]['src']}}"  />
             </div>            
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 				    md-cols="2" md-cols-sm="3" md-cols-md="5" md-cols-gt-md="8"
 				    md-row-height-gt-md="1:1" md-row-height="1:1"
 				    md-gutter="8px" md-gutter-gt-sm="4px" layout="row" layout-align="center start" ng-animate="'spinentry'">
-					<md-grid-tile ng-repeat="media in ev['schema:associatedMedia']"
+					<md-grid-tile ng-repeat="media in ev['attachment_previews']"
 								  ng-click="slideshow.goto($index);"
 					              md-rowspan="1"
 					              md-colspan="1"

@@ -108,6 +108,15 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               controller: 'singleCtrl'
           }
         }
+  })
+  .state('dha.posterslideshow',{
+    url: '/posterslideshow/:nID',
+    views: {
+          'content@': {
+              templateUrl: 'js/views/postergallery.html',
+              controller: 'singleCtrl'
+          }
+        }
   })  
   .state('dha.partners',{
 	  url: '/partners',

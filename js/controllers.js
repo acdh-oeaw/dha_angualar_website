@@ -191,7 +191,11 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		  $scope.mySingle[0]['schema:associatedMedia'].forEach(function(image) {
 		    image.visible = false; // make every image invisible
 		  });
+		  $scope.mySingle[0]['attachment_previews'].forEach(function(image) {
+		    image.visible = false; // make every image invisible
+		  });		  
 		  $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current].visible = true; // make the current image visible
+		  $scope.mySingle[0]['attachment_previews'][$scope.slideshow.current].visible = true; // make the current image visible
 		});		
 	},
 	function(err){ console.log('err singleEvent: ', err); }

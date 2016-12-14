@@ -59,7 +59,7 @@
 			    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-if="ev['schema:recordedIn']['url']" ui-sref="dha.recording({nID: '{{ev['schema:url']['alias']}}'})">
 				    	<md-card-header style="padding: 0px!important;">
 			    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;"  layout="row" layout-align="space-between center">
-				    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>
+				    			<h3 md-colors="{color: 'primary-800'}">Recording</h3>
 				    			<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">theaters</md-icon>
 			    			</md-card-header-text>
 			    		</md-card-header>
@@ -69,13 +69,23 @@
 			    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-if="ev['schema:associatedMedia'][0]['src']" ui-sref="dha.slideshow({nID: '{{ev['schema:url']['alias']}}'})">
 				    	<md-card-header style="padding: 0px!important;">
 			    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.slideshow({nID: '{{ev['schema:url']['alias']}}'})" layout="row" layout-align="space-between center">
-				    			<h3 md-colors="{color: 'primary-800'}">{{ev['schema:headline']}} </h3>
+				    			<h3 md-colors="{color: 'primary-800'}">Photo Gallery</h3>
 				    			<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">camera_alt</md-icon>
 			    			</md-card-header-text>
 			    		</md-card-header>
 				        <div class="md-card-image" style="height: 90px!important; width: 100%; background: url({{ev['schema:associatedMedia'][0]['styles']['tile']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
 				        </div>	
-			    	</md-card>			    	
+			    	</md-card>
+			    	<md-card class="vspinentry md-whiteframe-1dp shorttile raise" ng-if="ev['attachment_previews'][0]['src']" ui-sref="dha.posterslideshow({nID: '{{ev['schema:url']['alias']}}'})">
+				    	<md-card-header style="padding: 0px!important;">
+			    			<md-card-header-text  style="padding-left: 10px; padding-right: 10px; cursor: pointer;" ui-sref="dha.slideshow({nID: '{{ev['schema:url']['alias']}}'})" layout="row" layout-align="space-between center">
+				    			<h3 md-colors="{color: 'primary-800'}">Poster Gallery</h3>
+				    			<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label="">collections</md-icon>
+			    			</md-card-header-text>
+			    		</md-card-header>
+				        <div class="md-card-image" style="height: 90px!important; width: 100%; background: url({{ev['attachment_previews'][0]['styles']['tile']}}) no-repeat scroll 50% 50% / cover; " layout="column" layout-align="end">
+				        </div>	
+			    	</md-card>			    			    	
 			    </div>				
 		    </div>		        
 		</div>

@@ -128,7 +128,7 @@
 					</h4>						
 				</div>
 				<md-table-container>
-				  <table md-table ng-model="selected" md-progress="curList">
+				  <table md-table ng-model="selected" md-progress="curList" style="padding: 5px;">
 				    <thead md-head md-on-reorder="getNewOrder" md-order="currentSorting">
 				      <tr md-row>
 				      	<th md-column><span></span></th>
@@ -212,7 +212,7 @@
 	<!-- ****** List view template ******* -->
 	<div layout="row" layout-xs="column" layout-padding layout-wrap layout-align="space-between stretch" ng-cloak ng-if="uiview.current=='list'">
 		<md-table-container>
-		  <table md-table ng-model="selected" md-progress="curList">
+		  <table md-table ng-model="selected" md-progress="curList" style="padding: 5px;">
 		    <thead md-head md-on-reorder="getNewOrder" md-order="currentSorting">
 		      <tr md-row>
 		      	<th md-column><span></span></th>

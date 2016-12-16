@@ -48,6 +48,7 @@
     </div>
 	<div layout="row" layout-align="center start" layout-wrap>
 		<div style="padding: 20px;width: 100%;" >
+			
 			<div ng-if="ev['schema:associatedMedia'][0]['src'] && ev['schema:associatedMedia'][1]['src']" style="position: relative;" layout-padding>
 				<md-button class="md-icon-button md-raised" aria-label="previous" ng-click="slideshow.previous()" style="position: absolute;top:50%;left: 0; z-index: 10;">
 					<md-icon md-colors="{color: 'primary-800'}"  >chevron_left</md-icon>
@@ -56,7 +57,8 @@
 			        </md-tooltip>							
 				</md-button>
 				<div class="slide"></div>
-				<div class="slide" style="width: 100%; background: url({{media['styles']['widescreen']}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-repeat="media in ev['schema:associatedMedia']" ng-show="media.visible" ></div>
+				<div class="slide" style="width: 100%; background: url({{slideshow.one.path}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-show="slideshow.one.visible" ></div>
+				<div class="slide" style="width: 100%; background: url({{slideshow.two.path}}) no-repeat scroll 50% 50% / contain; position: absolute;top:0px;left: 0px" ng-show="slideshow.two.visible" ></div>
 				<md-button class="md-icon-button md-raised" aria-label="next" ng-click="slideshow.next()" style="position: absolute;top:50%;left:calc(100% - 35px);z-index: 10;">
 					<md-icon md-colors="{color: 'primary-800'}" >chevron_right</md-icon>
 				    <md-tooltip md-direction="bottom">

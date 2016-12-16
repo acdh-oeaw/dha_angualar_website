@@ -149,6 +149,8 @@ md-chips md-chip {
   position: absolute;
   z-index: 0;
   cursor: pointer;
+  top:0;
+  left:0;
 }
 
 .slideshow {

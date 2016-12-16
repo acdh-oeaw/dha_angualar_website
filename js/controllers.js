@@ -133,9 +133,16 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 }])
 .controller('singleCtrl',['$rootScope', '$scope','$http', '$state', '$stateParams','getContent', '$sce', 'Geocoder', 'leafletData', 'leafletBoundsHelpers', function($rootScope, $scope, $http, $state, $stateParams, getContent, $sce, Geocoder, leafletData, leafletBoundsHelpers){
 	$scope.slideshow = {
-		current:0,
+		current:1,
+		one: {
+			visible: true,
+			path: ""
+		},
+		two: {
+			visible: false,
+			path: ""
+		},	
 		next:function(){
-			console.log($scope.slideshow.current);
 			$scope.slideshow.current < $scope.mySingle[0]['schema:associatedMedia'].length - 1 ? $scope.slideshow.current++ : $scope.slideshow.current = 0;
 		},
 		previous:function(){
@@ -144,10 +151,31 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 		goto: function(index){
 			$scope.slideshow.current = index;
 			var scrollBox = angular.element(document.querySelector( '.scrollcontainer' ));
-			console.log(scrollBox);
 			scrollBox[0].scrollTop = "300";
 		}
 	}
+	$scope.postergallery = {
+		current:1,
+		one: {
+			visible: true,
+			path: ""
+		},
+		two: {
+			visible: false,
+			path: ""
+		},	
+		next:function(){
+			$scope.postergallery.current < $scope.mySingle[0]['attachment_previews'].length - 1 ? $scope.postergallery.current++ : $scope.postergallery.current = 0;
+		},
+		previous:function(){
+			$scope.postergallery.current > 0 ? $scope.postergallery.current-- : $scope.postergallery.current = $scope.mySingle[0]['attachment_previews'].length - 1;
+		},
+		goto: function(index){
+			$scope.postergallery.current = index;
+			var scrollBox = angular.element(document.querySelector( '.scrollcontainer' ));
+			scrollBox[0].scrollTop = "300";
+		}
+	}	
 	$rootScope.aviews = viewconfig[$state.current.name];
 	getContent.getInstitutions().then(function(res){
 		$scope.Institutions = res.data;
@@ -187,16 +215,25 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
   		if($scope.mySingle[0].hasOwnProperty('schema:startDate') ){
 			$scope.mySingle[0]['displayDate'] = parseInt($scope.mySingle[0]['schema:startDate'])*1000;
 		}
+		//slideshow
+		$scope.slideshow.one.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];		
 		$scope.$watch('slideshow.current', function() {
-		  $scope.mySingle[0]['schema:associatedMedia'].forEach(function(image) {
-		    image.visible = false; // make every image invisible
-		  });
-		  $scope.mySingle[0]['attachment_previews'].forEach(function(image) {
-		    image.visible = false; // make every image invisible
-		  });		  
-		  $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current].visible = true; // make the current image visible
-		  $scope.mySingle[0]['attachment_previews'][$scope.slideshow.current].visible = true; // make the current image visible
-		});		
+			if($scope.slideshow.one.visible){
+				$scope.slideshow.two.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
+			}
+			else $scope.slideshow.one.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
+			$scope.slideshow.one.visible = !$scope.slideshow.one.visible;
+			$scope.slideshow.two.visible = !$scope.slideshow.two.visible;
+		});
+		$scope.postergallery.one.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
+		$scope.$watch('postergallery.current', function() {
+			if($scope.postergallery.one.visible){
+				$scope.postergallery.two.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
+			}
+			else $scope.postergallery.one.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
+			$scope.postergallery.one.visible = !$scope.postergallery.one.visible;
+			$scope.postergallery.two.visible = !$scope.postergallery.two.visible;
+		});			
 	},
 	function(err){ console.log('err singleEvent: ', err); }
 	);

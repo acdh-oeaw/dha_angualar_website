@@ -5,7 +5,23 @@
 		  <md-icon md-colors="{color: 'primary-800'}" class="captionicons" aria-label='{{me["schema:primaryImageOfPage"]}}' >{{me["schema:primaryImageOfPage"]}}</md-icon>
 		  <h1 >{{me['schema:headline']}}</h1>
 		</div>
-		<p class="md-body-2" ng-bind-html="me['schema:text'] | unsafe"></p>
+    	<div layout="row" layout-wrap layout-align="space-between stretch">
+			<div flex-gt-sm="50" flex="100" class="bgbox" >
+				<div class="innerbgbox " layout="row" layout-wrap layout-align="space-around stretch">
+					<p class="md-body-2" ng-bind-html="me['schema:text'] | unsafe"></p>
+				</div>
+			</div>
+			<!-- Type Filter Box Prelim -->	
+			<div flex-gt-sm="50" flex="100" class="bgbox" >
+				<div class="innerbgbox greybox" layout="row" layout-wrap layout-align="center start">
+					<h4 flex="100" style="padding-left: 15px;">
+					<md-icon md-colors="{color: 'primary-800'}" style="margin: auto 3px auto 0;" aria-label=""></md-icon>
+					Partners 2016
+					</h4>
+					<div style="width: 100%; height: 200px; background: url({{me['schema:image']['src']}}) no-repeat scroll 50% 50% / contain;"></div>
+				</div>
+			</div> 
+		</div>  		
 	</div>
 	<!-- ****** List view template ******* -->
 	<div ng-show="uiview.current=='list'">

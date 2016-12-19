@@ -5,7 +5,7 @@ var Config = {
   "currentView":"list",
   "localStorage":"DHAStorage",
   "language":"en", // default english, set to browser language if either de or en
-  "version":"0.1" 
+  "version":"0.1"
 };
 
 // config of available views per state
@@ -25,7 +25,7 @@ var viewconfig = {
     [
       {"key":"list","icon":"view_list"},
       {"key":"grid","icon":"view_comfy"}
-    ]   
+    ]
 };
 
 //biblio types to icons mapping
@@ -39,20 +39,20 @@ var biblioconfig = {
 
 'use strict';
 
-var app = angular.module('DHA_webapp', 
-  ['ngAria', 
+var app = angular.module('DHA_webapp',
+  ['ngAria',
   'ui.router',
   'ngAnimate',
   'ngSanitize',
   'ngMaterial',
   'D7_API_Services', // custom module in services.js
-  'md.data.table', 
+  'md.data.table',
   'geocoder', // custom module in services.js
   'ui-leaflet']
 );
 
 app.config(config);
-function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
+function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locationProvider){
 	$urlRouterProvider.otherwise('/');
 	$stateProvider
 	.state('start',{
@@ -80,7 +80,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/news.html',
               controller: 'newsCtrl'
           }
-        }		  
+        }
   })
   .state('dha.s-news',{
 	  url: '/s-news/:nID',
@@ -117,7 +117,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               controller: 'singleCtrl'
           }
         }
-  })  
+  })
   .state('dha.partners',{
 	  url: '/partners',
 	  views: {
@@ -125,7 +125,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/partners.html',
               controller: 'partnerCtrl'
           }
-        }			  
+        }
   })
   .state('dha.s-partners',{
 	  url: '/s-partners/:nID',
@@ -134,7 +134,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/s-partners.html',
               controller: 'singlePaCtrl'
           }
-        }				  
+        }
   })
   .state('dha.know-more',{
 	  url: '/knowmore',
@@ -143,7 +143,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/knowmore.html',
               controller: 'knowmoreCtrl'
           }
-        }				  
+        }
   })
   .state('dha.s-knowmore',{
 	  url: '/s-knowmore/:nID',
@@ -152,7 +152,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/s-knowmore.html',
               controller: 'singleCtrl'
           }
-        }				  
+        }
   })
   .state('dha.projects',{
 	  url: '/projects',
@@ -161,7 +161,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/project.html',
               controller: 'projectCtrl'
           }
-        }				  
+        }
   })
   .state('dha.s-project',{
 	  url: '/s-project/:nID',
@@ -170,7 +170,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/s-project.html',
               controller: 'singleCtrl'
           }
-        }				  
+        }
   })
   .state('dha.contact',{
 	  url: '/contact',
@@ -179,8 +179,9 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
               templateUrl: 'js/views/contact.html',
               controller: 'contactCtrl'
           }
-        }				  
+        }
   });
+  $locationProvider.html5Mode(true);
   $mdThemingProvider.theme('default')
   .primaryPalette('orange', {
     'default': '800',
@@ -192,8 +193,9 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider){
     'default': '800' // by default use shade 400 from the pink palette for primary intentions
   });
 }
+
 app.run(function($rootScope, $location) {
-  $rootScope.$on('$stateChangeSuccess', function(event, current) {    
+  $rootScope.$on('$stateChangeSuccess', function(event, current) {
     if(window._paq) {
       window._paq.push(['setCustomUrl', $location.path() ]);
       window._paq.push(['trackPageView']);

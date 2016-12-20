@@ -2,12 +2,9 @@
 $API = 'https://dha.acdh.oeaw.ac.at/en/api_0_1/nodes.json?parameters[nid]=';
 $siteRoot = 'http://digital-humanities.at/';
 
-$title = '';
-
 $jsonData = getData($API);
 makePage($jsonData[0], $siteRoot);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +12,7 @@ makePage($jsonData[0], $siteRoot);
   <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <title>My App</title>
+    <title><?php echo $title; ?></title>
     <!--META-->
     <!--facebook-->
     <!--     <meta property="fb:app_id" content="{YOUR_APP_KEY}">
@@ -24,7 +21,7 @@ makePage($jsonData[0], $siteRoot);
     <!--SEO-->
     <meta name="description" content="<?php echo $description; ?>">
     <meta name="keywords" content="">
-    <meta name="author" content="My App">
+    <meta name="author" content="Digital Humanities Austria">
 
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="<?php echo $title; ?>">
@@ -33,17 +30,16 @@ makePage($jsonData[0], $siteRoot);
 
     <!-- Twiter Cards -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@myapp">
+    <meta name="twitter:site" content="Digital Humanities Austria">
     <meta name="twitter:title" content="<?php echo $title; ?>">
     <meta name="twitter:description" content="<?php echo $description; ?>">
     <meta name="twitter:image:src" content="<?php echo $imageUrl; ?>">
     <!--/ Twiter Cards -->
 
     <!-- Open Graph -->
-    <meta property="og:site_name" content="My App">
+    <meta property="og:site_name" content="Digital Humanities Austria">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo $title; ?>" />
-    <meta property="og:url" content="<?php echo $pageUrl; ?>">
     <meta property="og:description" content="<?php echo $description; ?>">
     <meta property="og:image" content="<?php echo $imageUrl; ?>">
     <!--/ Open Graph -->
@@ -55,9 +51,6 @@ makePage($jsonData[0], $siteRoot);
   <p><?php echo $description; ?></p>
 </body>
 </html>
-
-
-
 <?php
 // Request data from the API
 function getData($api) {
@@ -85,7 +78,7 @@ function makePage($node, $siteRoot) {
     global $pageUrl;
     global $description;
     global $imageUrl;
-    $imageUrl = $node['schema:image']['styles']['medium'];
+    $imageUrl = $node['schema:image']['src'];
     switch ($node['schema:additionalType']) {
         case 'schema:creativework':
             $pageUrl = $siteRoot . $_GET['lang'] . "/dha/s-project/" . $node['schema:url']['alias'];

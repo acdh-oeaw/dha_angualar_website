@@ -2,8 +2,9 @@
    RewriteEngine On
 
   # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
-  RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet|Google)
-  RewriteRule /([a-z0-9_-]+)/dha/([a-z0-9_-]+)/([a-z0-9_-]+)$ http://www.digital-humanities.at/snap.php?lang=$1&id=$3 [P]
+  RewriteCond %{HTTP_USER_AGENT} (^facebookexternalhit) [OR]
+  RewriteCond %{HTTP_USER_AGENT} (Twitterbot|Pinterest|Google.*snippet|Google)
+  RewriteRule ^(.*)/dha/(.*)/(.*)$ http://dhang.eos.arz.oeaw.ac.at/dha_angular_redesign/snap.php?lang=$1&id=$3 [P]
 
   RewriteRule ^dha2016$ http://www.digital-humanities.at/en/dha/s-news/3rd-dha-conference-dha2016 [NE,R=301,L]
 

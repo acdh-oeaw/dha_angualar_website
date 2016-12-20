@@ -29,7 +29,7 @@ makePage($jsonData[0], $siteRoot);
     <meta itemprop="image" content="<?php echo $imageUrl; ?>">
 
     <!-- Twiter Cards -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="Digital Humanities Austria">
     <meta name="twitter:title" content="<?php echo $title; ?>">
     <meta name="twitter:description" content="<?php echo $description; ?>">

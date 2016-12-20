@@ -1,8 +1,9 @@
 <ifModule mod_rewrite.c>
-   RewriteEngine On
+  RewriteEngine On
 
   # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
   RewriteCond %{HTTP_USER_AGENT} (^facebookexternalhit) [OR]
+  RewriteCond %{HTTP_USER_AGENT} (baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest|Slackbot|Slack-ImgProxy|Slackbot-LinkExpanding|Site\ Analyzer|SiteAnalyzerBot|Viber|Whatsapp|Telegram) [OR]
   RewriteCond %{HTTP_USER_AGENT} (Twitterbot|Pinterest|Google.*snippet|Google)
   RewriteRule ^(.*)/dha/(.*)/(.*)$ http://www.digital-humanities.at/snap.php?lang=$1&id=$3 [P]
 

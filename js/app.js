@@ -59,7 +59,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 		url: '/:lang',
 		views: {
 			'content': {
-			    templateUrl: 'js/views/start.html',
+			    templateUrl: 'views/start.html',
 			    controller: 'startCtrl'
 			}
 		}
@@ -68,7 +68,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 		url: '/:lang/dha',
 		views: {
 			'navbar': {
-			    templateUrl: 'js/views/navbar.html',
+			    templateUrl: 'views/navbar.html',
 			    controller: 'dhaNavCtrl'
 			}
         }
@@ -77,7 +77,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/newsevents',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/news.html',
+              templateUrl: 'views/news.html',
               controller: 'newsCtrl'
           }
         }
@@ -86,7 +86,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/s-news/:nID',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/s-news.html',
+              templateUrl: 'views/s-news.html',
               controller: 'singleCtrl'
           }
         }
@@ -95,7 +95,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
     url: '/slideshow/:nID',
     views: {
           'content@': {
-              templateUrl: 'js/views/slideshow.html',
+              templateUrl: 'views/slideshow.html',
               controller: 'singleCtrl'
           }
         }
@@ -104,7 +104,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
     url: '/recording/:nID',
     views: {
           'content@': {
-              templateUrl: 'js/views/recording.html',
+              templateUrl: 'views/recording.html',
               controller: 'singleCtrl'
           }
         }
@@ -113,7 +113,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
     url: '/posterslideshow/:nID',
     views: {
           'content@': {
-              templateUrl: 'js/views/postergallery.html',
+              templateUrl: 'views/postergallery.html',
               controller: 'singleCtrl'
           }
         }
@@ -122,7 +122,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/partners',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/partners.html',
+              templateUrl: 'views/partners.html',
               controller: 'partnerCtrl'
           }
         }
@@ -131,7 +131,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/s-partners/:nID',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/s-partners.html',
+              templateUrl: 'views/s-partners.html',
               controller: 'singlePaCtrl'
           }
         }
@@ -140,7 +140,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/knowmore',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/knowmore.html',
+              templateUrl: 'views/knowmore.html',
               controller: 'knowmoreCtrl'
           }
         }
@@ -149,7 +149,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/s-knowmore/:nID',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/s-knowmore.html',
+              templateUrl: 'views/s-knowmore.html',
               controller: 'singleCtrl'
           }
         }
@@ -158,7 +158,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/projects',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/project.html',
+              templateUrl: 'views/project.html',
               controller: 'projectCtrl'
           }
         }
@@ -167,7 +167,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/s-project/:nID',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/s-project.html',
+              templateUrl: 'views/s-project.html',
               controller: 'singleCtrl'
           }
         }
@@ -176,7 +176,7 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
 	  url: '/contact',
 	  views: {
           'content@': {
-              templateUrl: 'js/views/contact.html',
+              templateUrl: 'views/contact.html',
               controller: 'contactCtrl'
           }
         }

@@ -364,14 +364,6 @@ md-icon.sidenav {
   margin-bottom: 10px;
 }
 
-.startcontainer {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top:0px;
-  left: 0px;
-  overflow-y: auto;
-}
 
 .viewmenu {
   position: fixed;

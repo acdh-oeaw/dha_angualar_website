@@ -3,7 +3,7 @@
 <head>
     <!-- This Index is modified to work in our dev environment -->
     <!-- for production the base needs to be modified and PIWIK script activated -->
-    <base href="/dha_angular_redesign/">
+    <base href="/">
     <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
     <meta http-equiv="expires" content="Thu, 17 Nov 2016 00:00:00 GMT">
     <meta http-equiv="pragma" content="no-cache">
@@ -53,7 +53,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <div ui-view="navbar" style="height: 65px;"></div>
+        <div ui-view="navbar" style="height: 65px; position: absolute;"></div>
         <div ui-view="content" class="scrollcontainer" ></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

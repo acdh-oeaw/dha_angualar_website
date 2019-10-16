@@ -29,8 +29,7 @@
                         </md-list-item>
                     </md-list>
                     <h4 flex="100" style="padding-left: 15px;">Projekte</h4>
-                    <div ng-controller="embedTermCtrl" tags='[{"tid":"366"}]' style="margin-bottom: 20px">
-                        <md-list class="md-dense" style="width: 100%;">
+                        <md-list class="md-dense" style="width: 100%;" ng-controller="embedTermCtrl" tags='[{"tid":"366"}]' style="margin-bottom: 20px">
                             <md-list-item
                                     class="vspinentry"
                                     ng-repeat="pro in myList | orderBy:sortfield:reverse">
@@ -44,7 +43,6 @@
                                 <md-divider></md-divider>
                             </md-list-item>
                         </md-list>
-                    </div>
 				</div>
 			</div>
 		</div>

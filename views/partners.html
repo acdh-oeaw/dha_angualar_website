@@ -15,54 +15,35 @@
 				<div class="innerbgbox greybox" layout="row" layout-wrap layout-align="center start">
 					<div style="width: 100%; height: 200px; background: url({{me['schema:image']['src']}}) no-repeat scroll 50% 50% / contain;"></div>
                     <h4 flex="100" style="padding-left: 15px;">Partner</h4>
-                    <md-table-container style="width: 100%;">
-                        <table md-table ng-model="selected" md-progress="curList" style="padding: 5px;">
-                            <thead md-head md-on-reorder="getNewOrder" md-order="currentSorting">
-                            <tr md-row>
-                                <th md-column><span></span></th>
-                                <th md-column md-order-by="legalName"><span>Name</span></th>
-                            </tr>
-                            </thead>
-                            <tbody md-body>
-                            <tr md-row
-                                md-select="ev"
-                                md-select-id="{{pro['schema:name'].replace('dha:','')}}"
-                                ng-repeat="pa in Institutions | byProperty:'schema:keywords.0.tid':'207' | orderBy:sortfield:reverse"
-                                ui-sref="dha.s-partners({nID: '{{pa['schema:url']['alias']}}'})"
-                                class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
-                                <td md-cell>
-                                    <img class="tableicon md-whiteframe-1dp" ng-src="{{pa['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}" />
-                                </td>
-                                <td md-cell>{{pa['legalName']}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
+                    <md-list class="md-dense" style="width: 100%;">
+                        <md-list-item class="vspinentry" ng-repeat="inst in Institutions | byProperty:'schema:keywords.0.tid':'207'">
+                            <p style="width: 60%; text-align: justify;">
+                                <md-button
+
+                                        ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" layout="row" layout-align="start center">
+                                    <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/>
+                                    <span hide show-gt-md class="md-body-1" style="padding-left: 15px; text-transform: none;">{{inst['schema:legalName']}}</span>
+                                </md-button>
+                            </p>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                    </md-list>
                     <h4 flex="100" style="padding-left: 15px;">Projekte</h4>
                     <div ng-controller="embedTermCtrl" tags='[{"tid":"366"}]' style="margin-bottom: 20px">
-                        <md-table-container style="width: 100%;">
-                            <table md-table ng-model="selected" md-progress="curList" style="padding: 5px;">
-                                <thead md-head md-on-reorder="getNewOrder" md-order="currentSorting">
-                                <tr md-row>
-                                    <th md-column><span></span></th>
-                                    <th md-column md-order-by="headline"><span>Title</span></th>
-                                </tr>
-                                </thead>
-                                <tbody md-body>
-                                <tr md-row
-                                    md-select="ev"
-                                    md-select-id="{{pro['schema:name'].replace('dha:','')}}"
-                                    ng-repeat="pro in myList | orderBy:sortfield:reverse"
-                                    ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})"
-                                    class="vspinentry raise" ng-style="dynStyle" ng-init="dynStyle={'animation-delay':$index/30+'s','overflow':'hidden'}" >
-                                    <td md-cell>
-                                        <img class="tableicon md-whiteframe-1dp" ng-src="{{pro['schema:image']['styles']['thumb'] || 'img/lowres_logo_1.png'}}" />
-                                    </td>
-                                    <td md-cell>{{pro['schema:headline']}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </md-table-container>
+                        <md-list class="md-dense" style="width: 100%;">
+                            <md-list-item
+                                    class="vspinentry"
+                                    ng-repeat="pro in myList | orderBy:sortfield:reverse">
+                                <p style="width: 60%; text-align: justify;">
+                                    <md-button
+                                            ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})" layout="row" layout-align="start center">
+                                        <img class="tableicon" ng-src="{{pro['schema:image']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/>
+                                        <span hide show-gt-md class="md-body-1" style="padding-left: 15px; text-transform: none;">{{pro['schema:headline']}}</span>
+                                    </md-button>
+                                </p>
+                                <md-divider></md-divider>
+                            </md-list-item>
+                        </md-list>
                     </div>
 				</div>
 			</div>

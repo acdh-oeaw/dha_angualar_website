@@ -22,7 +22,7 @@
 
                                         ui-sref="dha.s-partners({nID: '{{inst['schema:url']['alias']}}', lang:'{{language}}'})" layout="row" layout-align="start center">
                                     <img class="tableicon" ng-src="{{inst['schema:logo']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/>
-                                    <span hide show-gt-md class="md-body-1" style="padding-left: 15px; text-transform: none;">{{inst['schema:legalName']}}</span>
+                                    <span  class="md-body-1" style="padding-left: 15px; text-transform: none;">{{inst['schema:legalName']}}</span>
                                 </md-button>
                             </p>
                             <md-divider></md-divider>
@@ -37,7 +37,7 @@
                                     <md-button
                                             ui-sref="dha.s-project({nID: '{{pro['schema:url']['alias']}}'})" layout="row" layout-align="start center">
                                         <img class="tableicon" ng-src="{{pro['schema:image']['styles']['thumb'] || 'img/lowres_logo_1.png'}}"/>
-                                        <span hide show-gt-md class="md-body-1" style="padding-left: 15px; text-transform: none;">{{pro['schema:headline']}}</span>
+                                        <span class="md-body-1" style="padding-left: 15px; text-transform: none;">{{pro['schema:headline']}}</span>
                                     </md-button>
                                 </p>
                                 <md-divider></md-divider>

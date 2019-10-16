@@ -120,13 +120,21 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
   })
   .state('dha.partners',{
 	  url: '/partners',
-	  views: {
-          'content@': {
-              templateUrl: 'views/partners.html',
-              controller: 'partnerCtrl'
-          }
-        }
+      redirectTo: 'dha.clariah'
   })
+    .state('dha.partner',{
+        url: '/partner',
+        redirectTo: 'dha.clariah'
+    })
+    .state('dha.clariah',{
+        url: '/clariah-at',
+        views: {
+            'content@': {
+                templateUrl: 'views/partners.html',
+                controller: 'partnerCtrl'
+            }
+        }
+    })
   .state('dha.s-partners',{
 	  url: '/s-partners/:nID',
 	  views: {
@@ -194,11 +202,18 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
   });
 }
 
-app.run(function($rootScope, $location) {
+app.run(function($rootScope, $location, $state) {
   $rootScope.$on('$stateChangeSuccess', function(event, current) {
     if(window._paq) {
       window._paq.push(['setCustomUrl', $location.path() ]);
       window._paq.push(['trackPageView']);
     }
   });
+    $rootScope.$on('$stateChangeStart', function(evt, to, params) {
+        console.log(to);
+        if (to.redirectTo) {
+            evt.preventDefault();
+            $state.go(to.redirectTo, params, {location: 'replace'})
+        }
+    });
 });

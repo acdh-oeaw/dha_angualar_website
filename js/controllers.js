@@ -309,6 +309,7 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 .controller('embedTermCtrl',['$rootScope','$scope','$http', 'getContent', '$attrs',   function($rootScope, $scope, $http, getContent, $attrs){
 	$scope.myList = [];
 	$attrs.$observe('tags', function(val){
+		console.log(val);
 		var tags = JSON.parse(val);
 		var tids = "";
 		tags.forEach(function(ctag){

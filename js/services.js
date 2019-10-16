@@ -20,7 +20,7 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 		};
 		var parseLimit = function(limit,page){
 			var limitstring = "";
-			if (!limit) var limit = this.pagesize; 
+			if (!limit) var limit = this.pagesize;
 			limitstring = "&pagesize="+limit;
 			return limitstring;
 		};
@@ -51,7 +51,7 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 				this.language = Config.language;
         this.institutions = undefined;
         this.DHATax = undefined;
-				//there needs to go more here, history clearing, refetching content? 
+				//there needs to go more here, history clearing, refetching content?
 			}
 			else console.log("No comprendo ",language);
 		};
@@ -60,12 +60,12 @@ D7_API_Services.service('getContent', ['$http' ,function($http){
 		parseFields: parseFields,
 		parseLimit: parseLimit,
 		parseVersion: parseVersion,
-  	getNodes: getNodes,
-  	getTerms: getTerms,
-  	getInstitutions: getInstitutions,
-  	getDHATax: getDHATax,
-  	updateLanguage: updateLanguage,
-  	pagesize: pagesize,
+  	    getNodes: getNodes,
+  	    getTerms: getTerms,
+  	    getInstitutions: getInstitutions,
+  	    getDHATax: getDHATax,
+  	    updateLanguage: updateLanguage,
+  	    pagesize: pagesize,
 		language: language,
 		Institutions: Institutions,
 		DHATax: DHATax
@@ -82,7 +82,7 @@ angular.module('geocoder', ['ngStorage']).factory('Geocoder', function ($localSt
   var queryPause = 250;
 
   /**
-   * executeNext() - execute the next function in the queue. 
+   * executeNext() - execute the next function in the queue.
    *                  If a result is returned, fulfill the promise.
    *                  If we get an error, reject the promise (with message).
    *                  If we receive OVER_QUERY_LIMIT, increase interval and try again.
@@ -119,7 +119,7 @@ angular.module('geocoder', ['ngStorage']).factory('Geocoder', function ($localSt
         }
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
         queryPause += 250;
-        $timeout(executeNext, queryPause);        
+        $timeout(executeNext, queryPause);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
         queue.shift();
         task.d.reject({

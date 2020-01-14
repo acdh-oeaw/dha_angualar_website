@@ -120,13 +120,13 @@ function config($stateProvider, $urlRouterProvider, $mdThemingProvider, $locatio
   })
   .state('dha.partners',{
 	  url: '/partners',
-      redirectTo: 'dha.clariah'
+      redirectTo: 'dha.clariah-at'
   })
     .state('dha.partner',{
         url: '/partner',
-        redirectTo: 'dha.clariah'
+        redirectTo: 'dha.clariah-at'
     })
-    .state('dha.clariah',{
+    .state('dha.clariah-at',{
         url: '/clariah-at',
         views: {
             'content@': {

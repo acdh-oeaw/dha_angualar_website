@@ -45,8 +45,8 @@
     		</div>
     	</div>    	
     </div>
-	<div layout="row" layout-align="center center" layout-wrap>
-		<div flex-gt-sm="30" flex="100" style="padding: 20px;" >
+	<div layout="row" layout-align="center start" layout-wrap>
+		<div flex-gt-sm="30" flex="100" style="padding: 36px;" >
 			<iframe ng-if="pro['schema:recordedIn']['url']" width="100%" height="300px" ng-src="{{pro['schema:recordedIn']['url']}}" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" frameborder="0"></iframe>
 			<div ng-if="!pro['schema:recordedIn']['url'] && pro['schema:associatedMedia'][0]['src'] && pro['schema:associatedMedia'][1]['src']" style="position: relative;height:380px;" layout-padding>
 				<md-button class="md-icon-button md-raised" aria-label="previous" ng-click="slideshow.previous()" style="position: absolute;top:50%;left: 0; z-index: 10;">
@@ -68,7 +68,7 @@
             </div>               
 		</div>
 		<div flex-gt-sm="70" flex="100" style="padding: 20px;">
-			<p flex layout-padding ng-bind-html='pro["schema:text"] | unsafe'></p>
+			<p flex ng-bind-html='pro["schema:text"] | unsafe'></p>
 		</div>
 	</div>
 	<div style="padding: 5px;" layout="row" layout-align="start stretch" layout-wrap>

@@ -216,24 +216,26 @@ app.controller('startCtrl',['$rootScope','$scope','$http', '$state', '$statePara
 			$scope.mySingle[0]['displayDate'] = parseInt($scope.mySingle[0]['schema:startDate'])*1000;
 		}
 		//slideshow
-		$scope.slideshow.one.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
-		$scope.$watch('slideshow.current', function() {
-			if($scope.slideshow.one.visible){
-				$scope.slideshow.two.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
-			}
-			else $scope.slideshow.one.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
-			$scope.slideshow.one.visible = !$scope.slideshow.one.visible;
-			$scope.slideshow.two.visible = !$scope.slideshow.two.visible;
-		});
-		$scope.postergallery.one.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
-		$scope.$watch('postergallery.current', function() {
-			if($scope.postergallery.one.visible){
-				$scope.postergallery.two.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
-			}
-			else $scope.postergallery.one.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
-			$scope.postergallery.one.visible = !$scope.postergallery.one.visible;
-			$scope.postergallery.two.visible = !$scope.postergallery.two.visible;
-		});
+		if($scope.mySingle[0]['schema:associatedMedia']) {
+			$scope.slideshow.one.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
+			$scope.$watch('slideshow.current', function () {
+				if ($scope.slideshow.one.visible) {
+					$scope.slideshow.two.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
+				} else $scope.slideshow.one.path = $scope.mySingle[0]['schema:associatedMedia'][$scope.slideshow.current]['src'];
+				$scope.slideshow.one.visible = !$scope.slideshow.one.visible;
+				$scope.slideshow.two.visible = !$scope.slideshow.two.visible;
+			});
+		}
+		if($scope.mySingle[0]['attachment_previews']) {
+			$scope.postergallery.one.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
+			$scope.$watch('postergallery.current', function () {
+				if ($scope.postergallery.one.visible) {
+					$scope.postergallery.two.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
+				} else $scope.postergallery.one.path = $scope.mySingle[0]['attachment_previews'][$scope.postergallery.current]['src'];
+				$scope.postergallery.one.visible = !$scope.postergallery.one.visible;
+				$scope.postergallery.two.visible = !$scope.postergallery.two.visible;
+			});
+		}
 	},
 	function(err){ console.log('err singleEvent: ', err); }
 	);
